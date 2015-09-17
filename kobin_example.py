@@ -1,6 +1,7 @@
-def app(env, start_response):
-    start_response('200 OK', [('Content-Type','text/html')])
-    return [b"Hello World"]
+from kobin.app import Kobin
+
+app = Kobin()
+
 
 if __name__ == '__main__':
     try:
