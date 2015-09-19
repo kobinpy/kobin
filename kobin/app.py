@@ -5,6 +5,15 @@ class Kobin(object):
     def __init__(self):
         self.router = Router()
 
+    def run(self, host='', port=8000):
+        try:
+            from wsgiref.simple_server import make_server
+            httpd = make_server(host, port, self)
+            print('Serving on port %d...' % port)
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            print('Goodbye.')
+
     def add_route(self, route):
         self.router.add(route.rule, route.method, route)
 
