@@ -24,13 +24,20 @@ Usage
 
 .. code-block:: python
 
-    from kobin import route, run, template
+    from kobin import Kobin
 
-    @route('/hello/<name>')
-    def index(name):
-        return template('<b>Hello {{name}}</b>!', name=name)
+    app = Kobin()
 
-    run(host='localhost', port=8080)
+    @app.route('/')
+    def hello():
+        return b"Hello World"
+
+    @app.route('/hoge')
+    def hello():
+        return b"Hello HOGEHOGE"
+
+    if __name__ == '__main__':
+        app.run()
 
 
 Requirements
