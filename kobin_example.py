@@ -5,12 +5,12 @@ app = Kobin()
 
 @app.route('/')
 def hello():
-    return b"Hello World"
+    return "Hello World"
 
 
 @app.route('/hoge')
 def hello():
-    return b"Hello HOGEHOGE"
+    return "Hello HOGEHOGE"
 
 if __name__ == '__main__':
     app.run()
