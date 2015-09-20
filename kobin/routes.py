@@ -15,6 +15,9 @@ class Router(object):
             return target, getargs(path) if getargs else {}
         raise HTTPError(404, "Not found: " + repr(path))
 
+    def _split_routes(self, rules):
+        return [rule for rule in rules.split('/') if rule]
+
     def add(self, rule, method, target):
         """ Add a new rule or replace the target for an existing rule. """
         self.static.setdefault(method, {})
