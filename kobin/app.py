@@ -30,6 +30,8 @@ class Kobin(object):
 
     def wsgi(self, environ, start_response):
         out = self._handle(environ)
+        if isinstance(out, str):
+            out = out.encode('utf-8')
         start_response('200 OK', [('Content-Type', 'text/html')])
         return [out]
 
