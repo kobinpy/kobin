@@ -3,7 +3,7 @@ Kobin
 =====
 
 A very simple web application framework for python3.5.
-This library has no dependencies other than the Python Standard Library.
+This library has no dependencies other than the Python Standard Libraries.
 
 * Routing
 * Template
@@ -54,3 +54,5 @@ Resources
 =========
 
 * `Github <http://https://github.com/c-bata/kobin>`_
+* `PyPI <https://pypi.python.org/pypi/kobin>`_
+
