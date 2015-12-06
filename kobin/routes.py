@@ -1,3 +1,4 @@
+from typing import Dict
 from kobin.exceptions import HTTPError
 
 
@@ -6,7 +7,7 @@ class Router(object):
         self.static = {}  # Search structure for static route
         self.builder = {}  # Data structure for the url builder
 
-    def match(self, environ):
+    def match(self, environ: Dict):
         method = environ['REQUEST_METHOD'].upper()
         path = environ['PATH_INFO'] or '/'
 
@@ -15,10 +16,10 @@ class Router(object):
             return target, getargs(path) if getargs else {}
         raise HTTPError(404, "Not found: " + repr(path))
 
-    def _split_routes(self, rules):
+    def _split_routes(self, rules: str):
         return [rule for rule in rules.split('/') if rule]
 
-    def add(self, rule, method, target):
+    def add(self, rule: str, method: str, target: Route):
         """ Add a new rule or replace the target for an existing rule. """
         self.static.setdefault(method, {})
         self.static[method][rule] = (target, None)  # the static root doesn't have args
@@ -29,7 +30,7 @@ class Route(object):
         It is also responsible for turing an URL path rule into a regular
         expression usable by the Router.
     """
-    def __init__(self, app, rule, method, callback):
+    def __init__(self, app, rule: str, method: str, callback):
         self.app = app
         self.rule = rule
         self.method = method
