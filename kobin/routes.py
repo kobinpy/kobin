@@ -19,7 +19,7 @@ class Router(object):
     def _split_routes(self, rules: str):
         return [rule for rule in rules.split('/') if rule]
 
-    def add(self, rule: str, method: str, target: Route):
+    def add(self, rule: str, method: str, target):
         """ Add a new rule or replace the target for an existing rule. """
         self.static.setdefault(method, {})
         self.static[method][rule] = (target, None)  # the static root doesn't have args
