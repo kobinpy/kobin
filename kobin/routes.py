@@ -1,28 +1,7 @@
+import re
 from typing import Dict
+
 from kobin.exceptions import HTTPError
-
-
-class Router(object):
-    def __init__(self):
-        self.static = {}  # Search structure for static route
-        self.builder = {}  # Data structure for the url builder
-
-    def match(self, environ: Dict):
-        method = environ['REQUEST_METHOD'].upper()
-        path = environ['PATH_INFO'] or '/'
-
-        if method in self.static and path in self.static[method]:
-            target, getargs = self.static[method][path]
-            return target, getargs(path) if getargs else {}
-        raise HTTPError(404, "Not found: " + repr(path))
-
-    def _split_routes(self, rules: str):
-        return [rule for rule in rules.split('/') if rule]
-
-    def add(self, rule: str, method: str, target):
-        """ Add a new rule or replace the target for an existing rule. """
-        self.static.setdefault(method, {})
-        self.static[method][rule] = (target, None)  # the static root doesn't have args
 
 
 class Route(object):
@@ -36,5 +15,33 @@ class Route(object):
         self.method = method
         self.callback = callback
 
-    def call(self):
-        return self.callback()
+    def call(self, *args):
+        return self.callback(*args)
+
+
+class Router(object):
+    def __init__(self):
+        self.routes = {}  # Search structure for static route
+
+    def match(self, environ: Dict):
+        method = environ['REQUEST_METHOD'].upper()
+        path = environ['PATH_INFO'] or '/'
+
+        if method not in self.routes:
+            raise HTTPError(405, "Method Not Allowed: {}".format(method))
+
+        for p in self.routes[method]:
+            pattern = re.compile(p)
+            if pattern.search(path):
+                func, getargs = self.routes[method][p]
+                return func, getargs(path)
+        else:
+            raise HTTPError(404, "Not found: {}".format(repr(path)))
+
+    def add(self, rule: str, method: str, target: Route):
+        """ Add a new rule or replace the target for an existing rule. """
+        def getargs(path):
+            return re.compile(rule).match(path).groups()
+
+        self.routes.setdefault(method, {})
+        self.routes[method][rule] = (target, getargs)

@@ -28,7 +28,7 @@ class Kobin(object):
 
     def _handle(self, environ: Dict):
         route, args = self.router.match(environ)
-        return route.call()
+        return route.call(*args)
 
     def wsgi(self, environ: Dict, start_response) -> List[str]:
         out = self._handle(environ)

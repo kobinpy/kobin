@@ -6,18 +6,20 @@ class RouterTest(TestCase):
     def setUp(self):
         self.router = Router()
 
-    def test_split_routes(self):
-        input_route = '/user/mypage'
-        expected_route = ['user', 'mypage']
-        actual_route = self.router._split_routes(input_route)
-        self.assertListEqual(actual_route, expected_route)
-
-    def test_add_func_when_input_static(self):
+    def test_match_static_routes(self):
         def target_func(): pass
-        self.router.add('/user/', 'GET', target_func)
+        self.router.add('^/tests/$', 'GET', target_func)
+        test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/tests/'}
+        actual_target, actual_args = self.router.match(test_env)
 
-        actual = self.router.static
-        self.assertIn('GET', actual)
-        self.assertIn('/user/', actual['GET'])
-        expected_tuple = (target_func, None)
-        self.assertTupleEqual(actual['GET']['/user/'], expected_tuple)
+        self.assertEqual(actual_target, target_func)
+        self.assertEqual(actual_args, ())
+
+    def test_match_dynamic_routes(self):
+        def target_func(): pass
+        self.router.add('^/tests/(?P<year>[0-9]{4})/$', 'GET', target_func)
+        test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/tests/2015/'}
+        actual_target, actual_args = self.router.match(test_env)
+
+        self.assertEqual(actual_target, target_func)
+        self.assertEqual(actual_args, ('2015', ))
