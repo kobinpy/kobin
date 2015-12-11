@@ -8,9 +8,9 @@ def hello():
     return "Hello World"
 
 
-@app.route('^/hoge/(?P<year>[0-9]{4})/$')
-def hello(year):
-    return "Hello {}".format(year)
+@app.route('^/user/(?P<name>\w+)/$')
+def hello(name):
+    return "Hello {}".format(name)
 
 if __name__ == '__main__':
     app.run()
