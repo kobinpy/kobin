@@ -5,7 +5,7 @@ app = Kobin()
 
 @app.route('^/$')
 def hello():
-    return "Hello World"
+    return "Hello Kobin!"
 
 
 @app.route('^/user/(?P<name>\w+)/$')
