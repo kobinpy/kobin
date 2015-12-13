@@ -9,8 +9,7 @@ class Route(object):
         It is also responsible for turing an URL path rule into a regular
         expression usable by the Router.
     """
-    def __init__(self, app, rule: str, method: str, callback):
-        self.app = app
+    def __init__(self, rule: str, method: str, callback):
         self.rule = rule
         self.method = method
         self.callback = callback

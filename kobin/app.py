@@ -21,7 +21,7 @@ class Kobin(object):
     def route(self, path: str=None, method: str='GET',
               callback: Callable=None) -> Callable:
         def decorator(callback_func):
-            route = Route(self, path, method, callback_func)
+            route = Route(path, method, callback_func)
             self.add_route(route)
             return callback_func
         return decorator(callback) if callback else decorator
