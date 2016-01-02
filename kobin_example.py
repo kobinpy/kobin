@@ -4,7 +4,7 @@ app = Kobin()
 
 
 @app.route('^/$')
-def hello():
+def index():
     return "Hello Kobin!"
 
 
@@ -14,3 +14,4 @@ def hello(name):
 
 if __name__ == '__main__':
     app.run()
+

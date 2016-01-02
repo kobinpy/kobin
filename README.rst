@@ -29,7 +29,7 @@ Usage
     app = Kobin()
 
     @app.route('^/$')
-    def hello():
+    def index():
         return "Hello Kobin!"
 
 
