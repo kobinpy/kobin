@@ -9,9 +9,8 @@ def index():
 
 
 @app.route('^/user/(?P<name>\w+)/$')
-def hello(name):
+def hello(name: str):
     return "Hello {}".format(name)
 
 if __name__ == '__main__':
     app.run()
-
