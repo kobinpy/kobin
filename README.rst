@@ -2,6 +2,8 @@
 Kobin
 =====
 
+**This library is a pre-release. Expect missing docs and breaking API changes.**
+
 A very simple web application framework for python3.5.
 This library has no dependencies other than the Python Standard Libraries.
 
