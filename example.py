@@ -17,7 +17,7 @@ def index():
 
 @app.route('^/user/(?P<name>\w+)/$')
 def hello(name: str):
-    return "Hello {}".format(name, request.path)
+    return "Hello {} {}".format(name, request.path)
 
 if __name__ == '__main__':
     app.run()

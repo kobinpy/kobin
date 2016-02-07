@@ -1,6 +1,7 @@
 from typing import Callable, Dict, List
 from .routes import Router, Route
 from .server_adapters import servers
+from .request import request
 
 
 class Kobin(object):
@@ -14,8 +15,8 @@ class Kobin(object):
             if isinstance(server, type):
                 server = server(host=host, port=port, **kwargs)
 
-            server.run(self)
             print('Serving on port %d...' % port)
+            server.run(self)
         except KeyboardInterrupt:
             print('Goodbye.')
 
@@ -32,6 +33,8 @@ class Kobin(object):
 
     def _handle(self, environ: Dict):
         route, args = self.router.match(environ)
+        environ['kobin.app'] = self
+        request.bind(environ)
         return route.call(*args)
 
     def wsgi(self, environ: Dict, start_response) -> List[str]:
