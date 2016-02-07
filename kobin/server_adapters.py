@@ -15,6 +15,7 @@ class ServerAdapter(object):
     def __repr__(self):
         args = ', '.join(['%s=%s' % (k, repr(v))
                           for k, v in self.options.items()])
+        return "%s(%s)" % (self.__class__.__name__, args)
 
 
 class WSGIRefServer(ServerAdapter):
