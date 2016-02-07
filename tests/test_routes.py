@@ -1,8 +1,17 @@
 from unittest import TestCase
-from kobin.routes import Router
+from unittest.mock import MagicMock
+from kobin.routes import Route, Router
 
 
-class RouterTest(TestCase):
+class RouteTests(TestCase):
+    def test_call(self):
+        mock_target_func = MagicMock()
+        mock_target_func.return_value = 'hello'
+        route = Route('/hoge', 'GET', mock_target_func)
+        self.assertEqual(route.call(), 'hello')
+
+
+class RouterTests(TestCase):
     def setUp(self):
         self.router = Router()
 
