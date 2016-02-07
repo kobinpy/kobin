@@ -2,14 +2,18 @@
 Kobin
 =====
 
+.. image:: https://travis-ci.org/c-bata/kobin.svg?branch=master
+    :target: https://travis-ci.org/c-bata/kobin
+
 **This library is a pre-release. Expect missing docs and breaking API changes.**
 
-A very simple web application framework for python3.5.
+A lightweight web application framework for python3.5.
 This library has no dependencies other than the Python Standard Libraries.
 
 * Routing
-* Template
-* Development Server
+* Request and Response object
+* Template loader
+* Static files server
 
 Getting Started
 ===============
