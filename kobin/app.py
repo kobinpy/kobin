@@ -5,7 +5,7 @@ from .environs import request
 
 
 class Kobin(object):
-    def __init__(self):
+    def __init__(self) -> None:
         self.router = Router()
 
     def run(self, host: str='', port: int=8000, server: str='wsgiref', **kwargs):
@@ -16,7 +16,7 @@ class Kobin(object):
                 server = server(host=host, port=port, **kwargs)
 
             print('Serving on port %d...' % port)
-            server.run(self)
+            server.run(self)  # type: ignore
         except KeyboardInterrupt:
             print('Goodbye.')
 
@@ -34,7 +34,7 @@ class Kobin(object):
     def _handle(self, environ: Dict):
         route, args = self.router.match(environ)
         environ['kobin.app'] = self
-        request.bind(environ)
+        request.bind(environ)  # type: ignore
         return route.call(*args)
 
     def wsgi(self, environ: Dict, start_response) -> List[str]:

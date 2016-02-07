@@ -1,5 +1,5 @@
 import re
-from typing import Dict
+from typing import Callable, Dict, List, Any
 
 from kobin.exceptions import HTTPError
 
@@ -9,7 +9,8 @@ class Route(object):
         It is also responsible for turing an URL path rule into a regular
         expression usable by the Router.
     """
-    def __init__(self, rule: str, method: str, callback):
+    def __init__(self, rule: str, method: str,
+                 callback: Callable[..., str]) -> None:
         self.rule = rule
         self.method = method
         self.callback = callback
@@ -19,10 +20,11 @@ class Route(object):
 
 
 class Router(object):
-    def __init__(self):
-        self.routes = {}  # Search structure for static route
+    def __init__(self) -> None:
+        # Search structure for static route
+        self.routes = {}  # type: Dict[str, Dict[str, List[Any]]]
 
-    def match(self, environ: Dict):
+    def match(self, environ: Dict[str, str]):
         method = environ['REQUEST_METHOD'].upper()
         path = environ['PATH_INFO'] or '/'
 
@@ -37,10 +39,10 @@ class Router(object):
         else:
             raise HTTPError(404, "Not found: {}".format(repr(path)))
 
-    def add(self, rule: str, method: str, target: Route):
+    def add(self, rule: str, method: str, target: Route) -> None:
         """ Add a new rule or replace the target for an existing rule. """
         def getargs(path):
             return re.compile(rule).match(path).groups()
 
         self.routes.setdefault(method, {})
-        self.routes[method][rule] = (target, getargs)
+        self.routes[method][rule] = (target, getargs)  # type: ignore

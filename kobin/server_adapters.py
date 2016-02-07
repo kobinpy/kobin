@@ -1,3 +1,4 @@
+from typing import Dict, Any
 from kobin import Kobin
 
 
@@ -31,4 +32,4 @@ class WSGIRefServer(ServerAdapter):
 
 servers = {
     'wsgiref': WSGIRefServer,
-}
+}  # type: Dict[str, Any]
