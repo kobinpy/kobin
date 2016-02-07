@@ -1,7 +1,7 @@
 from typing import Callable, Dict, List
 from .routes import Router, Route
 from .server_adapters import servers
-from .request import request
+from .environs import request
 
 
 class Kobin(object):

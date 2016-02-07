@@ -5,31 +5,23 @@ from typing import Dict
 class Request(object):
     """ A wrapper for WSGI environment dictionaries.
     """
-
     __slots__ = ('environ', )
-    #: Maximum size of memory buffer for :attr:`body` in bytes.
-    MEMFILE_MAX = 102400
 
-    def __init__(self, environ: Dict=None):
+    def __init__(self, environ: Dict=None) -> None:
         self.environ = {} if environ is None else environ
         self.environ['kobin.request'] = self
-
-    def copy(self):
-        """ Return a new :class:`Request` with a shallow :attr:`environ`
-            copy. """
-        return Request(self.environ.copy())
 
     def get(self, value: str, default=None):
         return self.environ.get(value, default)
 
     @property
-    def path(self):
+    def path(self) -> str:
         """ The value of ``PATH_INFO`` with exactly one prefixed slash (to fix
             broken clients and avoid the "empty path" edge case). """
         return '/' + self.environ.get('PATH_INFO', '').lstrip('/')
 
     @property
-    def method(self):
+    def method(self) -> str:
         """ The ``REQUEST_METHOD`` value as an uppercase string. """
         return self.environ.get('REQUEST_METHOD', 'GET').upper()
 
@@ -57,9 +49,6 @@ class Request(object):
 
     def __len__(self):
         return len(self.environ)
-
-    def keys(self):
-        return self.environ.keys()
 
     def __repr__(self):
         return '<{cls}: {method} {url}>'.format(
@@ -92,5 +81,5 @@ class LocalRequest(Request):
     environ = _local_property()
 
 
-request = LocalRequest()
-local = threading.local()
+request = LocalRequest()  # type: LocalRequest
+local = threading.local()  # type: ignore
