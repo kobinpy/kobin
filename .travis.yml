@@ -1,0 +1,15 @@
+sudo: false
+language: python
+python: 3.5
+env:
+  - TOXENV=py35
+  - TOXENV=flake8
+  - TOXENV=mypy
+  - TOXENV=check_old_packages
+matrix:
+  allow_failures:
+    - env: TOXENV=check_old_packages
+install:
+  - travis_retry pip install -q tox
+script:
+  - travis_retry tox
