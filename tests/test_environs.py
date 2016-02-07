@@ -1,5 +1,5 @@
 from unittest import TestCase
-from kobin.environs import Request
+from kobin.environs import Request, Response
 
 
 class RequestTests(TestCase):
@@ -31,3 +31,18 @@ class RequestTests(TestCase):
     def test_method_name_to_uppercase(self):
         self.assertEqual(Request({'REQUEST_METHOD': 'get'}).method, 'GET')
         self.assertEqual(Request({'REQUEST_METHOD': 'Post'}).method, 'POST')
+
+
+class ResponseTests(TestCase):
+    def test_constructor_body(self):
+        response = Response('')
+        self.assertEqual('', response.body)
+
+    def test_constructor_status(self):
+        response = Response('Body', 200)
+        self.assertEqual(response.status_code, 200)
+
+    def test_set_status(self):
+        response = Response()
+        response.status = 200
+        self.assertEqual(response.status_line, '200 OK')

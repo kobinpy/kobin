@@ -1,5 +1,10 @@
 import threading
 from typing import Dict
+import http.client as http_client
+
+##################################################################################
+# Request Object #################################################################
+##################################################################################
 
 
 class Request(object):
@@ -54,6 +59,54 @@ class Request(object):
         return '<{cls}: {method} {url}>'.format(
             cls=self.__class__.__name__, method=self.method, url=self.path
         )
+
+
+##################################################################################
+# Response Object ################################################################
+##################################################################################
+
+HTTP_CODES = http_client.responses.copy()
+_HTTP_STATUS_LINES = dict((k, '%d %s' % (k, v)) for (k, v) in HTTP_CODES.items())
+
+
+class Response(object):
+    default_status = 200
+    default_content_type = 'text/html; charset=UTF-8'
+
+    def __init__(self, body: str='', status: int=None, headers: Dict=None,
+                 **more_headers) -> None:
+        self._headers = {}
+        self.body = body
+        self.status = status or self.default_status
+
+    @property
+    def status_line(self):
+        """ The HTTP status line as a string (e.g. ``404 Not Found``)."""
+        return self._status_line
+
+    @property
+    def status_code(self):
+        """ The HTTP status code as an integer (e.g. 404)."""
+        return self._status_code
+
+    def _set_status(self, status: int):
+        code, status = status, _HTTP_STATUS_LINES.get(status)
+        if not 100 <= code <= 999:
+            raise ValueError('Status code out of range.')
+        self._status_code = code
+        self._status_line = str(status or ('%d Unknown' % code))
+
+    def _get_status(self):
+        return self._status_line
+
+    status = property(_get_status, _set_status, None,
+                      "A writable property to change the HTTP Response Status")
+    del _get_status, _set_status
+
+
+##################################################################################
+# Make Request and Response object to thread local ###############################
+##################################################################################
 
 
 def _local_property():
