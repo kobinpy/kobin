@@ -1,17 +1,21 @@
 from typing import Callable, Dict, List
-from kobin.routes import Router, Route
+from .routes import Router, Route
+from .server_adapters import servers
 
 
 class Kobin(object):
     def __init__(self):
         self.router = Router()
 
-    def run(self, host: str='', port: int=8000):
+    def run(self, host: str='', port: int=8000, server: str='wsgiref', **kwargs):
         try:
-            from wsgiref.simple_server import make_server
-            httpd = make_server(host, port, self)
+            if server in servers:
+                server = servers.get(server)
+            if isinstance(server, type):
+                server = server(host=host, port=port, **kwargs)
+
+            server.run(self)
             print('Serving on port %d...' % port)
-            httpd.serve_forever()
         except KeyboardInterrupt:
             print('Goodbye.')
 
