@@ -1,5 +1,4 @@
 from typing import Dict, Any
-from kobin import Kobin
 
 
 class ServerAdapter(object):
@@ -19,7 +18,7 @@ class ServerAdapter(object):
 
 
 class WSGIRefServer(ServerAdapter):
-    def run(self, app: Kobin):
+    def run(self, app):
         from wsgiref.simple_server import make_server  # type: ignore
         self.httpd = make_server(self.host, self.port, app)
         self.port = self.httpd.server_port
