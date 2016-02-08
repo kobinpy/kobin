@@ -8,11 +8,10 @@ Kobin
 **This library is a pre-release. Expect missing docs and breaking API changes.**
 
 A lightweight web application framework for python3.5.
-This library has no dependencies other than the Python Standard Libraries.
 
 * Routing
 * Request and Response object
-* Template loader
+* Template loader for Jinja2
 * Static files server
 
 Getting Started
