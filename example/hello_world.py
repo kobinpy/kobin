@@ -5,7 +5,7 @@ app = Kobin()
 
 @app.route('^/favicon.ico$')
 def favicon():
-    with open('resources/favicon.ico', 'rb') as f:
+    with open('img/favicon.ico', 'rb') as f:
         image_data = f.read()
     return image_data
 
@@ -15,7 +15,7 @@ def index():
     return "Hello Kobin!"
 
 
-@app.route('^/user/(?P<name>\w+)/$')
+@app.route('^/user/(?P<name>\w+)$')
 def hello(name: str):
     return """
     <p>Hello {}</p>
