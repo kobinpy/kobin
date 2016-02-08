@@ -56,3 +56,8 @@ class ResponseTests(TestCase):
         response = Response()
         response.add_header('key', 'value')
         self.assertIn(('key', 'value'), response.headerlist)
+
+    def test_constructor_headerlist_with_add_header(self):
+        response = Response(headers={'key1': 'value1'})
+        expected_content_type = ('key1', 'value1')
+        self.assertIn(expected_content_type, response.headerlist)

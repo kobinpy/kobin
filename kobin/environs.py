@@ -104,6 +104,13 @@ class Response(object):
         self.body = body
         self.status = status or self.default_status
 
+        if headers:
+            for name, value in headers.items():
+                self.add_header(name, value)
+        if more_headers:
+            for name, value in more_headers.items():
+                self.add_header(name, value)
+
     @property
     def status_line(self):
         """ The HTTP status line as a string (e.g. ``404 Not Found``)."""
