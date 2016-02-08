@@ -1,11 +1,29 @@
 import threading
-from typing import Dict
+from typing import Dict, List
 import http.client as http_client
+
+
+def _local_property():
+    ls = threading.local()
+
+    def fget(_):
+        try:
+            return ls.var
+        except AttributeError:
+            raise RuntimeError("Request context not initialized.")
+
+    def fset(_, value):
+        ls.var = value
+
+    def fdel(_):
+        del ls.var
+
+    return property(fget, fset, fdel, 'Thread-local property')
+
 
 ##################################################################################
 # Request Object #################################################################
 ##################################################################################
-
 
 class Request(object):
     """ A wrapper for WSGI environment dictionaries.
@@ -61,6 +79,13 @@ class Request(object):
         )
 
 
+class LocalRequest(Request):
+    """ A thread local subclass of :class:`Request`
+    """
+    bind = Request.__init__
+    environ = _local_property()
+
+
 ##################################################################################
 # Response Object ################################################################
 ##################################################################################
@@ -75,7 +100,7 @@ class Response(object):
 
     def __init__(self, body: str='', status: int=None, headers: Dict=None,
                  **more_headers) -> None:
-        self._headers = {}
+        self._headers = {}  # type: Dict[str, List[str]]
         self.body = body
         self.status = status or self.default_status
 
@@ -89,50 +114,51 @@ class Response(object):
         """ The HTTP status code as an integer (e.g. 404)."""
         return self._status_code
 
-    def _set_status(self, status: int):
-        code, status = status, _HTTP_STATUS_LINES.get(status)
-        if not 100 <= code <= 999:
+    def _set_status(self, status_code: int):
+        status = _HTTP_STATUS_LINES.get(status_code)
+        if not 100 <= status_code <= 999:
             raise ValueError('Status code out of range.')
-        self._status_code = code
-        self._status_line = str(status or ('%d Unknown' % code))
+        self._status_code = status_code
+        self._status_line = str(status or ('%d Unknown' % status_code))
 
     def _get_status(self):
         return self._status_line
 
-    status = property(_get_status, _set_status, None,
+    status = property(_get_status, _set_status, None,  # type: ignore
                       "A writable property to change the HTTP Response Status")
     del _get_status, _set_status
+
+    @property
+    def headerlist(self):
+        """ WSGI conform list of (header, value) tuples. """
+        out = []
+        headers = list(self._headers.items())
+        if 'Content-Type' not in self._headers:
+            headers.append(('Content-Type', [self.default_content_type]))
+        out += [(name, val)
+                for (name, vals) in headers
+                for val in vals]
+        return [(k, v.encode('utf8').decode('latin1')) for (k, v) in out]
+
+    def add_header(self, key: str, value: str) -> None:
+        self._headers.setdefault(key, []).append(value)
+
+
+class LocalResponse(Response):
+    """ A thread-local subclass ob :class:`BaseResponse` with a different set
+        of attributes for each thread
+    """
+    bind = Response.__init__
+    _status_line = _local_property()
+    _status_code = _local_property()
+    _headers = _local_property()
+    body = _local_property()
 
 
 ##################################################################################
 # Make Request and Response object to thread local ###############################
 ##################################################################################
 
-
-def _local_property():
-    ls = threading.local()
-
-    def fget(_):
-        try:
-            return ls.var
-        except AttributeError:
-            raise RuntimeError("Request context not initialized.")
-
-    def fset(_, value):
-        ls.var = value
-
-    def fdel(_):
-        del ls.var
-
-    return property(fget, fset, fdel, 'Thread-local property')
-
-
-class LocalRequest(Request):
-    """ A thread local subclass of :class:`Request`
-    """
-    bind = Request.__init__
-    environ = _local_property()
-
-
 request = LocalRequest()  # type: LocalRequest
+response = LocalResponse()  # type: LocalResponse
 local = threading.local()  # type: ignore

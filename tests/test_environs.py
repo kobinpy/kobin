@@ -46,3 +46,13 @@ class ResponseTests(TestCase):
         response = Response()
         response.status = 200
         self.assertEqual(response.status_line, '200 OK')
+
+    def test_constructor_headerlist(self):
+        response = Response()
+        expected_content_type = ('Content-Type', 'text/html; charset=UTF-8')
+        self.assertIn(expected_content_type, response.headerlist)
+
+    def test_add_header(self):
+        response = Response()
+        response.add_header('key', 'value')
+        self.assertIn(('key', 'value'), response.headerlist)

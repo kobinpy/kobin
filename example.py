@@ -1,4 +1,4 @@
-from kobin import Kobin, request
+from kobin import Kobin, request, response
 
 app = Kobin()
 
@@ -17,7 +17,11 @@ def index():
 
 @app.route('^/user/(?P<name>\w+)/$')
 def hello(name: str):
-    return "Hello {} {}".format(name, request.path)
+    return """
+    <p>Hello {}</p>
+    <p>Request Path: {}</p>
+    <p>Response Headers: {}</p>
+    """.format(name, request.path, str(response.headerlist))
 
 if __name__ == '__main__':
     app.run()

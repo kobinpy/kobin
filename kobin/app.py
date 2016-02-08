@@ -1,7 +1,7 @@
 from typing import Callable, Dict, List
 from .routes import Router, Route
 from .server_adapters import servers
-from .environs import request
+from .environs import request, response
 
 
 class Kobin(object):
@@ -35,13 +35,14 @@ class Kobin(object):
         route, args = self.router.match(environ)
         environ['kobin.app'] = self
         request.bind(environ)  # type: ignore
+        response.bind()        # type: ignore
         return route.call(*args)
 
     def wsgi(self, environ: Dict, start_response) -> List[str]:
         out = self._handle(environ)
         if isinstance(out, str):
             out = out.encode('utf-8')
-        start_response('200 OK', [('Content-Type', 'text/html')])
+        start_response(response._status_line, response.headerlist)
         return [out]
 
     def __call__(self, environ: Dict, start_response) -> List[str]:
