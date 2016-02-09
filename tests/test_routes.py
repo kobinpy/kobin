@@ -29,31 +29,32 @@ class RouterTests(TestCase):
         self.router = Router()
 
     def test_match_static_routes(self):
-        def target_func():
+        def dummy_func() -> None:
             pass
-        self.router.add('^/tests/$', 'GET', target_func)
+        route = Route('/user/(?P<num>\d+', 'GET', dummy_func)
+
+        self.router.add('^/tests/$', 'GET', route)
         test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/tests/'}
         actual_target, actual_args = self.router.match(test_env)
 
-        self.assertEqual(actual_target, target_func)
-        self.assertEqual(actual_args, {})
+        self.assertIsNone(actual_args)
 
-    def test_match_dynamic_routes_with_numbers(self):
-        def target_func():
-            pass
-        self.router.add('^/tests/(?P<year>\d{4})/$', 'GET', target_func)
+    def test_match_dynamic_routes_with_casted_number(self):
+        def dummy_func(year: int) -> None:
+            return year
+        route = Route('/years/(?P<year>\d{4}', 'GET', dummy_func)
+
+        self.router.add('^/tests/(?P<year>\d{4})/$', 'GET', route)
         test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/tests/2015/'}
         actual_target, actual_args = self.router.match(test_env)
-
-        self.assertEqual(actual_target, target_func)
-        self.assertEqual(actual_args, {'year': '2015'})
+        self.assertEqual(actual_args, {'year': 2015})
 
     def test_match_dynamic_routes_with_string(self):
-        def target_func():
-            pass
-        self.router.add('^/tests/(?P<name>\w+)/$', 'GET', target_func)
+        def dummy_func(name):
+            return name
+        route = Route('^/tests/(?P<name>\w+)/$', 'GET', dummy_func)
+
+        self.router.add(route.rule, route.method, route)
         test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/tests/kobin/'}
         actual_target, actual_args = self.router.match(test_env)
-
-        self.assertEqual(actual_target, target_func)
         self.assertEqual(actual_args, {'name': 'kobin'})

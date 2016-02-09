@@ -15,6 +15,11 @@ def index():
     return "Hello Kobin!"
 
 
+@app.route('^/years/(?P<year>\d{4})$')
+def hello(year: int):
+    return 'A "year" argument is integer? {}'.format(isinstance(year, int))
+
+
 @app.route('^/user/(?P<name>\w+)$')
 def hello(name: str):
     return """

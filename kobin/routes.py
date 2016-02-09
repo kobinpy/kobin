@@ -43,15 +43,16 @@ class Router(object):
         for p in self.routes[method]:
             pattern = re.compile(p)
             if pattern.search(path):
-                func, getargs = self.routes[method][p]
-                return func, getargs(path)
+                route, getargs = self.routes[method][p]
+                return route, getargs(path)
         else:
             raise HTTPError(404, "Not found: {}".format(repr(path)))
 
     def add(self, rule: str, method: str, route: Route) -> None:
         """ Add a new rule or replace the target for an existing rule. """
-        def getargs(path):
-            return re.compile(rule).match(path).groupdict()
+        def getargs(path: str) -> Dict[str, Any]:
+            args_dict = re.compile(rule).match(path).groupdict()
+            return type_args(args_dict, route.callback_types)
 
         self.routes.setdefault(method, {})
         self.routes[method][rule] = (route, getargs)  # type: ignore
