@@ -3,6 +3,15 @@ from typing import Callable, Dict, List, Any, get_type_hints  # type: ignore
 
 from kobin.exceptions import HTTPError
 
+DEFAULT_ARG_TYPE = str
+
+
+def type_args(args_dict: Dict[str, str], type_hints: Dict[str, Any]) -> Dict[str, Any]:
+    for k, v in args_dict.items():
+        arg_type = type_hints.get(k, DEFAULT_ARG_TYPE)
+        args_dict[k] = arg_type(v)
+        return args_dict
+
 
 class Route(object):
     """ This class wraps a route callback along with route specific metadata.

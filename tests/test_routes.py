@@ -1,5 +1,19 @@
 from unittest import TestCase
-from kobin.routes import Route, Router
+from kobin.routes import Route, Router, type_args
+
+
+class TypeArgsTests(TestCase):
+    def test_type_args(self):
+        input_type_hints = {'id': int, 'return': None}
+        input_args_dict = {'id': '1'}
+        actual = type_args(input_args_dict, input_type_hints)
+        self.assertEqual(actual['id'], 1)
+
+    def test_default_type(self):
+        input_type_hints = {'return': None}
+        input_args_dict = {'id': '1'}
+        actual = type_args(input_args_dict, input_type_hints)
+        self.assertEqual(actual['id'], '1')
 
 
 class RouteTests(TestCase):
