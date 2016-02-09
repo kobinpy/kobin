@@ -16,7 +16,7 @@ def index():
 
 
 @app.route('^/years/(?P<year>\d{4})$')
-def hello(year: int):
+def casted_year(year: int):
     return 'A "year" argument is integer? {}'.format(isinstance(year, int))
 
 
