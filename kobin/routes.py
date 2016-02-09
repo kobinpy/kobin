@@ -1,5 +1,5 @@
 import re
-from typing import Callable, Dict, List, Any
+from typing import Callable, Dict, List, Any, get_type_hints  # type: ignore
 
 from kobin.exceptions import HTTPError
 
@@ -9,14 +9,14 @@ class Route(object):
         It is also responsible for turing an URL path rule into a regular
         expression usable by the Router.
     """
-    def __init__(self, rule: str, method: str,
-                 callback: Callable[..., str]) -> None:
+    def __init__(self, rule: str, method: str, callback: Callable[..., str]) -> None:
         self.rule = rule
         self.method = method
         self.callback = callback
+        self.callback_types = get_type_hints(callback)  # type: Dict[str, Any]
 
-    def call(self, *args):
-        return self.callback(*args)
+    def call(self, **kwargs):
+        return self.callback(**kwargs)
 
 
 class Router(object):
@@ -39,10 +39,10 @@ class Router(object):
         else:
             raise HTTPError(404, "Not found: {}".format(repr(path)))
 
-    def add(self, rule: str, method: str, target: Route) -> None:
+    def add(self, rule: str, method: str, route: Route) -> None:
         """ Add a new rule or replace the target for an existing rule. """
         def getargs(path):
-            return re.compile(rule).match(path).groups()
+            return re.compile(rule).match(path).groupdict()
 
         self.routes.setdefault(method, {})
-        self.routes[method][rule] = (target, getargs)  # type: ignore
+        self.routes[method][rule] = (route, getargs)  # type: ignore

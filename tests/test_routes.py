@@ -1,14 +1,13 @@
 from unittest import TestCase
-from unittest.mock import MagicMock
 from kobin.routes import Route, Router
 
 
 class RouteTests(TestCase):
     def test_call(self):
-        mock_target_func = MagicMock()
-        mock_target_func.return_value = 'hello'
-        route = Route('/hoge', 'GET', mock_target_func)
-        self.assertEqual(route.call(), 'hello')
+        def dummy_func(num: int) -> None:
+            return num
+        route = Route('/hoge', 'GET', dummy_func)
+        self.assertEqual(route.call(**{'num': 1}), 1)
 
 
 class RouterTests(TestCase):
@@ -23,7 +22,7 @@ class RouterTests(TestCase):
         actual_target, actual_args = self.router.match(test_env)
 
         self.assertEqual(actual_target, target_func)
-        self.assertEqual(actual_args, ())
+        self.assertEqual(actual_args, {})
 
     def test_match_dynamic_routes_with_numbers(self):
         def target_func():
@@ -33,7 +32,7 @@ class RouterTests(TestCase):
         actual_target, actual_args = self.router.match(test_env)
 
         self.assertEqual(actual_target, target_func)
-        self.assertEqual(actual_args, ('2015', ))
+        self.assertEqual(actual_args, {'year': '2015'})
 
     def test_match_dynamic_routes_with_string(self):
         def target_func():
@@ -43,4 +42,4 @@ class RouterTests(TestCase):
         actual_target, actual_args = self.router.match(test_env)
 
         self.assertEqual(actual_target, target_func)
-        self.assertEqual(actual_args, ('kobin', ))
+        self.assertEqual(actual_args, {'name': 'kobin'})
