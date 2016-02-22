@@ -1,4 +1,4 @@
-from typing import Callable, Dict, List
+from typing import Callable, Dict, List, Union
 from .static_files import static_file
 from .routes import Router, Route
 from .server_adapters import servers
@@ -12,7 +12,7 @@ class Kobin(object):
         route = Route('^/{}/(?P<filename>.*)'.format(static_url_path), 'GET', static_file)
         self.router.add(route.rule, 'GET', route)
 
-    def run(self, host: str='', port: int=8000, server: str='wsgiref', **kwargs):
+    def run(self, host: str='', port: int=8000, server: str='wsgiref', **kwargs) -> None:
         try:
             if server in servers:
                 server = servers.get(server)
@@ -28,14 +28,14 @@ class Kobin(object):
         self.router.add(route.rule, route.method, route)
 
     def route(self, path: str=None, method: str='GET',
-              callback: Callable[..., str]=None) -> Callable[..., str]:
+              callback: Callable[..., str]=None) -> Callable[..., Union[str, bytes]]:
         def decorator(callback_func):
             route = Route(path, method, callback_func)
             self.add_route(route)
             return callback_func
         return decorator(callback) if callback else decorator
 
-    def _handle(self, environ: Dict):
+    def _handle(self, environ: Dict) -> Union[str, bytes]:
         route, kwargs = self.router.match(environ)
         environ['kobin.app'] = self
         request.bind(environ)  # type: ignore
