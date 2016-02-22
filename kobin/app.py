@@ -43,6 +43,6 @@ class Kobin(object):
         start_response(response._status_line, response.headerlist)
         return [out]
 
-    def __call__(self, environ: Dict, start_response) -> List[str]:
+    def __call__(self, environ: Dict, start_response) -> List[bytes]:
         """It is called when receive http request."""
         return self.wsgi(environ, start_response)
