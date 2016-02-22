@@ -4,23 +4,22 @@ import os
 import time
 
 from .environs import request, response
+from .exceptions import HTTPError
 
 
 def static_file(filename: str,
-                static_dir: str = 'static',
-                mimetype: str = 'auto',
-                download: str = '',
-                charset: str = 'UTF-8'):
+                static_dir: str='static',
+                mimetype: str='auto',
+                download: str='',
+                charset: str='UTF-8') -> bytes:
     static_dir = os.path.abspath(static_dir) + os.sep
     filename = os.path.abspath(os.path.join(static_dir, filename.strip('/\\')))
     headers = dict()  # type: Dict[str, str]
 
     if not os.path.exists(filename) or not os.path.isfile(filename):
-        # return HTTPError(404, "File does not exist.")
-        raise Exception()
+        return HTTPError(404, "File does not exist.")
     if not os.access(filename, os.R_OK):
-        # return HTTPError(403, "You do not have permission to access this file.")
-        return Exception()
+        return HTTPError(403, "You do not have permission to access this file.")
 
     if mimetype == 'auto':
         mimetype, encoding = mimetypes.guess_type(download if download else filename)
@@ -28,7 +27,9 @@ def static_file(filename: str,
             headers['Content-Encodings'] = encoding
 
     if mimetype:
-        if (mimetype[:5] == 'text/' or mimetype == 'application/javascript') and charset and 'charset' not in mimetype:
+        if ((mimetype[:5] == 'text/' or mimetype == 'application/javascript') and
+                charset and
+                'charset' not in mimetype):
             mimetype += '; charset={}'.format(charset)
         headers['Content-Type'] = mimetype
 

@@ -2,6 +2,8 @@ from typing import List, Dict
 import os
 import functools
 
+from .exceptions import HTTPError
+
 BASE_DIR = os.path.abspath('.')
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, x) for x in ['./', './templates']]  # type: List[str]
 
@@ -13,7 +15,7 @@ def load_file(name: str, directories: List[str]) -> str:
         file = os.path.join(directory, name)
         if os.path.exists(file) and os.path.isfile(file) and os.access(file, os.R_OK):
             return file
-    raise Exception("{name} not found.".format(name=name))
+    raise HTTPError(404, "{name} not found.".format(name=name))
 
 
 class TemplateMixin(object):
