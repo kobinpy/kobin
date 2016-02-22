@@ -3,13 +3,6 @@ from kobin import Kobin, request, response, template
 app = Kobin()
 
 
-@app.route('^/favicon.ico$')
-def favicon():
-    with open('img/favicon.ico', 'rb') as f:
-        image_data = f.read()
-    return image_data
-
-
 @app.route('^/$')
 def index():
     response.add_header("hoge", "fuga")
