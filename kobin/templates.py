@@ -2,6 +2,7 @@ from typing import List, Dict, Any
 import os
 import functools
 
+BASE_DIR = os.path.dirname(os.path.abspath('.'))
 TEMPLATE_DIRS = ['./', './templates/']
 
 
@@ -20,10 +21,10 @@ class TemplateMixin(object):
     defaults = {}  # type: Dict[str, Any]  # used in render()
 
     def __init__(self, name: str, template_dirs: List[str]=TEMPLATE_DIRS,
-                 encoding: str='utf8', **settings) -> None:
+                 encoding: str='utf8', root: str=BASE_DIR, **settings) -> None:
         """ Create a new template. """
         self.name = name
-        self.template_dirs = [os.path.abspath(x) for x in template_dirs]  # type: List[str]
+        self.template_dirs = [os.path.join(root, x) for x in template_dirs]  # type: List[str]
         self.filename = self.search(self.name, self.template_dirs)  # type: str
 
         self.encoding = encoding
@@ -32,10 +33,7 @@ class TemplateMixin(object):
 
     @classmethod
     def search(cls, name: str, template_dirs: List[str]) -> str:
-        """ Search name in all directories specified in lookup.
-        :param name:
-        :param template_dirs:
-        """
+        """ Search name in all directories specified in lookup. """
         filename = '{name}.{ext}'.format(name=name, ext=cls.extension)
         return load_file(filename, template_dirs)
 
