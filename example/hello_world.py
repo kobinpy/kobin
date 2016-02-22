@@ -1,4 +1,4 @@
-from kobin import Kobin, request, response
+from kobin import Kobin, request, response, template
 
 app = Kobin()
 
@@ -13,7 +13,7 @@ def favicon():
 @app.route('^/$')
 def index():
     response.add_header("hoge", "fuga")
-    return "Hello Kobin!"
+    return template('hello_jinja2', name='Kobin')
 
 
 @app.route('^/years/(?P<year>\d{4})$')
