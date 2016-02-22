@@ -1,14 +1,15 @@
-from typing import List, Dict, Any
+from typing import List, Dict
 import os
 import functools
 
-BASE_DIR = os.path.dirname(os.path.abspath('.'))
-TEMPLATE_DIRS = ['./', './templates/']
+BASE_DIR = os.path.abspath('.')
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, x) for x in ['./', './templates']]  # type: List[str]
 
 
 def load_file(name: str, directories: List[str]) -> str:
     for directory in directories:
-        directory = os.path.abspath(directory) + os.sep
+        if not os.path.isabs(directory):
+            directory = os.path.abspath(directory) + os.sep
         file = os.path.join(directory, name)
         if os.path.exists(file) and os.path.isfile(file) and os.access(file, os.R_OK):
             return file
@@ -21,10 +22,10 @@ class TemplateMixin(object):
     defaults = {}  # type: Dict[str, Any]  # used in render()
 
     def __init__(self, name: str, template_dirs: List[str]=TEMPLATE_DIRS,
-                 encoding: str='utf8', root: str=BASE_DIR, **settings) -> None:
+                 encoding: str='utf8', **settings) -> None:
         """ Create a new template. """
         self.name = name
-        self.template_dirs = [os.path.join(root, x) for x in template_dirs]  # type: List[str]
+        self.template_dirs = template_dirs  # type: List[str]
         self.filename = self.search(self.name, self.template_dirs)  # type: str
 
         self.encoding = encoding
