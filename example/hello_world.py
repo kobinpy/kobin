@@ -12,6 +12,7 @@ def favicon():
 
 @app.route('^/$')
 def index():
+    response.add_header("hoge", "fuga")
     return "Hello Kobin!"
 
 

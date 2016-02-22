@@ -24,7 +24,7 @@ class Route(object):
         self.callback = callback
         self.callback_types = get_type_hints(callback)  # type: Dict[str, Any]
 
-    def call(self, **kwargs):
+    def call(self, **kwargs) -> str:
         return self.callback(**kwargs)
 
 

@@ -31,17 +31,15 @@ class Kobin(object):
             return callback_func
         return decorator(callback) if callback else decorator
 
-    def _handle(self, environ: Dict):
+    def _handle(self, environ: Dict) -> str:
         route, kwargs = self.router.match(environ)
         environ['kobin.app'] = self
         request.bind(environ)  # type: ignore
         response.bind()        # type: ignore
         return route.call(**kwargs) if kwargs else route.call()
 
-    def wsgi(self, environ: Dict, start_response) -> List[str]:
-        out = self._handle(environ)
-        if isinstance(out, str):
-            out = out.encode('utf-8')
+    def wsgi(self, environ: Dict, start_response) -> List[bytes]:
+        out = self._handle(environ).encode('utf-8')  # type: bytes
         start_response(response._status_line, response.headerlist)
         return [out]
 
