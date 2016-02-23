@@ -11,15 +11,15 @@ def static_file(filename: str,
                 static_dir: str='static',
                 mimetype: str='auto',
                 download: str='',
-                charset: str='UTF-8'):
+                charset: str='UTF-8') -> bytes:
     static_dir = os.path.abspath(static_dir) + os.sep
     filename = os.path.abspath(os.path.join(static_dir, filename.strip('/\\')))
     headers = dict()  # type: Dict[str, str]
 
     if not os.path.exists(filename) or not os.path.isfile(filename):
-        return HTTPError(404, "File does not exist.")
+        raise HTTPError(404, "File does not exist.")
     if not os.access(filename, os.R_OK):
-        return HTTPError(403, "You do not have permission to access this file.")
+        raise HTTPError(403, "You do not have permission to access this file.")
 
     if mimetype == 'auto':
         mimetype, encoding = mimetypes.guess_type(download if download else filename)
@@ -40,7 +40,7 @@ def static_file(filename: str,
     headers['Last-Modified'] = last_modified
 
     if request.method == 'HEAD':
-        body = ''
+        body = b''  # type: bytes
     else:
         with open(filename, 'rb') as f:
             body = f.read()
