@@ -11,7 +11,7 @@ def static_file(filename: str,
                 static_dir: str='static',
                 mimetype: str='auto',
                 download: str='',
-                charset: str='UTF-8') -> bytes:
+                charset: str='UTF-8'):
     static_dir = os.path.abspath(static_dir) + os.sep
     filename = os.path.abspath(os.path.join(static_dir, filename.strip('/\\')))
     headers = dict()  # type: Dict[str, str]
