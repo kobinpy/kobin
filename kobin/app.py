@@ -5,7 +5,7 @@ from .server_adapters import servers
 from .environs import request, response
 
 
-class Kobin(object):
+class Kobin:
     def __init__(self, static_url_path: str= 'static') -> None:
         self.router = Router()
 

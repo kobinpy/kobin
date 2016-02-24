@@ -1,7 +1,7 @@
 from typing import Dict, Any
 
 
-class ServerAdapter(object):
+class ServerAdapter:
     quiet = False
 
     def __init__(self, host: str='127.0.0.1', port: int=8080, **options) -> None:

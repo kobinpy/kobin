@@ -25,7 +25,7 @@ def _local_property():
 # Request Object #################################################################
 ##################################################################################
 
-class Request(object):
+class Request:
     """ A wrapper for WSGI environment dictionaries.
     """
     __slots__ = ('environ', )
@@ -94,7 +94,7 @@ HTTP_CODES = http_client.responses.copy()
 _HTTP_STATUS_LINES = dict((k, '%d %s' % (k, v)) for (k, v) in HTTP_CODES.items())
 
 
-class Response(object):
+class Response:
     default_status = 200
     default_content_type = 'text/html; charset=UTF-8'
 

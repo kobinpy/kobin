@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from . import STATIC_DIRS
 from kobin.static_files import static_file
-from kobin import Kobin, request, response
+from kobin import Kobin, response
 from kobin.exceptions import HTTPError
 
 

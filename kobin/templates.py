@@ -16,7 +16,7 @@ def load_file(name: str, directories: List[str]) -> str:
     raise HTTPError(404, "{name} not found.".format(name=name))
 
 
-class TemplateMixin(object):
+class TemplateMixin:
     extension = 'html'  # type: str
     settings = {}  # type: Dict[str, Any]  # used in parepare()
     defaults = {}  # type: Dict[str, Any]  # used in render()

@@ -13,7 +13,7 @@ def type_args(args_dict: Dict[str, str], type_hints: Dict[str, Any]) -> Dict[str
         return args_dict
 
 
-class Route(object):
+class Route:
     """ This class wraps a route callback along with route specific metadata.
         It is also responsible for turing an URL path rule into a regular
         expression usable by the Router.
@@ -28,7 +28,7 @@ class Route(object):
         return self.callback(**kwargs)
 
 
-class Router(object):
+class Router:
     def __init__(self) -> None:
         # Search structure for static route
         self.routes = {}  # type: Dict[str, Dict[str, List[Any]]]
