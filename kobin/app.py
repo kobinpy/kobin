@@ -8,7 +8,9 @@ from .environs import request, response
 class Kobin:
     def __init__(self, static_url_path: str= 'static') -> None:
         self.router = Router()
-        self.add_route('^/{}/(?P<filename>.*)'.format(static_url_path), 'GET', static_file)
+
+        route = Route('^/{}/(?P<filename>.*)'.format(static_url_path), 'GET', static_file)
+        self.router.add(route.rule, 'GET', route)
 
     def run(self, host: str='', port: int=8000, server: str='wsgiref', **kwargs) -> None:
         try:
@@ -22,14 +24,14 @@ class Kobin:
         except KeyboardInterrupt:
             print('Goodbye.')
 
-    def add_route(self, rule: str, method: str, callback: Callable[..., Union[str, bytes]]):
-        route = Route(rule, method, callback)
+    def add_route(self, route: Route):
         self.router.add(route.rule, route.method, route)
 
-    def route(self, rule: str=None, method: str= 'GET',
+    def route(self, path: str=None, method: str='GET',
               callback: Callable[..., str]=None) -> Callable[..., Union[str, bytes]]:
         def decorator(callback_func):
-            self.add_route(rule, method, callback)
+            route = Route(path, method, callback_func)
+            self.add_route(route)
             return callback_func
         return decorator(callback) if callback else decorator
 
