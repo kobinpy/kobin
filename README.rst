@@ -7,7 +7,7 @@ Kobin
 
 **This library is a pre-release. Expect missing docs and breaking API changes.**
 
-A lightweight web application framework for python3.5.
+Kobin is small and statically-typed web framework for python3.5.
 
 * Routing
 * Request and Response object
@@ -29,7 +29,7 @@ Usage
 
 .. code-block:: python
 
-    from kobin import Kobin, template
+    from kobin import Kobin, request, response, template
 
     app = Kobin()
 
@@ -37,17 +37,14 @@ Usage
     def index():
         return "Hello Kobin!"
 
-    @app.route('^/users/(?P<name>\w+)/$')
-    def hello(name: str):
-        return template("hello", name=name)
-
     @app.route('^/tasks/(?P<task_id>\d+)/$')
     def task_detail(task_id: int):
+        response.add_header('key', 'value')
         tasks = ('task1 is ...', 'task2 is ...', 'task3 is ...', )
-        return template('task', task_id=task_id)
+        return template('task', request=request, task_id=task_id)
 
     if __name__ == '__main__':
-        app.run()
+        app.run(host='127.0.0.1', port=8080)
 
 
 Requirements
