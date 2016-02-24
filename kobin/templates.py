@@ -2,10 +2,8 @@ from typing import List, Dict, Any
 import os
 import functools
 
+from . import TEMPLATE_DIRS
 from .exceptions import HTTPError
-
-BASE_DIR = os.path.abspath('.')
-TEMPLATE_DIRS = [os.path.join(BASE_DIR, x) for x in ['./', './templates']]  # type: List[str]
 
 
 def load_file(name: str, directories: List[str]) -> str:
