@@ -30,6 +30,24 @@ class WSGIRefServer(ServerAdapter):
             self.httpd.server_close()
             raise
 
+
+class GunicornServer(ServerAdapter):
+    def run(self, handler):
+        from gunicorn.app.base import Application
+
+        config = {'bind': "%s:%d" % (self.host, int(self.port))}
+        config.update(self.options)
+
+        class GunicornApplication(Application):
+            def init(self, parser, opts, args):
+                return config
+
+            def load(self):
+                return handler
+
+        GunicornApplication().run()
+
 servers = {
     'wsgiref': WSGIRefServer,
+    'gunicorn': GunicornServer,
 }  # type: Dict[str, Any]
