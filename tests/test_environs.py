@@ -45,7 +45,7 @@ class ResponseTests(TestCase):
     def test_set_status(self):
         response = Response()
         response.status = 200
-        self.assertEqual(response.status_line, '200 OK')
+        self.assertEqual(response.status, '200 OK')
 
     def test_constructor_headerlist(self):
         response = Response()

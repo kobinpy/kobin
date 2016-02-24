@@ -102,7 +102,7 @@ class Response:
                  **more_headers) -> None:
         self._headers = {}  # type: Dict[str, List[str]]
         self.body = body
-        self.status = status or self.default_status
+        self._status_code = status or self.default_status
 
         if headers:
             for name, value in headers.items():
@@ -112,28 +112,23 @@ class Response:
                 self.add_header(name, value)
 
     @property
-    def status_line(self):
-        """ The HTTP status line as a string (e.g. ``404 Not Found``)."""
-        return self._status_line
-
-    @property
     def status_code(self):
         """ The HTTP status code as an integer (e.g. 404)."""
         return self._status_code
 
-    def _set_status(self, status_code: int):
-        status = _HTTP_STATUS_LINES.get(status_code)
+    @property
+    def status(self):
+        """ The HTTP status line as a string (e.g. ``404 Not Found``)."""
+        if not 100 <= self._status_code <= 999:
+            raise ValueError('Status code out of range.')
+        status = _HTTP_STATUS_LINES.get(self._status_code)
+        return str(status or ('{} Unknown'.format(self._status_code)))
+
+    @status.setter
+    def status(self, status_code: int):
         if not 100 <= status_code <= 999:
             raise ValueError('Status code out of range.')
         self._status_code = status_code
-        self._status_line = str(status or ('%d Unknown' % status_code))
-
-    def _get_status(self):
-        return self._status_line
-
-    status = property(_get_status, _set_status, None,  # type: ignore
-                      "A writable property to change the HTTP Response Status")
-    del _get_status, _set_status
 
     @property
     def headerlist(self):
@@ -156,7 +151,6 @@ class LocalResponse(Response):
         of attributes for each thread
     """
     bind = Response.__init__
-    _status_line = _local_property()
     _status_code = _local_property()
     _headers = _local_property()
     body = _local_property()

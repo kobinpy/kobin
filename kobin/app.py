@@ -46,7 +46,7 @@ class Kobin:
         out = self._handle(environ)
         if isinstance(out, str):
             out = out.encode('utf-8')
-        start_response(response._status_line, response.headerlist)
+        start_response(response.status, response.headerlist)
         return [out]
 
     def __call__(self, environ: Dict, start_response) -> List[bytes]:
