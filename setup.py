@@ -53,7 +53,7 @@ setup(
     author=__author__,
     author_email=__author_email__,
     url='https://github.com/c-bata/kobin',
-    description='A very simple web application framework.',
+    description='A lightweight web application framework.',
     long_description=README + '\n\n' + CHANGES,
     classifiers=__classifiers__,
     packages=find_packages(exclude=['test*']),

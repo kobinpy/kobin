@@ -29,7 +29,7 @@ Usage
 
 .. code-block:: python
 
-    from kobin import Kobin
+    from kobin import Kobin, template
 
     app = Kobin()
 
@@ -39,12 +39,12 @@ Usage
 
     @app.route('^/users/(?P<name>\w+)/$')
     def hello(name: str):
-        return "Hello {}".format(name)
+        return template("hello", name=name)
 
     @app.route('^/tasks/(?P<task_id>\d+)/$')
     def task_detail(task_id: int):
         tasks = ('task1 is ...', 'task2 is ...', 'task3 is ...', )
-        return tasks[task_id]
+        return template('task', task_id=task_id)
 
     if __name__ == '__main__':
         app.run()

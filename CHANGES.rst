@@ -1,6 +1,13 @@
 CHANGES
 =======
 
+0.0.4 (2016-??-??)
+------------------
+
+* Expect the types of routing arguments from type hints.
+* Implement template adapter for jinja2.
+* Server for static files such as stylesheets, images, and so on
+
 0.0.3 (2016-02-08)
 ------------------
 

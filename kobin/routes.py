@@ -1,5 +1,5 @@
 import re
-from typing import Callable, Dict, List, Any, get_type_hints  # type: ignore
+from typing import Callable, Dict, List, Tuple, Union, Any, get_type_hints  # type: ignore
 
 from kobin.exceptions import HTTPError
 
@@ -18,13 +18,13 @@ class Route(object):
         It is also responsible for turing an URL path rule into a regular
         expression usable by the Router.
     """
-    def __init__(self, rule: str, method: str, callback: Callable[..., str]) -> None:
+    def __init__(self, rule: str, method: str, callback: Callable[..., Union[str, bytes]]) -> None:
         self.rule = rule
         self.method = method
         self.callback = callback
         self.callback_types = get_type_hints(callback)  # type: Dict[str, Any]
 
-    def call(self, **kwargs) -> str:
+    def call(self, **kwargs) -> Union[str, bytes]:
         return self.callback(**kwargs)
 
 
@@ -33,7 +33,7 @@ class Router(object):
         # Search structure for static route
         self.routes = {}  # type: Dict[str, Dict[str, List[Any]]]
 
-    def match(self, environ: Dict[str, str]):
+    def match(self, environ: Dict[str, str]) -> Tuple[Route, Dict[str, Any]]:
         method = environ['REQUEST_METHOD'].upper()
         path = environ['PATH_INFO'] or '/'
 
