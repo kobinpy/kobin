@@ -1,6 +1,6 @@
+import os
 from unittest import TestCase
-from kobin import Kobin, Config
-from . import BASE_DIR
+from kobin import Kobin, Config, current_app, current_config
 
 
 class KobinTests(TestCase):
@@ -23,9 +23,9 @@ class KobinTests(TestCase):
         self.assertEqual(actual, expected)
 
     def test_typed_url_var(self):
-        test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/3'}
+        test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/10'}
         actual = self.app._handle(test_env)
-        expected = 3
+        expected = 10
         self.assertEqual(actual, expected)
 
     def test_wsgi(self):
@@ -37,13 +37,12 @@ class KobinTests(TestCase):
 
 class ConfigTests(TestCase):
     def setUp(self):
-        self.config = Config(BASE_DIR)
+        self.root_path = os.path.dirname(os.path.abspath(__file__))
+        self.config = Config(self.root_path)
         self.config.load_from_pyfile('dummy_config.py')
 
-    def test_contructor_set_root_path(self):
-        expected = BASE_DIR
-        actual = self.config.root_path
-        self.assertEqual(actual, expected)
+    def test_constructor_set_root_path(self):
+        self.assertIn('root_path', dir(self.config))
 
     def test_config_has_upper_case_variable(self):
         self.assertIn('UPPER_CASE', self.config)
@@ -51,11 +50,6 @@ class ConfigTests(TestCase):
     def test_config_has_not_lower_case_variable(self):
         self.assertNotIn('lower_case', self.config)
 
-    def test_config_has_one_key(self):
-        expected_config_len = 1
-        actual = len(self.config)
-        self.assertEqual(actual, expected_config_len)
-
     def test_failure_for_loading_config(self):
-        config = Config(BASE_DIR)
+        config = Config(self.root_path)
         self.assertRaises(FileNotFoundError, config.load_from_pyfile, 'no_exists.py')

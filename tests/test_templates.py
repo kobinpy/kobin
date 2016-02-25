@@ -1,10 +1,10 @@
 import os
 from unittest import TestCase
 from unittest.mock import patch
-from . import TEMPLATE_DIRS
-
 from kobin.exceptions import HTTPError
 from kobin.templates import Jinja2Template, load_file
+
+TEMPLATE_DIRS = [os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')]
 
 
 class LoadFileTests(TestCase):
@@ -29,8 +29,10 @@ class LoadFileTests(TestCase):
 
 
 class Jinja2TemplateTests(TestCase):
-    def test_file(self):
+    @patch('kobin.current_config')
+    def test_file(self, mock_current_config):
         """ Templates: Jinja2 file """
+        mock_current_config.return_value = {'TEMPLATE_DIRS': TEMPLATE_DIRS}
         j2 = Jinja2Template(name='jinja2', template_dirs=TEMPLATE_DIRS)
         actual = j2.render(var='kobin')
         expected = "Hello kobin World."

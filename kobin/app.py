@@ -1,9 +1,16 @@
 import os
 import types
 from typing import Any, Callable, Dict, List, Union, Tuple
-from .static_files import static_file
 from .routes import Router, Route
 from .environs import request, response
+
+
+def current_app() -> 'Kobin':
+    return request['kobin.app']
+
+
+def current_config() -> Dict[str, Any]:
+    return current_app().config
 
 
 class Kobin:
@@ -11,6 +18,7 @@ class Kobin:
         self.router = Router()
         self.config = Config(os.path.abspath(root_path))
         # register static files view
+        from .static_files import static_file
         route = Route('^{}(?P<filename>.*)'.format(self.config['STATIC_ROOT']), 'GET', static_file)
         self.add_route(route)
 
@@ -60,12 +68,17 @@ class Kobin:
 
 class Config(dict):
     default_config = {
+        'BASE_DIR': os.path.abspath('.'),
+        'TEMPLATE_DIRS': [os.path.join(os.path.abspath('.'), 'templates')],
+        'STATICFILES_DIRS': [os.path.join(os.path.abspath('.'), 'templates')],
+        'STATIC_ROOT': '/static/',
+
         'PORT': 8080,
         'HOST': '127.0.0.1',
         'SERVER': 'wsgiref',
     }  # type: Dict[str, Any]
 
-    def __init__(self, root_path: str, *args, **kwargs):
+    def __init__(self, root_path: str, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.root_path = root_path
         self.update(self.default_config)
