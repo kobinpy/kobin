@@ -7,6 +7,7 @@ CHANGES
 * Expect the types of routing arguments from type hints.
 * Implement template adapter for jinja2.
 * Server for static files such as css, images, and so on.
+* Manage configuration class.
 * Support gunicorn.
 * Fix several bugs.
 
