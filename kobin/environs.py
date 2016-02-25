@@ -1,5 +1,5 @@
 import threading
-from typing import Dict, List
+from typing import Dict, List, Tuple
 import http.client as http_client
 
 
@@ -131,9 +131,9 @@ class Response:
         self._status_code = status_code
 
     @property
-    def headerlist(self):
+    def headerlist(self) -> List[Tuple[str, str]]:
         """ WSGI conform list of (header, value) tuples. """
-        out = []
+        out = []  # type: List[Tuple[str, str]]
         headers = list(self._headers.items())
         if 'Content-Type' not in self._headers:
             headers.append(('Content-Type', [self.default_content_type]))
