@@ -1,5 +1,7 @@
 from typing import Dict, Any
 
+from . import Kobin
+
 
 class ServerAdapter:
     quiet = False
@@ -32,14 +34,14 @@ class WSGIRefServer(ServerAdapter):
 
 
 class GunicornServer(ServerAdapter):
-    def run(self, handler):
-        from gunicorn.app.base import Application
+    def run(self, handler: Kobin) -> None:
+        from gunicorn.app.base import Application  # type: ignore
 
-        config = {'bind': "%s:%d" % (self.host, int(self.port))}
+        config = {'bind': "{host}:{port}".format(host=self.host, port=self.port)}  # type: Dict[str, str]
         config.update(self.options)
 
         class GunicornApplication(Application):
-            def init(self, parser, opts, args):
+            def init(self, parser, opts, args) -> Dict[str, str]:
                 return config
 
             def load(self):

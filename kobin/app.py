@@ -1,7 +1,6 @@
 from typing import Callable, Dict, List, Union
 from .static_files import static_file
 from .routes import Router, Route
-from .server_adapters import servers
 from .environs import request, response
 
 
@@ -12,7 +11,8 @@ class Kobin:
         route = Route('^/{}/(?P<filename>.*)'.format(static_url_path), 'GET', static_file)
         self.router.add(route.rule, 'GET', route)
 
-    def run(self, host: str='', port: int=8000, server: str='wsgiref', **kwargs) -> None:
+    def run(self, host: str='127.0.0.1', port: int=8000, server: str='wsgiref', **kwargs) -> None:
+        from .server_adapters import servers
         try:
             if server in servers:
                 server = servers.get(server)
