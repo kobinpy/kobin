@@ -59,9 +59,9 @@ class Kobin:
 
 class Config(dict):
     def load_from_pyfile(self, root_path: str, file_name: str) -> None:
-        t = types.ModuleType('config')
+        t = types.ModuleType('config')  # type: ignore
         file_path = os.path.join(root_path, file_name)
         with open(file_path) as config_file:
-            exec(compile(config_file.read(), file_path, 'exec'), t.__dict__)
+            exec(compile(config_file.read(), file_path, 'exec'), t.__dict__)  # type: ignore
             configs = {key: getattr(t, key) for key in dir(t) if key.isupper()}
             self.update(configs)
