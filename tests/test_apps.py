@@ -50,3 +50,7 @@ class ConfigTests(TestCase):
         expected_config_len = 1
         actual = len(self.config)
         self.assertEqual(actual, expected_config_len)
+
+    def test_failure_for_loading_config(self):
+        config = Config()
+        self.assertRaises(FileNotFoundError, config.load_from_pyfile, BASE_DIR, 'no_exists.py')
