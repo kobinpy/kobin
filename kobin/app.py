@@ -1,4 +1,6 @@
-from typing import Callable, Dict, List, Union, Tuple
+import os
+import types
+from typing import Any, Callable, Dict, List, Union, Tuple
 from .static_files import static_file
 from .routes import Router, Route
 from .environs import request, response
@@ -7,6 +9,7 @@ from .environs import request, response
 class Kobin:
     def __init__(self, static_url_path: str= 'static') -> None:
         self.router = Router()
+        self.config = Config()
         route = Route('^/{}/(?P<filename>.*)'.format(static_url_path), 'GET', static_file)
         self.add_route(route)
 
@@ -52,3 +55,13 @@ class Kobin:
     def __call__(self, environ: Dict, start_response) -> List[bytes]:
         """It is called when receive http request."""
         return self.wsgi(environ, start_response)
+
+
+class Config(dict):
+    def load_from_pyfile(self, root_path: str, file_name: str) -> None:
+        t = types.ModuleType('config')
+        file_path = os.path.join(root_path, file_name)
+        with open(file_path) as config_file:
+            exec(compile(config_file.read(), file_path, 'exec'), t.__dict__)
+            configs = {key: getattr(t, key) for key in dir(t) if key.isupper()}
+            self.update(configs)

@@ -1,5 +1,6 @@
 from unittest import TestCase
-from kobin import Kobin
+from kobin import Kobin, Config
+from . import BASE_DIR
 
 
 class KobinTests(TestCase):
@@ -32,3 +33,20 @@ class KobinTests(TestCase):
         actual = self.app.wsgi(test_env, self.dummy_start_response)
         expected = [b'hello']
         self.assertEqual(actual, expected)
+
+
+class ConfigTests(TestCase):
+    def setUp(self):
+        self.config = Config()
+        self.config.load_from_pyfile(BASE_DIR, 'dummy_config.py')
+
+    def test_config_has_upper_case_variable(self):
+        self.assertIn('UPPER_CASE', self.config)
+
+    def test_config_has_not_lower_case_variable(self):
+        self.assertNotIn('lower_case', self.config)
+
+    def test_config_has_one_key(self):
+        expected_config_len = 1
+        actual = len(self.config)
+        self.assertEqual(actual, expected_config_len)
