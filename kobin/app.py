@@ -14,7 +14,7 @@ class Kobin:
         from .server_adapters import ServerAdapter, servers
         try:
             if server not in servers:
-                raise Exception('{server} is not supported.'.format(server))
+                raise ImportError('{server} is not supported.'.format(server))
             server_cls = servers.get(server)
             server_obj = server_cls(host=host, port=port, **kwargs)  # type: ServerAdapter
 
