@@ -8,6 +8,9 @@ Kobin
 .. image:: https://badge.fury.io/py/kobin.svg
     :target: https://badge.fury.io/py/kobin
 
+.. image:: https://coveralls.io/repos/github/c-bata/kobin/badge.svg?branch=coveralls
+    :target: https://coveralls.io/github/c-bata/kobin?branch=master
+
 **This library is a pre-release. Expect missing docs and breaking API changes.**
 
 Kobin is small and statically-typed web framework for python3.5.
