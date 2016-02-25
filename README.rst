@@ -10,6 +10,10 @@ Kobin
 
 .. image:: https://coveralls.io/repos/github/c-bata/kobin/badge.svg?branch=coveralls
     :target: https://coveralls.io/github/c-bata/kobin?branch=master
+    
+.. image:: https://codeclimate.com/github/c-bata/kobin/badges/gpa.svg
+   :target: https://codeclimate.com/github/c-bata/kobin
+   :alt: Code Climate
 
 **This library is a pre-release. Expect missing docs and breaking API changes.**
 
