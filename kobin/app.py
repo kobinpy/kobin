@@ -7,22 +7,22 @@ from .environs import request, response
 
 
 class Kobin:
-    def __init__(self, static_url_path: str= 'static', root_path: str='.') -> None:
+    def __init__(self, root_path: str='.') -> None:
         self.router = Router()
         self.config = Config(os.path.abspath(root_path))
         # register static files view
-        route = Route('^/{}/(?P<filename>.*)'.format(static_url_path), 'GET', static_file)
+        route = Route('^{}(?P<filename>.*)'.format(self.config['STATIC_ROOT']), 'GET', static_file)
         self.add_route(route)
 
-    def run(self, host: str='127.0.0.1', port: int=8000, server: str='wsgiref', **kwargs) -> None:
+    def run(self, server: str='wsgiref', **kwargs) -> None:
         from .server_adapters import ServerAdapter, servers
         try:
             if server not in servers:
                 raise ImportError('{server} is not supported.'.format(server))
-            server_cls = servers.get(server)
-            server_obj = server_cls(host=host, port=port, **kwargs)  # type: ServerAdapter
-
-            print('Serving on port %d...' % port)
+            server_cls = servers.get(self.config['SERVER'])
+            server_obj = server_cls(host=self.config['HOST'],
+                                    port=self.config['PORT'], **kwargs)  # type: ServerAdapter
+            print('Serving on port {}...'.format(self.config['PORT']))
             server_obj.run(self)
         except KeyboardInterrupt:
             print('Goodbye.')
@@ -59,9 +59,16 @@ class Kobin:
 
 
 class Config(dict):
+    default_config = {
+        'PORT': 8080,
+        'HOST': '127.0.0.1',
+        'SERVER': 'wsgiref',
+    }  # type: Dict[str, Any]
+
     def __init__(self, root_path: str, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.root_path = root_path
+        self.update(self.default_config)
 
     def load_from_pyfile(self, file_name: str) -> None:
         t = types.ModuleType('config')  # type: ignore
