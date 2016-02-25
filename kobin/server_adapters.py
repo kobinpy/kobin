@@ -11,8 +11,8 @@ class ServerAdapter:
         self.host = host
         self.port = int(port)
 
-    def run(self, handler):
-        pass
+    def run(self, handler: Kobin):
+        raise NotImplementedError
 
     def __repr__(self):
         args = ', '.join(['{key}={value}'.format(key=k, value=repr(v))
