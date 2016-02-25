@@ -19,10 +19,6 @@ Kobin
 
 Kobin is small and statically-typed web framework for python3.5.
 
-* Routing
-* Request and Response object
-* Template loader for Jinja2
-* Static files server
 
 Getting Started
 ===============
@@ -34,6 +30,7 @@ Installation
 
     $ pip install kobin
 
+
 Usage
 -----
 
@@ -42,6 +39,11 @@ Usage
     from kobin import Kobin, request, response, template
 
     app = Kobin()
+    app.config.update({
+        'SERVER': 'gunicorn',
+        'HOST': '127.0.0.1',
+        'PORT': 8080,
+    })
 
     @app.route('^/$')
     def index():
@@ -54,7 +56,7 @@ Usage
         return template('task', request=request, task_id=task_id)
 
     if __name__ == '__main__':
-        app.run(host='127.0.0.1', port=8080)
+        app.run()
 
 
 Requirements
@@ -72,3 +74,4 @@ Resources
 
 * `Github <http://https://github.com/c-bata/kobin>`_
 * `PyPI <https://pypi.python.org/pypi/kobin>`_
+
