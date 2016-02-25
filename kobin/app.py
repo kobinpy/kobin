@@ -5,14 +5,6 @@ from .routes import Router, Route
 from .environs import request, response
 
 
-def current_app() -> 'Kobin':
-    return request['kobin.app']
-
-
-def current_config() -> Dict[str, Any]:
-    return current_app().config
-
-
 class Kobin:
     def __init__(self, root_path: str='.') -> None:
         self.router = Router()
@@ -90,3 +82,11 @@ class Config(dict):
             exec(compile(config_file.read(), file_path, 'exec'), t.__dict__)  # type: ignore
             configs = {key: getattr(t, key) for key in dir(t) if key.isupper()}
             self.update(configs)
+
+
+def current_app() -> Kobin:
+    return request['kobin.app']
+
+
+def current_config() -> Dict[str, Any]:
+    return current_app().config
