@@ -7,9 +7,10 @@ from .environs import request, response
 
 
 class Kobin:
-    def __init__(self, static_url_path: str= 'static') -> None:
+    def __init__(self, static_url_path: str= 'static', root_path: str='.') -> None:
         self.router = Router()
-        self.config = Config()
+        self.config = Config(os.path.abspath(root_path))
+        # register static files view
         route = Route('^/{}/(?P<filename>.*)'.format(static_url_path), 'GET', static_file)
         self.add_route(route)
 
@@ -58,9 +59,13 @@ class Kobin:
 
 
 class Config(dict):
-    def load_from_pyfile(self, root_path: str, file_name: str) -> None:
+    def __init__(self, root_path: str, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.root_path = root_path
+
+    def load_from_pyfile(self, file_name: str) -> None:
         t = types.ModuleType('config')  # type: ignore
-        file_path = os.path.join(root_path, file_name)
+        file_path = os.path.join(self.root_path, file_name)
         with open(file_path) as config_file:
             exec(compile(config_file.read(), file_path, 'exec'), t.__dict__)  # type: ignore
             configs = {key: getattr(t, key) for key in dir(t) if key.isupper()}

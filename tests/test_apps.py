@@ -37,8 +37,13 @@ class KobinTests(TestCase):
 
 class ConfigTests(TestCase):
     def setUp(self):
-        self.config = Config()
-        self.config.load_from_pyfile(BASE_DIR, 'dummy_config.py')
+        self.config = Config(BASE_DIR)
+        self.config.load_from_pyfile('dummy_config.py')
+
+    def test_contructor_set_root_path(self):
+        expected = BASE_DIR
+        actual = self.config.root_path
+        self.assertEqual(actual, expected)
 
     def test_config_has_upper_case_variable(self):
         self.assertIn('UPPER_CASE', self.config)
@@ -52,5 +57,5 @@ class ConfigTests(TestCase):
         self.assertEqual(actual, expected_config_len)
 
     def test_failure_for_loading_config(self):
-        config = Config()
-        self.assertRaises(FileNotFoundError, config.load_from_pyfile, BASE_DIR, 'no_exists.py')
+        config = Config(BASE_DIR)
+        self.assertRaises(FileNotFoundError, config.load_from_pyfile, 'no_exists.py')
