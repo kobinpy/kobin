@@ -4,9 +4,9 @@ from . import Kobin
 
 
 class ServerAdapter:
-    quiet = False
+    quiet = False  # type: bool
 
-    def __init__(self, host: str='127.0.0.1', port: int=8080, **options) -> None:
+    def __init__(self, host: str, port: int, **options) -> None:
         self.options = options
         self.host = host
         self.port = int(port)
@@ -15,13 +15,13 @@ class ServerAdapter:
         pass
 
     def __repr__(self):
-        args = ', '.join(['%s=%s' % (k, repr(v))
+        args = ', '.join(['{key}={value}'.format(key=k, value=repr(v))
                           for k, v in self.options.items()])
-        return "%s(%s)" % (self.__class__.__name__, args)
+        return "{class}(args)".format(self.__class__.__name__, args)
 
 
 class WSGIRefServer(ServerAdapter):
-    def run(self, app):
+    def run(self, app: Kobin) -> None:
         from wsgiref.simple_server import make_server  # type: ignore
         self.httpd = make_server(self.host, self.port, app)
         self.port = self.httpd.server_port
@@ -44,7 +44,7 @@ class GunicornServer(ServerAdapter):
             def init(self, parser, opts, args) -> Dict[str, str]:
                 return config
 
-            def load(self):
+            def load(self) -> Kobin:
                 return handler
 
         GunicornApplication().run()
