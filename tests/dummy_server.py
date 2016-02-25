@@ -14,12 +14,16 @@ try:
 
     from kobin import Kobin
     app = Kobin()
+    app.config.update({
+        'PORT': port,
+        'SERVER': server
+    })
 
     @app.route('^/test$')
     def pong():
         return 'OK'
 
-    app.run(port=port, server=server)
+    app.run()
 
 except socket.error:  # Port in use
     sys.exit(3)

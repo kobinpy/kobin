@@ -1,8 +1,7 @@
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Callable
 import os
 import functools
 
-from . import TEMPLATE_DIRS
 from .exceptions import HTTPError
 
 
@@ -13,6 +12,7 @@ def load_file(name: str, directories: List[str]) -> str:
         file = os.path.join(directory, name)
         if os.path.exists(file) and os.path.isfile(file) and os.access(file, os.R_OK):
             return file
+        # TODO: if not os.access: raise HTTPError(403, "You do not have permission to access this file.")
     raise HTTPError(404, "{name} not found.".format(name=name))
 
 
@@ -21,11 +21,12 @@ class TemplateMixin:
     settings = {}  # type: Dict[str, Any]  # used in parepare()
     defaults = {}  # type: Dict[str, Any]  # used in render()
 
-    def __init__(self, name: str, template_dirs: List[str]=TEMPLATE_DIRS,
-                 encoding: str='utf8', **settings) -> None:
+    def __init__(self, name: str, encoding: str='utf8', **settings) -> None:
         """ Create a new template. """
+        from . import current_config  # type: ignore
         self.name = name
-        self.template_dirs = template_dirs  # type: List[str]
+        config = current_config()  # type: ignore
+        self.template_dirs = config['TEMPLATE_DIRS']  # type: List[str]
         self.filename = self.search(self.name, self.template_dirs)  # type: str
 
         self.encoding = encoding
@@ -78,6 +79,6 @@ class Jinja2Template(TemplateMixin):
 def template(template_name: str, **kwargs) -> str:
     """ Get a rendered template as string iterator. """
     adapter = kwargs.pop('template_adapter', Jinja2Template)
-    return adapter(name=template_name, template_dirs=TEMPLATE_DIRS).render(**kwargs)
+    return adapter(name=template_name).render(**kwargs)
 
 jinja2_template = functools.partial(template, adapter=Jinja2Template)

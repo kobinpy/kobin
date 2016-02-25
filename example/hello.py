@@ -1,6 +1,7 @@
 from kobin import Kobin, request, response, template
 
 app = Kobin()
+app.config.load_from_pyfile('./config.py')
 
 
 @app.route('^/$')

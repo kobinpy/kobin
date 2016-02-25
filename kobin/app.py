@@ -1,24 +1,28 @@
-from typing import Callable, Dict, List, Union, Tuple
-from .static_files import static_file
+import os
+import types
+from typing import Any, Callable, Dict, List, Union, Tuple
 from .routes import Router, Route
 from .environs import request, response
 
 
 class Kobin:
-    def __init__(self, static_url_path: str= 'static') -> None:
+    def __init__(self, root_path: str='.') -> None:
         self.router = Router()
-        route = Route('^/{}/(?P<filename>.*)'.format(static_url_path), 'GET', static_file)
+        self.config = Config(os.path.abspath(root_path))
+        # register static files view
+        from .static_files import static_file
+        route = Route('^{}(?P<filename>.*)'.format(self.config['STATIC_ROOT']), 'GET', static_file)
         self.add_route(route)
 
-    def run(self, host: str='127.0.0.1', port: int=8000, server: str='wsgiref', **kwargs) -> None:
+    def run(self, server: str='wsgiref', **kwargs) -> None:
         from .server_adapters import ServerAdapter, servers
         try:
             if server not in servers:
                 raise ImportError('{server} is not supported.'.format(server))
-            server_cls = servers.get(server)
-            server_obj = server_cls(host=host, port=port, **kwargs)  # type: ServerAdapter
-
-            print('Serving on port %d...' % port)
+            server_cls = servers.get(self.config['SERVER'])
+            server_obj = server_cls(host=self.config['HOST'],
+                                    port=self.config['PORT'], **kwargs)  # type: ServerAdapter
+            print('Serving on port {}...'.format(self.config['PORT']))
             server_obj.run(self)
         except KeyboardInterrupt:
             print('Goodbye.')
@@ -52,3 +56,37 @@ class Kobin:
     def __call__(self, environ: Dict, start_response) -> List[bytes]:
         """It is called when receive http request."""
         return self.wsgi(environ, start_response)
+
+
+class Config(dict):
+    default_config = {
+        'BASE_DIR': os.path.abspath('.'),
+        'TEMPLATE_DIRS': [os.path.join(os.path.abspath('.'), 'templates')],
+        'STATICFILES_DIRS': [os.path.join(os.path.abspath('.'), 'templates')],
+        'STATIC_ROOT': '/static/',
+
+        'PORT': 8080,
+        'HOST': '127.0.0.1',
+        'SERVER': 'wsgiref',
+    }  # type: Dict[str, Any]
+
+    def __init__(self, root_path: str, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.root_path = root_path
+        self.update(self.default_config)
+
+    def load_from_pyfile(self, file_name: str) -> None:
+        t = types.ModuleType('config')  # type: ignore
+        file_path = os.path.join(self.root_path, file_name)
+        with open(file_path) as config_file:
+            exec(compile(config_file.read(), file_path, 'exec'), t.__dict__)  # type: ignore
+            configs = {key: getattr(t, key) for key in dir(t) if key.isupper()}
+            self.update(configs)
+
+
+def current_app() -> Kobin:
+    return request['kobin.app']
+
+
+def current_config() -> Dict[str, Any]:
+    return current_app().config
