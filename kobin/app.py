@@ -80,8 +80,11 @@ class Config(dict):
         file_path = os.path.join(self.root_path, file_name)
         with open(file_path) as config_file:
             exec(compile(config_file.read(), file_path, 'exec'), t.__dict__)  # type: ignore
-            configs = {key: getattr(t, key) for key in dir(t) if key.isupper()}
-            self.update(configs)
+            self.load_from_module(t)
+
+    def load_from_module(self, module) -> None:
+        configs = {key: getattr(module, key) for key in dir(module) if key.isupper()}
+        self.update(configs)
 
 
 def current_app() -> Kobin:

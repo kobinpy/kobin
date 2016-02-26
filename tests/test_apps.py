@@ -38,17 +38,27 @@ class KobinTests(TestCase):
 class ConfigTests(TestCase):
     def setUp(self):
         self.root_path = os.path.dirname(os.path.abspath(__file__))
-        self.config = Config(self.root_path)
-        self.config.load_from_pyfile('dummy_config.py')
 
     def test_constructor_set_root_path(self):
-        self.assertIn('root_path', dir(self.config))
+        config = Config(self.root_path)
+        config.load_from_pyfile('dummy_config.py')
+        self.assertIn('root_path', dir(config))
 
-    def test_config_has_upper_case_variable(self):
-        self.assertIn('UPPER_CASE', self.config)
+    def test_load_from_module(self):
+        from tests import dummy_config
+        config = Config(self.root_path)
+        config.load_from_module(dummy_config)
+        self.assertIn('UPPER_CASE', config)
+
+    def test_load_from_pyfile(self):
+        config = Config(self.root_path)
+        config.load_from_pyfile('dummy_config.py')
+        self.assertIn('UPPER_CASE', config)
 
     def test_config_has_not_lower_case_variable(self):
-        self.assertNotIn('lower_case', self.config)
+        config = Config(self.root_path)
+        config.load_from_pyfile('dummy_config.py')
+        self.assertNotIn('lower_case', config)
 
     def test_failure_for_loading_config(self):
         config = Config(self.root_path)
