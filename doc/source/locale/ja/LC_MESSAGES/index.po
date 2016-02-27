@@ -111,5 +111,5 @@ msgstr ""
 
 #: ../../source/index.rst:84
 msgid "Statuses"
-msgstr ""
+msgstr "ステータス"
 
