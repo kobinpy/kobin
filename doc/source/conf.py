@@ -10,8 +10,6 @@ import os
 SOURCE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__name__))))
 sys.path.insert(0, SOURCE_DIR)
 
-from setup import __version__
-
 # -- General configuration ------------------------------------------------
 # Add any Sphinx extension module names here, as strings.
 extensions = [
@@ -40,7 +38,7 @@ copyright = '2016, Masashi Shibata'
 author = 'Masashi Shibata'
 
 # The short X.Y version.
-version = __version__
+version = '0.0.4-alpha.1'
 release = version
 
 language = None
