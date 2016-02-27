@@ -1,23 +1,46 @@
-=====
-Kobin
-=====
+=================================================
+Kobin: a small and statically-typed web framework
+=================================================
 
 .. image:: https://travis-ci.org/c-bata/kobin.svg?branch=master
-    :target: https://travis-ci.org/c-bata/kobin
+   :target: https://travis-ci.org/c-bata/kobin
 
 .. image:: https://badge.fury.io/py/kobin.svg
-    :target: https://badge.fury.io/py/kobin
+   :target: https://badge.fury.io/py/kobin
 
 .. image:: https://coveralls.io/repos/github/c-bata/kobin/badge.svg?branch=coveralls
-    :target: https://coveralls.io/github/c-bata/kobin?branch=master
-    
+   :target: https://coveralls.io/github/c-bata/kobin?branch=master
+
 .. image:: https://codeclimate.com/github/c-bata/kobin/badges/gpa.svg
    :target: https://codeclimate.com/github/c-bata/kobin
    :alt: Code Climate
 
+.. image:: https://readthedocs.org/projects/kobin/badge/?version=latest
+   :target: http://kobin.readthedocs.org/en/latest/?badge=latest
+   :alt: Documentation Status
+
 **This library is a pre-release. Expect missing docs and breaking API changes.**
 
-Kobin is small and statically-typed web framework for python3.5.
+Some reasons you might want to use Kobin.
+
+- **Statically-typed** web framework with PEP 0484(Type Hints).
+- **Minimal source code** for solving your problems when you are troubled.
+- Requires routing, jinja2 support, WSGI request and response wrapper and so on.
+
+
+Requirements
+------------
+
+* Supported python version is 3.5 only.
+
+Kobin Requires the following:
+
+- Python 3.5
+
+The following packages are optional:
+
+- Jinja2
+- gunicorn
 
 
 Getting Started
@@ -29,6 +52,8 @@ Installation
 ::
 
     $ pip install kobin
+    $ pip install gunicorn
+    $ pip install jinja2
 
 
 Usage
@@ -58,11 +83,6 @@ Usage
     if __name__ == '__main__':
         app.run()
 
-
-Requirements
-============
-
-* Supported python version is 3.5 only.
 
 License
 =======
