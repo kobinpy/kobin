@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../../source/index.rst:5
 msgid "|Welcome to Kobin|"
-msgstr "Kobin"
+msgstr ""
 
 #: ../../source/index.rst:10
 msgid ""
