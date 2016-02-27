@@ -2,3 +2,6 @@ twine
 wheel
 ipython
 
+sphinx
+sphinx-intl
+sphinx-rtd-theme
