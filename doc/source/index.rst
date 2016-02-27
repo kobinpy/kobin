@@ -13,7 +13,7 @@ Kobin has following features.
 
 - **Statically-typed** web framework with PEP 0484(Type Hints).
 - **Lightweight** implementations for solving your problems easily.
-- Kobin provides Routing, WSGI request and response wrapper, Jinja2 template adapter and several utilities for
+- Kobin provides Routing, WSGI request and response wrapper, Jinja2 template adapter and several useful utilities
 
 
 Installation
