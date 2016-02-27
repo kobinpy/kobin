@@ -39,6 +39,7 @@ coverage.xml
 
 # Sphinx documentation
 doc/build/
+*.mo
 # transifex
 .tx
 
