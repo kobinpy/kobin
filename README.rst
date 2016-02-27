@@ -39,8 +39,6 @@ http://pandas-validator.readthedocs.org
 Requirements
 ------------
 
-* Supported python version is 3.5 only.
-
 Kobin Requires the following:
 
 - Python 3.5
