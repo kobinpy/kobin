@@ -15,10 +15,6 @@ Kobin
    :target: https://codeclimate.com/github/c-bata/kobin
    :alt: Code Climate
 
-.. image:: https://readthedocs.org/projects/kobin/badge/?version=latest
-   :target: http://kobin.readthedocs.org/en/latest/?badge=latest
-   :alt: Documentation Status
-
 
 `Kobin <https://kobin.readthedocs.org/>`_ is a small and statically-typed WSGI micro web framework for Python.
 **This library is a pre-release. Expect missing docs and breaking API changes.**
@@ -34,20 +30,20 @@ Hello World
 
 ::
 
-    $ pip install kobin
+   $ pip install kobin
 
 
 .. code-block:: python
 
-    from kobin import Kobin
-    app = Kobin()
+   from kobin import Kobin
+   app = Kobin()
 
-    @app.route('^/(?P<name>\w*)$')
-    def hello(name: str):
-    return "Hello {}!!".format(name)
+   @app.route('^/(?P<name>\w*)$')
+   def hello(name: str):
+   return "Hello {}!!".format(name)
 
-    if __name__ == '__main__':
-        app.run()
+   if __name__ == '__main__':
+       app.run()
 
 
 Requirements
@@ -64,15 +60,17 @@ The following packages are optional:
 - gunicorn
 
 
-License
-=======
-
-This software is licensed under the MIT License.
-
-
 Resources
 =========
 
 * `Documentations <https://kobin.readthedocs.org>`_ : Everything you need to know about Kobin.
+    * `English <https://kobin.readthedocs.org/en/latest/>`_
+    * `日本語 <https://kobin.readthedocs.org/ja/latest/>`_
 * `Github <https://github.com/c-bata/kobin>`_
 * `PyPI <https://pypi.python.org/pypi/kobin>`_
+
+
+License
+=======
+
+This software is licensed under the MIT License.
