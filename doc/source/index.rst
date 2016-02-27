@@ -61,7 +61,7 @@ Kobin documentation contents
    :maxdepth: 2
 
    tutorial
-   modules
+   api
 
 
 Indices and tables

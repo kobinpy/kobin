@@ -1,6 +1,8 @@
-=======
-Modules
-=======
+===
+API
+===
+
+This documentations is generated from kobin's source code.
 
 kobin
 -----
