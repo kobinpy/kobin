@@ -15,6 +15,10 @@ Kobin: a small and statically-typed web framework
    :target: https://codeclimate.com/github/c-bata/kobin
    :alt: Code Climate
 
+.. image:: https://readthedocs.org/projects/kobin/badge/?version=latest
+   :target: http://kobin.readthedocs.org/en/latest/?badge=latest
+   :alt: Documentation Status
+
 **This library is a pre-release. Expect missing docs and breaking API changes.**
 
 Some reasons you might want to use Kobin.
