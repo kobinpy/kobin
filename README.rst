@@ -40,7 +40,7 @@ Hello World
 
    @app.route('^/(?P<name>\w*)$')
    def hello(name: str):
-   return "Hello {}!!".format(name)
+       return "Hello {}!!".format(name)
 
    if __name__ == '__main__':
        app.run()
@@ -63,9 +63,8 @@ The following packages are optional:
 Resources
 =========
 
-* `Documentations <https://kobin.readthedocs.org>`_ : Everything you need to know about Kobin.
-    * `English <https://kobin.readthedocs.org/en/latest/>`_
-    * `日本語 <https://kobin.readthedocs.org/ja/latest/>`_
+* `Documentation (English) <https://kobin.readthedocs.org/en/latest/>`_
+* `Documentation (日本語) <https://kobin.readthedocs.org/ja/latest/>`_
 * `Github <https://github.com/c-bata/kobin>`_
 * `PyPI <https://pypi.python.org/pypi/kobin>`_
 
