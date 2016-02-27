@@ -1,14 +1,16 @@
-Welcome to Kobin
-================
+.. image:: ./_static/logo.png
 
-Contents:
+.. include:: ../../README.rst
+
+
+Kobin documentation contents
+============================
 
 .. toctree::
    :maxdepth: 2
 
-.. automodule:: kobin.environs
-   :members:
-
+   tutorial
+   modules
 
 Indices and tables
 ==================
@@ -16,4 +18,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
