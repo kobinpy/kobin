@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-27 18:01+0900\n"
+"POT-Creation-Date: 2016-02-28 01:37+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,10 +26,7 @@ msgid ""
 "Kobin is a small and statically-typed WSGI micro web framework for "
 "Python. **This library is a pre-release. Expect missing docs and breaking"
 " API changes.** Kobin has following features."
-msgstr ""
-"Kobin(小瓶)はPython製Webフレームワークです。"
-"開発中のためドキュメンテーションの不備やAPIの大きな変更があるかもしれません。ご注意ください。"
-"Kobinの特徴は以下のとおりです。"
+msgstr "Kobin(小瓶)はPython製Webフレームワークです。開発中のためドキュメンテーションの不備やAPIの大きな変更があるかもしれません。ご注意ください。Kobinの特徴は以下のとおりです。"
 
 #: ../../source/index.rst:14
 msgid "**Statically-typed** web framework with PEP 0484(Type Hints)."
@@ -43,8 +40,7 @@ msgstr "フレームワーク自体がシンプルに実装されているため
 msgid ""
 "Kobin provides Routing, WSGI request and response wrapper, Jinja2 "
 "template adapter and several useful utilities"
-msgstr ""
-"Kobinは主にルーティング、WSGIリクエスト・レスポンスオブジェクト、Jinja2のアダプターを提供しています。"
+msgstr "Kobinは主にルーティング、WSGIリクエスト・レスポンスオブジェクト、Jinja2のアダプターを提供しています。"
 
 #: ../../source/index.rst:20
 msgid "Installation"
@@ -71,8 +67,7 @@ msgid ""
 "Kobin is no dependencies other than the `Python Standard Library "
 "<https://docs.python.org/3/library/>`_. The following packages are "
 "optional:"
-msgstr ""
-"以下のライブラリはオプショナルです。必要に応じてインストールしてください。"
+msgstr "以下のライブラリはオプショナルです。必要に応じてインストールしてください。"
 
 #: ../../source/index.rst:53
 msgid "Jinja2"
@@ -86,23 +81,35 @@ msgstr ""
 msgid "Kobin documentation contents"
 msgstr "目次"
 
-#: ../../source/index.rst:68
-msgid "Indices and tables"
-msgstr "索引表"
-
-#: ../../source/index.rst:70
-msgid ":ref:`genindex`"
-msgstr ""
+#: ../../source/index.rst:69
+msgid "Links"
+msgstr "リンク"
 
 #: ../../source/index.rst:71
-msgid ":ref:`modindex`"
+msgid "`Github <https://github.com/c-bata/kobin>`_"
 msgstr ""
 
 #: ../../source/index.rst:72
-msgid ":ref:`search`"
+msgid "`PyPI <https://pypi.python.org/pypi/kobin>`_"
 msgstr ""
 
 #: ../../source/index.rst:76
+msgid "Indices and tables"
+msgstr "索引表"
+
+#: ../../source/index.rst:78
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../source/index.rst:79
+msgid ":ref:`modindex`"
+msgstr ""
+
+#: ../../source/index.rst:80
+msgid ":ref:`search`"
+msgstr ""
+
+#: ../../source/index.rst:84
 msgid "Statuses"
 msgstr ""
 

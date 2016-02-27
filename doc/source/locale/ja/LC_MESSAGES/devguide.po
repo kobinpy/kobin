@@ -1,0 +1,125 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2016, Masashi Shibata
+# This file is distributed under the same license as the kobin package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: kobin 0.0.4-alpha.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-02-28 01:45+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.2.0\n"
+
+#: ../../source/devguide.rst:3
+msgid "Developer guide"
+msgstr "開発者向け情報"
+
+#: ../../source/devguide.rst:6
+msgid "Bug Reports and Feature Requests"
+msgstr "バグ報告と機能のリクエスト"
+
+#: ../../source/devguide.rst:8
+msgid ""
+"If you have encountered a problem with Kobin or have an idea for a new "
+"feature, please submit it to the issue tracker on Github."
+msgstr "Kobin に関する問題に遭遇したり、新機能に対するアイデアがある場合は、Github上の issue tracker に提出してください。"
+
+#: ../../source/devguide.rst:11
+msgid ""
+"Including or providing a link to the source files involved may help us "
+"fix the issue. If possible, try to create a minimal project that produces"
+" the error and post that instead."
+msgstr "関係するソースファイルを含めるか、リンクを提供することで、私たちが問題を解決する助けになります。可能なら、エラーを生成する最小のプロジェクトを作成して、代わりにそれを送信するようにしてください。"
+
+#: ../../source/devguide.rst:15
+msgid "Documentation"
+msgstr "ドキュメント"
+
+#: ../../source/devguide.rst:18
+msgid "Build"
+msgstr "ビルド"
+
+#: ../../source/devguide.rst:20
+msgid "English: ``make html``"
+msgstr ""
+
+#: ../../source/devguide.rst:21
+msgid "日本語: ``make -e SPHINXOPTS=\"-D language='ja'\" html``"
+msgstr ""
+
+#: ../../source/devguide.rst:25
+msgid "Translation"
+msgstr "翻訳"
+
+#: ../../source/devguide.rst:27
+msgid "Updating your po files by new pot files."
+msgstr "``po`` ファイルをアップデートしてください。"
+
+#: ../../source/devguide.rst:36
+#, fuzzy
+msgid ""
+"Reference: `Internationalization -- Sphinx documentation <http://www"
+".sphinx-doc.org/en/stable/intl.html>`_"
+msgstr ""
+"ref: `国際化 -- Sphinx documentation <http://www.sphinx-"
+"doc.org/ja/stable/intl.html>`_"
+
+#: ../../source/devguide.rst:40
+msgid "Testing"
+msgstr "テスト"
+
+#: ../../source/devguide.rst:42
+msgid ""
+"The following test are running in Kobin project. If you add the changes "
+"to Kobin, Please run tox testing."
+msgstr ""
+"Kobinプロジェクトでは以下の項目をテストしています。"
+"もし変更を加えた場合、toxコマンドを実行してチェックしてください。"
+
+#: ../../source/devguide.rst:45
+msgid "pytest: `python setup.py test`"
+msgstr ""
+
+#: ../../source/devguide.rst:46
+msgid "mypy: `mypy kobin`"
+msgstr ""
+
+#: ../../source/devguide.rst:47
+msgid "Flake8: `flake8`"
+msgstr ""
+
+#: ../../source/devguide.rst:48
+msgid "doctest: `cd doc; make doctest`"
+msgstr ""
+
+#~ msgid "Japanese: ``make -e SPHINXOPTS=\"-D language='ja'\" html``"
+#~ msgstr ""
+
+#~ msgid "doctest"
+#~ msgstr ""
+
+#~ msgid "pytest"
+#~ msgstr ""
+
+#~ msgid "mypy"
+#~ msgstr ""
+
+#~ msgid "Flake8"
+#~ msgstr ""
+
+#~ msgid "``` $ tox ```"
+#~ msgstr ""
+
+#~ msgid "``` $ python setup.py test $ flake8 $ mypy kobin ```"
+#~ msgstr ""
+
+#~ msgid "``` $ cd doc $ make doctest ```"
+#~ msgstr ""
+

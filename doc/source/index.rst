@@ -21,7 +21,7 @@ Installation
 
 ::
 
-    $ pip install kobin
+   $ pip install kobin
 
 
 Hello World
@@ -29,15 +29,15 @@ Hello World
 
 .. code-block:: python
 
-    from kobin import Kobin
-    app = Kobin()
+   from kobin import Kobin
+   app = Kobin()
 
-    @app.route('^/(?P<name>\w*)$')
-    def hello(name: str):
-        return "Hello {}!!".format(name)
+   @app.route('^/(?P<name>\w*)$')
+   def hello(name: str):
+       return "Hello {}!!".format(name)
 
-    if __name__ == '__main__':
-        app.run()
+   if __name__ == '__main__':
+       app.run()
 
 
 Requirements
@@ -61,7 +61,15 @@ Kobin documentation contents
    :maxdepth: 2
 
    tutorial
+   devguide
    api
+
+
+Links
+=====
+
+* `Github <https://github.com/c-bata/kobin>`_
+* `PyPI <https://pypi.python.org/pypi/kobin>`_
 
 
 Indices and tables
