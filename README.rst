@@ -1,6 +1,6 @@
-=================================================
-Kobin: a small and statically-typed web framework
-=================================================
+=====
+Kobin
+=====
 
 .. image:: https://travis-ci.org/c-bata/kobin.svg?branch=master
    :target: https://travis-ci.org/c-bata/kobin
@@ -19,69 +19,49 @@ Kobin: a small and statically-typed web framework
    :target: http://kobin.readthedocs.org/en/latest/?badge=latest
    :alt: Documentation Status
 
-**This library is a pre-release. Expect missing docs and breaking API changes.**
 
-Some reasons you might want to use Kobin.
+`Kobin <https://kobin.readthedocs.org/>`_ is a small and statically-typed WSGI micro web framework for Python.
+**This library is a pre-release. Expect missing docs and breaking API changes.**
+Kobin has following features.
 
 - **Statically-typed** web framework with PEP 0484(Type Hints).
-- **Minimal source code** for solving your problems when you are troubled.
-- Requires routing, jinja2 support, WSGI request and response wrapper and so on.
+- **Lightweight** implementations for solving your problems easily.
+- Kobin provides Routing, WSGI request and response wrapper, Jinja2 template adapter and several utilities for
 
 
-Documentation
--------------
+Hello World
+===========
 
-The latest documentation is hosted at ReadTheDocs.
+::
 
-http://pandas-validator.readthedocs.org
+    $ pip install kobin
+
+
+.. code-block:: python
+
+    from kobin import Kobin
+    app = Kobin()
+
+    @app.route('^/(?P<name>\w*)$')
+    def hello(name: str):
+    return "Hello {}!!".format(name)
+
+    if __name__ == '__main__':
+        app.run()
 
 
 Requirements
-------------
+============
 
 Kobin Requires the following:
 
 - Python 3.5
 
+Kobin is no dependencies other than the `Python Standard Library <https://docs.python.org/3/library/>`_.
 The following packages are optional:
 
 - Jinja2
 - gunicorn
-
-
-Getting Started
----------------
-
-::
-
-    $ pip install kobin
-    $ pip install gunicorn
-    $ pip install jinja2
-
-
-.. code-block:: python
-
-    from kobin import Kobin, request, response, template
-
-    app = Kobin()
-    app.config.update({
-        'SERVER': 'gunicorn',
-        'HOST': '127.0.0.1',
-        'PORT': 8080,
-    })
-
-    @app.route('^/$')
-    def index():
-        return "Hello Kobin!"
-
-    @app.route('^/tasks/(?P<task_id>\d+)/$')
-    def task_detail(task_id: int):
-        response.add_header('key', 'value')
-        tasks = ('task1 is ...', 'task2 is ...', 'task3 is ...', )
-        return template('task', request=request, task_id=task_id)
-
-    if __name__ == '__main__':
-        app.run()
 
 
 License
@@ -93,6 +73,6 @@ This software is licensed under the MIT License.
 Resources
 =========
 
+* `Documentations <https://kobin.readthedocs.org>`_ : Everything you need to know about Kobin.
 * `Github <https://github.com/c-bata/kobin>`_
-* `Documentations <https://kobin.readthedocs.org>`_
 * `PyPI <https://pypi.python.org/pypi/kobin>`_
