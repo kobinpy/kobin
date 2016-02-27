@@ -72,6 +72,5 @@ This software is licensed under the MIT License.
 Resources
 =========
 
-* `Github <http://https://github.com/c-bata/kobin>`_
+* `Github <https://github.com/c-bata/kobin>`_
 * `PyPI <https://pypi.python.org/pypi/kobin>`_
-
