@@ -10,7 +10,7 @@ import os
 SOURCE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__name__))))
 sys.path.insert(0, SOURCE_DIR)
 
-import kobin
+from setup import __version__
 
 # -- General configuration ------------------------------------------------
 # Add any Sphinx extension module names here, as strings.
@@ -40,7 +40,7 @@ copyright = '2016, Masashi Shibata'
 author = 'Masashi Shibata'
 
 # The short X.Y version.
-version = kobin.__version__
+version = __version__
 release = version
 
 language = None
