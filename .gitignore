@@ -38,7 +38,8 @@ coverage.xml
 *,cover
 
 # Sphinx documentation
-docs/_build/
+doc/build/
+*.mo
 
 ### intelij
 .idea/

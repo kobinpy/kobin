@@ -202,3 +202,7 @@ texinfo_documents = [
      author, 'kobin', 'One line description of project.',
      'Miscellaneous'),
 ]
+
+# -- Options for Internationalization -------------------------------------
+locale_dirs = ['locale/']
+gettext_compat = False
