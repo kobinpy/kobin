@@ -28,6 +28,14 @@ Some reasons you might want to use Kobin.
 - Requires routing, jinja2 support, WSGI request and response wrapper and so on.
 
 
+Documentation
+-------------
+
+The latest documentation is hosted at ReadTheDocs.
+
+http://pandas-validator.readthedocs.org
+
+
 Requirements
 ------------
 
@@ -44,10 +52,7 @@ The following packages are optional:
 
 
 Getting Started
-===============
-
-Installation
-------------
+---------------
 
 ::
 
@@ -55,9 +60,6 @@ Installation
     $ pip install gunicorn
     $ pip install jinja2
 
-
-Usage
------
 
 .. code-block:: python
 
@@ -89,8 +91,10 @@ License
 
 This software is licensed under the MIT License.
 
+
 Resources
 =========
 
 * `Github <https://github.com/c-bata/kobin>`_
+* `Documentations <https://kobin.readthedocs.org>`_
 * `PyPI <https://pypi.python.org/pypi/kobin>`_
