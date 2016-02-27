@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the kobin package.
 # Masashi Shibata <contact@c-bata.link>, 2016.
 
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0\n"
