@@ -1,5 +1,11 @@
+from .environs import Response
 
-class HTTPError(Exception):
-    def __init__(self, status: int, message: str, *args, **kwargs) -> None:
-        print(status, message)
-        super().__init__(*args, **kwargs)
+
+class HTTPError(Response, Exception):
+    default_status = 500
+
+    def __init__(self, status: int, body: str,
+                 exception: str=None, traceback: str=None, *args, **kwargs) -> None:
+        super().__init__(status=status or self.default_status, body=body, *args, **kwargs)  # type: ignore
+        self.exception = exception
+        self.traceback = traceback

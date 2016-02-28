@@ -145,6 +145,11 @@ class Response:
     def add_header(self, key: str, value: str) -> None:
         self._headers.setdefault(key, []).append(value)
 
+    def apply(self, other):
+        self.status = other._status_code
+        self._headers = other._headers
+        self.body = other.body
+
 
 class LocalResponse(Response):
     """ A thread-local subclass ob :class:`BaseResponse` with a different set

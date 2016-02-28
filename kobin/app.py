@@ -3,6 +3,7 @@ import types
 from typing import Any, Callable, Dict, List, Union, Tuple
 from .routes import Router, Route
 from .environs import request, response
+from .exceptions import HTTPError
 
 
 class Kobin:
@@ -39,11 +40,18 @@ class Kobin:
         return decorator(callback) if callback else decorator
 
     def _handle(self, environ: Dict) -> Union[str, bytes]:
-        route, kwargs = self.router.match(environ)
         environ['kobin.app'] = self
         request.bind(environ)  # type: ignore
         response.bind()        # type: ignore
-        return route.call(**kwargs) if kwargs else route.call()
+        try:
+            route, kwargs = self.router.match(environ)
+            output = route.call(**kwargs) if kwargs else route.call()
+        except HTTPError:
+            import sys
+            _type, _value, _traceback = sys.exc_info()
+            response.apply(_value)
+            output = response.body
+        return output
 
     def wsgi(self, environ: Dict,
              start_response: Callable[[bytes, List[Tuple[str, str]]], None]) -> List[bytes]:
