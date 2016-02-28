@@ -51,6 +51,9 @@ class Kobin:
             _type, _value, _traceback = sys.exc_info()
             response.apply(_value)
             output = response.body
+        except:
+            response.apply(HTTPError(500, 'Internal server error.'))
+            output = response.body
         return output
 
     def wsgi(self, environ: Dict,
