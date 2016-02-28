@@ -73,7 +73,7 @@ class Config(dict):
     default_config = {
         'BASE_DIR': os.path.abspath('.'),
         'TEMPLATE_DIRS': [os.path.join(os.path.abspath('.'), 'templates')],
-        'STATICFILES_DIRS': [os.path.join(os.path.abspath('.'), 'templates')],
+        'STATICFILES_DIRS': [os.path.join(os.path.abspath('.'), 'static')],
         'STATIC_ROOT': '/static/',
 
         'PORT': 8080,
