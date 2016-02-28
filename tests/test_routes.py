@@ -1,5 +1,7 @@
 from unittest import TestCase
 from kobin.routes import Route, Router, type_args
+from kobin.exceptions import HTTPError
+import sys
 
 
 class TypeArgsTests(TestCase):
@@ -58,3 +60,12 @@ class RouterTests(TestCase):
         test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/tests/kobin/'}
         actual_target, actual_args = self.router.match(test_env)
         self.assertEqual(actual_args, {'name': 'kobin'})
+
+    def test_404_not_found(self):
+        def dummy_func(name):
+            return name
+        route = Route('^/tests/(?P<name>\w+)/$', 'GET', dummy_func)
+
+        self.router.add(route.rule, route.method, route)
+        test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/this_is_not_found'}
+        self.assertRaises(HTTPError, self.router.match, test_env)

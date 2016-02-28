@@ -1,6 +1,6 @@
 import os
 from unittest import TestCase
-from kobin import Kobin, Config, current_app, current_config
+from kobin import Kobin, Config, response
 
 
 class KobinTests(TestCase):
@@ -26,6 +26,19 @@ class KobinTests(TestCase):
         test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/10'}
         actual = self.app._handle(test_env)
         expected = 10
+        self.assertEqual(actual, expected)
+
+    def test_404_not_found(self):
+        test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/this_is_not_found'}
+        self.app._handle(test_env)
+        actual = response._status_code
+        expected = 404
+        self.assertEqual(actual, expected)
+
+    def test_handled_body_message_when_404_not_found(self):
+        test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/this_is_not_found'}
+        actual = self.app._handle(test_env)
+        expected = "Not found: '/this_is_not_found'"
         self.assertEqual(actual, expected)
 
     def test_wsgi(self):
