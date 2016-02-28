@@ -1,7 +1,7 @@
 CHANGES
 =======
 
-0.0.4 (2016-??-??)
+0.0.4 (2016-02-28)
 ------------------
 
 * Expect the types of routing arguments from type hints.
@@ -9,6 +9,7 @@ CHANGES
 * Server for static files such as css, images, and so on.
 * Manage configuration class.
 * Support gunicorn.
+* Error handling.
 * Fix several bugs.
 
 0.0.3 (2016-02-08)

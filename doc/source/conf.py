@@ -38,7 +38,7 @@ copyright = '2016, Masashi Shibata'
 author = 'Masashi Shibata'
 
 # The short X.Y version.
-version = '0.0.4-alpha.1'
+version = '0.0.4'
 release = version
 
 language = None
