@@ -30,7 +30,7 @@ class KobinTests(TestCase):
 
     def test_404_not_found(self):
         test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/this_is_not_found'}
-        _ = self.app._handle(test_env)
+        self.app._handle(test_env)
         actual = response._status_code
         expected = 404
         self.assertEqual(actual, expected)
