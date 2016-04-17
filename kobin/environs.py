@@ -1,4 +1,5 @@
 import threading
+import cgi
 from typing import Dict, List, Tuple
 import http.client as http_client
 
@@ -47,6 +48,23 @@ class Request:
     def method(self) -> str:
         """ The ``REQUEST_METHOD`` value as an uppercase string. """
         return self.environ.get('REQUEST_METHOD', 'GET').upper()
+
+    @property
+    def GET(self) -> cgi.MiniFieldStorage:
+        params = cgi.FieldStorage(
+            environ=self.environ,
+            keep_blank_values=True,
+        )
+        return params
+
+    @property
+    def POST(self) -> cgi.MiniFieldStorage:
+        params = cgi.FieldStorage(
+            fp=self.environ['wsgi.input'],
+            environ=self.environ,
+            keep_blank_values=True,
+        )
+        return params
 
     def __getitem__(self, key):
         return self.environ[key]

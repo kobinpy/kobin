@@ -1,4 +1,6 @@
 from unittest import TestCase
+from unittest.mock import MagicMock
+
 from kobin.environs import Request, Response
 
 
@@ -31,6 +33,54 @@ class RequestTests(TestCase):
     def test_method_name_to_uppercase(self):
         self.assertEqual(Request({'REQUEST_METHOD': 'get'}).method, 'GET')
         self.assertEqual(Request({'REQUEST_METHOD': 'Post'}).method, 'POST')
+
+    def test_POST_a_parameter(self):
+        wsgi_input_mock = MagicMock()
+        wsgi_input_mock.read.return_value = b'key1=value1'
+
+        request = Request({
+            'REQUEST_METHOD': 'POST',
+            'QUERY_STRING': '',
+            'wsgi.input': wsgi_input_mock,
+            'CONTENT_TYPE': 'application/x-www-form-urlencoded',
+            'CONTENT_LENGTH': len(b'key1=value1'),
+        })
+
+        self.assertEqual(request.POST['key1'].value, 'value1')
+
+    def test_POST_parameters(self):
+        wsgi_input_mock = MagicMock()
+        wsgi_input_mock.read.return_value = b'key1=value1&key2=value2'
+
+        request = Request({
+            'REQUEST_METHOD': 'POST',
+            'QUERY_STRING': '',
+            'wsgi.input': wsgi_input_mock,
+            'CONTENT_TYPE': 'application/x-www-form-urlencoded',
+            'CONTENT_LENGTH': len(b'key1=value1&key2=value2'),
+        })
+
+        self.assertEqual(request.POST['key1'].value, 'value1')
+        self.assertEqual(request.POST['key2'].value, 'value2')
+
+    def test_GET_a_parameter(self):
+        request = Request({
+            'REQUEST_METHOD': 'GET',
+            'QUERY_STRING': 'key1=value1',
+            'CONTENT_TYPE': 'text/plain',
+            'CONTENT_LENGTH': '',
+        })
+        self.assertEqual(request.GET['key1'].value, 'value1')
+
+    def test_GET_parameters(self):
+        request = Request({
+            'REQUEST_METHOD': 'GET',
+            'QUERY_STRING': 'key1=value1&key2=value2',
+            'CONTENT_TYPE': 'text/plain',
+            'CONTENT_LENGTH': '',
+        })
+        self.assertEqual(request.GET['key1'].value, 'value1')
+        self.assertEqual(request.GET['key2'].value, 'value2')
 
 
 class ResponseTests(TestCase):
