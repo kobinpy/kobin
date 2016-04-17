@@ -102,6 +102,14 @@ class ResponseTests(TestCase):
         expected_content_type = ('Content-Type', 'text/html; charset=UTF-8')
         self.assertIn(expected_content_type, response.headerlist)
 
+    def test_constructor_headerlist_has_already_content_type(self):
+        response = Response()
+        response.add_header('Content-Type', 'application/json')
+        expected_content_type = ('Content-Type', 'application/json')
+        self.assertIn(expected_content_type, response.headerlist)
+        expected_content_type = ('Content-Type', 'text/html; charset=UTF-8')
+        self.assertNotIn(expected_content_type, response.headerlist)
+
     def test_add_header(self):
         response = Response()
         response.add_header('key', 'value')
