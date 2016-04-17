@@ -1,5 +1,6 @@
 import threading
 import cgi
+import json
 from typing import Dict, List, Tuple
 import http.client as http_client
 
@@ -30,6 +31,7 @@ class Request:
     """ A wrapper for WSGI environment dictionaries.
     """
     __slots__ = ('environ', )
+    _body = None  # type: str
 
     def __init__(self, environ: Dict=None) -> None:
         self.environ = {} if environ is None else environ
@@ -65,6 +67,16 @@ class Request:
             keep_blank_values=True,
         )
         return params
+
+    @property
+    def body(self) -> str:
+        if self._body is None:
+            self._body = self.environ['wsgi.input'].read(int(self.environ.get('CONTENT_LENGTH', 0))).decode('utf-8')
+        return self._body
+
+    @property
+    def json(self) -> json:
+        return json.loads(self.body)
 
     def __getitem__(self, key):
         return self.environ[key]
@@ -102,6 +114,7 @@ class LocalRequest(Request):
     """
     bind = Request.__init__
     environ = _local_property()
+    _body = _local_property()
 
 
 ##################################################################################
