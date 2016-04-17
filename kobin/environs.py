@@ -50,7 +50,7 @@ class Request:
         return self.environ.get('REQUEST_METHOD', 'GET').upper()
 
     @property
-    def GET(self) -> cgi.MiniFieldStorage:
+    def GET(self):  # type: ignore
         params = cgi.FieldStorage(
             environ=self.environ,
             keep_blank_values=True,
@@ -58,7 +58,7 @@ class Request:
         return params
 
     @property
-    def POST(self) -> cgi.MiniFieldStorage:
+    def POST(self):  # type: ignore
         params = cgi.FieldStorage(
             fp=self.environ['wsgi.input'],
             environ=self.environ,
