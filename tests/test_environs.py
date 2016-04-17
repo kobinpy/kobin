@@ -82,6 +82,30 @@ class RequestTests(TestCase):
         self.assertEqual(request.GET['key1'].value, 'value1')
         self.assertEqual(request.GET['key2'].value, 'value2')
 
+    def test_body(self):
+        wsgi_input_mock = MagicMock()
+        wsgi_input_mock.read.return_value = b'{"key1": "value1"}'
+        request = Request({
+            'REQUEST_METHOD': 'POST',
+            'QUERY_STRING': '',
+            'wsgi.input': wsgi_input_mock,
+            'CONTENT_TYPE': 'application/json',
+            'CONTENT_LENGTH': len(b'{"key1": "value1"}'),
+        })
+        self.assertEqual(request.body, '{"key1": "value1"}')
+
+    def test_json(self):
+        wsgi_input_mock = MagicMock()
+        wsgi_input_mock.read.return_value = b'{"key1": "value1"}'
+        request = Request({
+            'REQUEST_METHOD': 'POST',
+            'QUERY_STRING': '',
+            'wsgi.input': wsgi_input_mock,
+            'CONTENT_TYPE': 'application/json',
+            'CONTENT_LENGTH': len(b'{"key1": "value1"}'),
+        })
+        self.assertEqual(request.json["key1"], "value1")
+
 
 class ResponseTests(TestCase):
     def test_constructor_body(self):

@@ -30,12 +30,12 @@ def _local_property():
 class Request:
     """ A wrapper for WSGI environment dictionaries.
     """
-    __slots__ = ('environ', )
-    _body = None  # type: str
+    __slots__ = ('environ', '_body', )
 
     def __init__(self, environ: Dict=None) -> None:
         self.environ = {} if environ is None else environ
         self.environ['kobin.request'] = self
+        self._body = None  # type: str
 
     def get(self, value: str, default=None):
         return self.environ.get(value, default)
