@@ -75,7 +75,7 @@ class Request:
         return self._body
 
     @property
-    def json(self) -> json:
+    def json(self) -> Dict[str, str]:
         return json.loads(self.body)
 
     def __getitem__(self, key):
