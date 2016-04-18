@@ -106,6 +106,16 @@ class RequestTests(TestCase):
         })
         self.assertEqual(request.json["key1"], "value1")
 
+    def test_url(self):
+        request = Request({
+            'HTTP_X_FORWARDED_PROTO': 'http',
+            'QUERY_STRING': 'key1=value1&key2=value2',
+            'HTTP_X_FORWARDED_HOST': 'localhost',
+            'PATH_INFO': '/hoge',
+        })
+        actual = request.url
+        self.assertEqual(actual, "http://localhost/hoge?key1=value1&key2=value2")
+
 
 class ResponseTests(TestCase):
     def test_constructor_body(self):

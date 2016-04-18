@@ -3,6 +3,7 @@ import cgi
 import json
 from typing import Dict, List, Tuple
 import http.client as http_client
+from urllib.parse import SplitResult
 
 
 def _local_property():
@@ -77,6 +78,13 @@ class Request:
     @property
     def json(self) -> Dict[str, str]:
         return json.loads(self.body)
+
+    @property
+    def url(self):
+        protocol = self.get('HTTP_X_FORWARDED_PROTO') or self.get('wsgi.url_scheme', 'http')
+        host = self.get('HTTP_X_FORWARDED_HOST') or self.get('HTTP_HOST')
+        query_params = self.get("QUERY_STRING")
+        return SplitResult(protocol, host, self.path, query_params, '').geturl()
 
     def __getitem__(self, key):
         return self.environ[key]
