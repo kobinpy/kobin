@@ -1,5 +1,8 @@
 import re
+from urllib.parse import urljoin
 from typing import Callable, Dict, List, Tuple, Union, Any, get_type_hints  # type: ignore
+
+from .environs import request, response
 
 from kobin.exceptions import HTTPError
 
@@ -11,6 +14,13 @@ def type_args(args_dict: Dict[str, str], type_hints: Dict[str, Any]) -> Dict[str
         arg_type = type_hints.get(k, DEFAULT_ARG_TYPE)
         args_dict[k] = arg_type(v)
         return args_dict
+
+
+def redirect(url):
+    status = 303 if request.get('SERVER_PROTOCOL') == "HTTP/1.1" else 302
+    response.status = status
+    response.add_header('Location', urljoin(request.url, url))
+    return ""
 
 
 class Route:
