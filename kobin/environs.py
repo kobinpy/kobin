@@ -53,20 +53,22 @@ class Request:
         return self.environ.get('REQUEST_METHOD', 'GET').upper()
 
     @property
-    def GET(self):  # type: ignore
-        params = cgi.FieldStorage(
+    def GET(self) -> Dict[str, str]:
+        params = cgi.FieldStorage(  # type: ignore
             environ=self.environ,
             keep_blank_values=True,
         )
-        return params
+        p = {k: params[k].value for k in params}
+        return p
 
     @property
-    def POST(self):  # type: ignore
-        params = cgi.FieldStorage(
+    def POST(self) -> Dict[str, str]:
+        form = cgi.FieldStorage(  # type: ignore
             fp=self.environ['wsgi.input'],
             environ=self.environ,
             keep_blank_values=True,
         )
+        params = {k: form[k].value for k in form}
         return params
 
     @property

@@ -46,7 +46,7 @@ class RequestTests(TestCase):
             'CONTENT_LENGTH': len(b'key1=value1'),
         })
 
-        self.assertEqual(request.POST['key1'].value, 'value1')
+        self.assertEqual(request.POST['key1'], 'value1')
 
     def test_POST_parameters(self):
         wsgi_input_mock = MagicMock()
@@ -60,8 +60,8 @@ class RequestTests(TestCase):
             'CONTENT_LENGTH': len(b'key1=value1&key2=value2'),
         })
 
-        self.assertEqual(request.POST['key1'].value, 'value1')
-        self.assertEqual(request.POST['key2'].value, 'value2')
+        self.assertEqual(request.POST['key1'], 'value1')
+        self.assertEqual(request.POST['key2'], 'value2')
 
     def test_GET_a_parameter(self):
         request = Request({
@@ -70,7 +70,7 @@ class RequestTests(TestCase):
             'CONTENT_TYPE': 'text/plain',
             'CONTENT_LENGTH': '',
         })
-        self.assertEqual(request.GET['key1'].value, 'value1')
+        self.assertEqual(request.GET['key1'], 'value1')
 
     def test_GET_parameters(self):
         request = Request({
@@ -79,8 +79,8 @@ class RequestTests(TestCase):
             'CONTENT_TYPE': 'text/plain',
             'CONTENT_LENGTH': '',
         })
-        self.assertEqual(request.GET['key1'].value, 'value1')
-        self.assertEqual(request.GET['key2'].value, 'value2')
+        self.assertEqual(request.GET['key1'], 'value1')
+        self.assertEqual(request.GET['key2'], 'value2')
 
     def test_body(self):
         wsgi_input_mock = MagicMock()
