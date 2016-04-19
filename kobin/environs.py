@@ -76,15 +76,16 @@ class Request:
         return self._body
 
     @property
-    def json(self) -> Dict[str, str]:
+    def json(self) -> Dict:
         return json.loads(self.body)
 
     @property
-    def url(self):
+    def url(self) -> str:
         protocol = self.get('HTTP_X_FORWARDED_PROTO') or self.get('wsgi.url_scheme', 'http')
         host = self.get('HTTP_X_FORWARDED_HOST') or self.get('HTTP_HOST')
         query_params = self.get("QUERY_STRING")
-        return SplitResult(protocol, host, self.path, query_params, '').geturl()
+        url_split_result = SplitResult(protocol, host, self.path, query_params, '')  # type: ignore
+        return url_split_result.geturl()
 
     def __getitem__(self, key):
         return self.environ[key]
