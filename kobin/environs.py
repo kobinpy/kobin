@@ -1,9 +1,10 @@
 import threading
 import cgi
 import json
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Any
 import http.client as http_client
 from urllib.parse import SplitResult
+from http.cookies import SimpleCookie  # type: ignore
 
 
 def _local_property():
@@ -89,6 +90,15 @@ class Request:
         url_split_result = SplitResult(protocol, host, self.path, query_params, '')  # type: ignore
         return url_split_result.geturl()
 
+    @property
+    def cookies(self) -> Dict[str, str]:
+        cookies = SimpleCookie(self.environ.get('HTTP_COOKIE', '')).values()
+        return {c.key: c.value for c in cookies}
+
+    def get_cookie(self, key: str, default: str=None, secret=None) -> str:
+        value = self.cookies.get(key)
+        return value or default
+
     def __getitem__(self, key):
         return self.environ[key]
 
@@ -145,6 +155,7 @@ class Response:
         self._headers = {}  # type: Dict[str, List[str]]
         self.body = body
         self._status_code = status or self.default_status
+        self._cookies = SimpleCookie()  # type: SimpleCookie
 
         if headers:
             for name, value in headers.items():
@@ -182,7 +193,36 @@ class Response:
         out += [(name, val)
                 for (name, vals) in headers
                 for val in vals]
+        if self._cookies:
+            for c in self._cookies.values():
+                out.append(('Set-Cookie', c.OutputString()))
         return [(k, v.encode('utf8').decode('latin1')) for (k, v) in out]
+
+    def set_cookie(self, key: str, value: Any, expires: str=None, path: str=None, **options: Dict[str, Any]) -> None:
+        from datetime import timedelta, datetime, date
+        import time
+        self._cookies[key] = value
+        if expires:
+            self._cookies[key]['expires'] = expires
+        if path:
+            self._cookies[key]['path'] = path
+
+        for k, v in options.items():
+            if k == 'max_age':
+                if isinstance(v, timedelta):
+                    v = v.seconds + v.days * 24 * 3600
+            if k == 'expires':
+                if isinstance(v, (date, datetime)):
+                    v = v.timetuple()
+                elif isinstance(v, (int, float)):
+                    v = v.gmtime(value)
+                v = time.strftime("%a, %d %b %Y %H:%M:%S GMT", v)  # type: ignore
+            self._cookies[key][k.replace('_', '-')] = v
+
+    def delete_cookie(self, key, **kwargs) -> None:
+        kwargs['max_age'] = -1
+        kwargs['expires'] = 0
+        self.set_cookie(key, '', **kwargs)
 
     def add_header(self, key: str, value: str) -> None:
         self._headers.setdefault(key, []).append(value)
@@ -190,6 +230,7 @@ class Response:
     def apply(self, other):
         self.status = other._status_code
         self._headers = other._headers
+        self._cookies = other._cookies
         self.body = other.body
 
 
@@ -200,6 +241,7 @@ class LocalResponse(Response):
     bind = Response.__init__
     _status_code = _local_property()
     _headers = _local_property()
+    _cookies = _local_property()
     body = _local_property()
 
 

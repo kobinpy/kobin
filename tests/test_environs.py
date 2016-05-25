@@ -22,6 +22,20 @@ class RequestTests(TestCase):
         request = Request({})
         self.assertEqual(request.get('hoge', 'HOGE'), 'HOGE')
 
+    def test_cookies_property_has_nothing(self):
+        request = Request({})
+        self.assertEqual(len(request.cookies), 0)
+
+    def test_cookies_property_has_an_item(self):
+        request = Request({'HTTP_COOKIE': 'foo="bar"'})
+        self.assertEqual(len(request.cookies), 1)
+
+    def test_get_cookie(self):
+        request = Request({'HTTP_COOKIE': 'foo="bar"'})
+        actual = request.get_cookie("foo")
+        expected = 'bar'
+        self.assertEqual(actual, expected)
+
     def test_path_property(self):
         request = Request({'PATH_INFO': '/hoge'})
         self.assertEqual(request.path, '/hoge')
@@ -135,6 +149,18 @@ class ResponseTests(TestCase):
         response = Response()
         expected_content_type = ('Content-Type', 'text/html; charset=UTF-8')
         self.assertIn(expected_content_type, response.headerlist)
+
+    def test_set_cookie(self):
+        response = Response()
+        response.set_cookie('foo', 'bar')
+        expected_set_cookie = ('Set-Cookie', 'foo=bar')
+        self.assertIn(expected_set_cookie, response.headerlist)
+
+    def test_delete_cookie(self):
+        response = Response()
+        response.delete_cookie('foo')
+        expected_set_cookie = ('Set-Cookie', 'foo=""; Max-Age=-1')
+        self.assertIn(expected_set_cookie, response.headerlist)
 
     def test_constructor_headerlist_has_already_content_type(self):
         response = Response()

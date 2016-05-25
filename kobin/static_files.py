@@ -3,7 +3,7 @@ import mimetypes  # type: ignore
 import os
 import time
 
-from kobin.templates import load_file
+from .templates import load_file
 from .environs import request, response
 
 
@@ -11,7 +11,7 @@ def static_file(filename: str,
                 mimetype: str='auto',
                 download: str='',
                 charset: str='UTF-8') -> bytes:
-    from . import current_config
+    from .app import current_config
     static_dirs = current_config()['STATICFILES_DIRS']  # type: List[str]
     filename = load_file(filename, static_dirs)  # Get abs path
     headers = dict()  # type: Dict[str, str]

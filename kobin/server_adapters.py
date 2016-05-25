@@ -1,6 +1,6 @@
 from typing import Dict, Any
 
-from . import Kobin
+from .app import Kobin
 
 
 class ServerAdapter:
@@ -49,7 +49,7 @@ class GunicornServer(ServerAdapter):
 
         GunicornApplication().run()
 
-servers = {
+servers = {  # type: Dict[str, Any]
     'wsgiref': WSGIRefServer,
     'gunicorn': GunicornServer,
-}  # type: Dict[str, Any]
+}

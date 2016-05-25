@@ -1,5 +1,5 @@
 import os
-from unittest import TestCase, skip
+from unittest import TestCase
 from unittest.mock import patch
 
 from kobin.static_files import static_file
@@ -33,25 +33,25 @@ class StaticFilesTests(TestCase):
         'STATICFILES_DIRS': [os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')]
     }
 
-    @patch('kobin.current_config')
+    @patch('kobin.app.current_config')
     def test_return_static_file(self, mock_current_config):
         mock_current_config.return_value = self.dummy_current_config
         actual = static_file('static.css')
         expected = 'body { color: black; }\n'.encode('utf-8')
         self.assertEqual(actual, expected)
 
-    @patch('kobin.current_config')
+    @patch('kobin.app.current_config')
     def test_static_file_404_not_found(self, mock_current_config):
         mock_current_config.return_value = self.dummy_current_config
         self.assertRaises(HTTPError, static_file, 'not_found.png')
 
-    @patch('kobin.current_config')
+    @patch('kobin.app.current_config')
     def test_exist_last_modified_in_headers(self, mock_current_config):
         mock_current_config.return_value = self.dummy_current_config
         static_file('static.css')
         self.assertIn('Last-Modified', response._headers)
 
-    @patch('kobin.current_config')
+    @patch('kobin.app.current_config')
     def test_content_length(self, mock_current_config):
         mock_current_config.return_value = self.dummy_current_config
         expected_content_length = str(23)
@@ -59,7 +59,7 @@ class StaticFilesTests(TestCase):
         actual_content_length = response._headers['Content-Length']
         self.assertIn(expected_content_length, actual_content_length)
 
-    @patch('kobin.current_config')
+    @patch('kobin.app.current_config')
     def test_content_type(self, mock_current_config):
         mock_current_config.return_value = self.dummy_current_config
         expected_content_type = 'text/css; charset=UTF-8'
