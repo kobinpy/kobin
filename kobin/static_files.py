@@ -43,6 +43,6 @@ def static_file(filename: str,
     headers["Accept-Ranges"] = "bytes"
 
     for k, v in headers.items():
-        response.add_header(k, v)
+        response.headers.add_header(k, v)
 
     return body

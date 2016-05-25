@@ -14,6 +14,7 @@ class StaticFileViewTests(TestCase):
             'STATIC_ROOT': '/static/',
             'STATICFILES_DIRS': [os.path.join(os.path.dirname(os.path.abspath(__name__)), 'static')]
         })
+        response.bind({})
 
     def test_routing_to_static_file(self):
         test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/static/static.css'}
@@ -33,6 +34,9 @@ class StaticFilesTests(TestCase):
         'STATICFILES_DIRS': [os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')]
     }
 
+    def setUp(self):
+        response.bind({})
+
     @patch('kobin.app.current_config')
     def test_return_static_file(self, mock_current_config):
         mock_current_config.return_value = self.dummy_current_config
@@ -49,14 +53,14 @@ class StaticFilesTests(TestCase):
     def test_exist_last_modified_in_headers(self, mock_current_config):
         mock_current_config.return_value = self.dummy_current_config
         static_file('static.css')
-        self.assertIn('Last-Modified', response._headers)
+        self.assertIn('Last-Modified', response.headers)
 
     @patch('kobin.app.current_config')
     def test_content_length(self, mock_current_config):
         mock_current_config.return_value = self.dummy_current_config
         expected_content_length = str(23)
         static_file('static.css')
-        actual_content_length = response._headers['Content-Length']
+        actual_content_length = response.headers['Content-Length']
         self.assertIn(expected_content_length, actual_content_length)
 
     @patch('kobin.app.current_config')
@@ -64,5 +68,5 @@ class StaticFilesTests(TestCase):
         mock_current_config.return_value = self.dummy_current_config
         expected_content_type = 'text/css; charset=UTF-8'
         static_file('static.css')
-        actual_content_type = response._headers['Content-Type']
+        actual_content_type = response.headers['Content-Type']
         self.assertIn(expected_content_type, actual_content_type)

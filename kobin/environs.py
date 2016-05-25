@@ -4,7 +4,8 @@ import json
 from typing import Dict, List, Tuple, Any
 import http.client as http_client
 from urllib.parse import SplitResult
-from http.cookies import SimpleCookie  # type: ignore
+from http.cookies import SimpleCookie
+from wsgiref.headers import Headers  # type: ignore
 
 
 def _local_property():
@@ -152,17 +153,17 @@ class Response:
 
     def __init__(self, body: str='', status: int=None, headers: Dict=None,
                  **more_headers) -> None:
-        self._headers = {}  # type: Dict[str, List[str]]
+        self.headers = Headers()
         self.body = body
         self._status_code = status or self.default_status
         self._cookies = SimpleCookie()  # type: SimpleCookie
 
         if headers:
             for name, value in headers.items():
-                self.add_header(name, value)
+                self.headers.add_header(name, value)
         if more_headers:
             for name, value in more_headers.items():
-                self.add_header(name, value)
+                self.headers.add_header(name, value)
 
     @property
     def status_code(self):
@@ -187,12 +188,11 @@ class Response:
     def headerlist(self) -> List[Tuple[str, str]]:
         """ WSGI conform list of (header, value) tuples. """
         out = []  # type: List[Tuple[str, str]]
-        headers = list(self._headers.items())
-        if 'Content-Type' not in self._headers:
-            headers.append(('Content-Type', [self.default_content_type]))
-        out += [(name, val)
-                for (name, vals) in headers
-                for val in vals]
+        if 'Content-Type' not in self.headers:
+            self.headers.add_header('Content-Type', self.default_content_type)
+        out += [(key, value)
+                for key in self.headers.keys()
+                for value in self.headers.get_all(key)]
         if self._cookies:
             for c in self._cookies.values():
                 out.append(('Set-Cookie', c.OutputString()))
@@ -224,13 +224,10 @@ class Response:
         kwargs['expires'] = 0
         self.set_cookie(key, '', **kwargs)
 
-    def add_header(self, key: str, value: str) -> None:
-        self._headers.setdefault(key, []).append(value)
-
     def apply(self, other):
         self.status = other._status_code
-        self._headers = other._headers
         self._cookies = other._cookies
+        self.headers = other.headers
         self.body = other.body
 
 
@@ -240,7 +237,7 @@ class LocalResponse(Response):
     """
     bind = Response.__init__
     _status_code = _local_property()
-    _headers = _local_property()
+    headers = _local_property()
     _cookies = _local_property()
     body = _local_property()
 
