@@ -1,3 +1,5 @@
+wsgi-static-middleware
+
 twine
 wheel
 ipython

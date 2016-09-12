@@ -1,7 +1,9 @@
 alabaster==0.7.7
 appnope==0.1.0
+args==0.1.0
 Babel==2.2.0
 click==6.3
+clint==0.5.1
 coverage==4.0.3
 decorator==4.0.9
 docopt==0.6.2
@@ -9,9 +11,11 @@ docutils==0.12
 flake8==2.5.4
 gnureadline==6.3.3
 gunicorn==19.4.5
+imagesize==0.7.1
 ipython==4.1.1
 ipython-genutils==0.1.0
 Jinja2==2.8
+-e git+git@github.com:c-bata/kobin.git@7b36f3bc5a1d252391f21b400304870771d79079#egg=kobin
 MarkupSafe==0.23
 mccabe==0.4.0
 mypy-lang==0.3.1
@@ -21,8 +25,10 @@ pexpect==4.0.1
 pickleshare==0.6
 pkginfo==1.2.1
 pluggy==0.3.1
+prompt-toolkit==1.0.3
 ptyprocess==0.5.1
 py==1.4.31
+pycodestyle==2.0.0
 pyflakes==1.0.0
 Pygments==2.1.1
 pytest==2.8.7
@@ -38,6 +44,9 @@ sphinx-intl==0.9.9
 sphinx-rtd-theme==0.1.9
 tox==2.3.1
 traitlets==4.1.0
+transifex-client==0.12.1
 twine==1.6.5
+urllib3==1.16
 virtualenv==14.0.6
-wheel==0.29.0
+wcwidth==0.1.7
+wsgi-static-middleware==0.0.3
