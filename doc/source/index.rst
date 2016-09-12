@@ -32,7 +32,7 @@ Hello World
    from kobin import Kobin
    app = Kobin()
 
-   @app.route('^/(?P<name>\w*)$')
+   @app.route('/{name}')
    def hello(name: str):
        return "Hello {}!!".format(name)
 

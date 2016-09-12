@@ -33,21 +33,3 @@ kobin.routes
 
 .. automodule:: kobin.routes
    :members:
-
-kobin.server_adapters
----------------------
-
-.. automodule:: kobin.server_adapters
-   :members:
-
-kobin.static_files
-------------------
-
-.. automodule:: kobin.static_files
-   :members:
-
-kobin.templates
----------------
-
-.. automodule:: kobin.templates
-   :members:
