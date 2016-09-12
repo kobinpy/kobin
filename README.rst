@@ -52,12 +52,7 @@ Requirements
 Kobin Requires the following:
 
 - Python 3.5
-
-Kobin is no dependencies other than the `Python Standard Library <https://docs.python.org/3/library/>`_.
-The following packages are optional:
-
 - Jinja2
-- gunicorn
 
 
 Resources
