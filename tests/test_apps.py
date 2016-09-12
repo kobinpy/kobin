@@ -8,11 +8,11 @@ class KobinTests(TestCase):
         self.app = Kobin()
         self.dummy_start_response = lambda x, y: None
 
-        @self.app.route('^/$')
+        @self.app.route('/')
         def dummy_func():
             return 'hello'
 
-        @self.app.route('^/(?P<typed_id>\d+)$')
+        @self.app.route('/test/{typed_id}')
         def typed_url_var(typed_id: int):
             return typed_id
 
@@ -23,7 +23,7 @@ class KobinTests(TestCase):
         self.assertEqual(actual, expected)
 
     def test_typed_url_var(self):
-        test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/10'}
+        test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/test/10'}
         actual = self.app._handle(test_env)
         expected = 10
         self.assertEqual(actual, expected)
@@ -35,10 +35,17 @@ class KobinTests(TestCase):
         expected = 404
         self.assertEqual(actual, expected)
 
+    def test_404_when_cast_error(self):
+        test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/test/not-integer'}
+        self.app._handle(test_env)
+        actual = response._status_code
+        expected = 404
+        self.assertEqual(actual, expected)
+
     def test_handled_body_message_when_404_not_found(self):
         test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/this_is_not_found'}
         actual = self.app._handle(test_env)
-        expected = "Not found: '/this_is_not_found'"
+        expected = "Not found: /this_is_not_found"
         self.assertEqual(actual, expected)
 
     def test_wsgi(self):

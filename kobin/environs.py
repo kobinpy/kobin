@@ -93,7 +93,7 @@ class Request:
 
     @property
     def cookies(self) -> Dict[str, str]:
-        cookies = SimpleCookie(self.environ.get('HTTP_COOKIE', '')).values()
+        cookies = SimpleCookie(self.environ.get('HTTP_COOKIE', '')).values()  # type: ignore
         return {c.key: c.value for c in cookies}
 
     def get_cookie(self, key: str, default: str=None, secret=None) -> str:
@@ -156,7 +156,7 @@ class Response:
         self.headers = Headers()
         self.body = body
         self._status_code = status or self.default_status
-        self._cookies = SimpleCookie()  # type: SimpleCookie
+        self._cookies = SimpleCookie()  # type: ignore
 
         if headers:
             for name, value in headers.items():
@@ -217,7 +217,7 @@ class Response:
                 elif isinstance(v, (int, float)):
                     v = v.gmtime(value)
                 v = time.strftime("%a, %d %b %Y %H:%M:%S GMT", v)  # type: ignore
-            self._cookies[key][k.replace('_', '-')] = v
+            self._cookies[key][k.replace('_', '-')] = v  # type: ignore
 
     def delete_cookie(self, key, **kwargs) -> None:
         kwargs['max_age'] = -1

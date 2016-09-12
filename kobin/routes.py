@@ -1,4 +1,3 @@
-import re
 from urllib.parse import urljoin
 from typing import Callable, Dict, List, Tuple, Union, Any, get_type_hints  # type: ignore
 
@@ -9,18 +8,16 @@ from kobin.exceptions import HTTPError
 DEFAULT_ARG_TYPE = str
 
 
-def type_args(args_dict: Dict[str, str], type_hints: Dict[str, Any]) -> Dict[str, Any]:
-    for k, v in args_dict.items():
-        arg_type = type_hints.get(k, DEFAULT_ARG_TYPE)
-        args_dict[k] = arg_type(v)
-        return args_dict
-
-
 def redirect(url):
     status = 303 if request.get('SERVER_PROTOCOL') == "HTTP/1.1" else 302
     response.status = status
-    response.add_header('Location', urljoin(request.url, url))
+    response.headers.add_header('Location', urljoin(request.url, url))
     return ""
+
+
+def split_by_slash(path: str) -> List[str]:
+    stripped_path = path.lstrip('/').rstrip('/')
+    return stripped_path.split('/')
 
 
 class Route:
@@ -28,41 +25,78 @@ class Route:
         It is also responsible for turing an URL path rule into a regular
         expression usable by the Router.
     """
-    def __init__(self, rule: str, method: str, callback: Callable[..., Union[str, bytes]]) -> None:
+    def __init__(self, rule: str, method: str, name: str,
+                 callback: Union[str, bytes]) -> None:
         self.rule = rule
-        self.method = method
+        self.method = method.upper()
+        self.name = name
         self.callback = callback
-        self.callback_types = get_type_hints(callback)  # type: Dict[str, Any]
 
-    def call(self, **kwargs) -> Union[str, bytes]:
-        return self.callback(**kwargs)
+    @property
+    def callback_types(self) -> Dict[str, Any]:
+        return get_type_hints(self.callback)  # type: ignore
+
+    def get_typed_url_vars(self, url_vars: Dict[str, str]) -> Dict[str, Any]:
+        typed_url_vars = {}  # type: Dict[str, Any]
+        for k, v in url_vars.items():
+            arg_type = self.callback_types.get(k, DEFAULT_ARG_TYPE)
+            typed_url_vars[k] = arg_type(v)
+        return typed_url_vars
+
+    def _match_method(self, method: str) -> bool:
+        return self.method == method.upper()
+
+    def _match_path(self, path: str) -> Union[None, Dict[str, Any]]:
+        split_rule = split_by_slash(self.rule)
+        split_path = split_by_slash(path)
+        url_vars = {}  # type: Dict[str, str]
+
+        if len(split_rule) != len(split_path):
+            return  # type: ignore
+
+        for r, p in zip(split_rule, split_path):
+            if r.startswith('{') and r.endswith('}'):
+                url_var_key = r.lstrip('{').rstrip('}')
+                url_vars[url_var_key] = p
+                continue
+            if r != p:
+                return  # type: ignore
+        try:
+            typed_url_vars = self.get_typed_url_vars(url_vars)
+        except ValueError:
+            return  # type: ignore
+        return typed_url_vars
+
+    def match(self, method: str, path: str) -> Dict[str, Any]:
+        if not self._match_method(method):
+            return None
+
+        url_vars = self._match_path(path)
+        if url_vars is not None:
+            return self.get_typed_url_vars(url_vars)
 
 
 class Router:
     def __init__(self) -> None:
-        # Search structure for static route
-        self.routes = {}  # type: Dict[str, Dict[str, List[Any]]]
+        self.routes = []  # type: List['Route']
 
-    def match(self, environ: Dict[str, str]) -> Tuple[Route, Dict[str, Any]]:
+    def match(self, environ: Dict[str, str]) \
+            -> Tuple[Callable[..., Union[str, bytes]], Dict[str, Any]]:
         method = environ['REQUEST_METHOD'].upper()
         path = environ['PATH_INFO'] or '/'
 
-        if method not in self.routes:
-            raise HTTPError(405, "Method Not Allowed: {}".format(method))
+        for route in self.routes:
+            url_vars = route.match(method, path)
+            if url_vars is not None:
+                return route.callback, url_vars  # type: ignore
+        raise HTTPError(status=404, body='Not found: {}'.format(request.path))
 
-        for p in self.routes[method]:
-            pattern = re.compile(p)
-            if pattern.search(path):
-                route, getargs = self.routes[method][p]
-                return route, getargs(path)
-        else:
-            raise HTTPError(404, "Not found: {}".format(repr(path)))
-
-    def add(self, rule: str, method: str, route: Route) -> None:
+    def add(self, method: str, rule: str, name: str, callback: Union[str, bytes]) -> None:
         """ Add a new rule or replace the target for an existing rule. """
-        def getargs(path: str) -> Dict[str, Any]:
-            args_dict = re.compile(rule).match(path).groupdict()
-            return type_args(args_dict, route.callback_types)
+        route = Route(method=method.upper(), rule=rule, name=name, callback=callback)
+        self.routes.append(route)
 
-        self.routes.setdefault(method, {})
-        self.routes[method][rule] = (route, getargs)  # type: ignore
+    def reverse(self, name, **kwargs) -> str:
+        for route in self.routes:
+            if name == route.name:
+                return route.rule.format(**kwargs)

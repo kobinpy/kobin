@@ -10,32 +10,11 @@ class Kobin:
     def __init__(self, root_path: str='.') -> None:
         self.router = Router()
         self.config = Config(os.path.abspath(root_path))
-        # register static files view
-        from .static_files import static_file
-        route = Route('^{}(?P<filename>.*)'.format(self.config['STATIC_ROOT']), 'GET', static_file)
-        self.add_route(route)
 
-    def run(self, server: str='wsgiref', **kwargs) -> None:
-        from .server_adapters import ServerAdapter, servers
-        try:
-            if server not in servers:
-                raise ImportError('{server} is not supported.'.format(server))
-            server_cls = servers.get(self.config['SERVER'])
-            server_obj = server_cls(host=self.config['HOST'],
-                                    port=self.config['PORT'], **kwargs)  # type: ServerAdapter
-            print('Serving on port {}...'.format(self.config['PORT']))
-            server_obj.run(self)
-        except KeyboardInterrupt:
-            print('Goodbye.')
-
-    def add_route(self, route: Route) -> None:
-        self.router.add(route.rule, route.method, route)
-
-    def route(self, path: str=None, method: str='GET',
+    def route(self, rule: str=None, method: str='GET', name: str=None,
               callback: Callable[..., Union[str, bytes]]=None) -> Callable[..., Union[str, bytes]]:
         def decorator(callback_func):
-            route = Route(path, method, callback_func)
-            self.add_route(route)
+            self.router.add(method, rule, name, callback_func)
             return callback_func
         return decorator(callback) if callback else decorator
 
@@ -44,8 +23,8 @@ class Kobin:
         request.bind(environ)  # type: ignore
         response.bind()        # type: ignore
         try:
-            route, kwargs = self.router.match(environ)
-            output = route.call(**kwargs) if kwargs else route.call()
+            callback, kwargs = self.router.match(environ)
+            output = callback(**kwargs) if kwargs else callback()
         except HTTPError:
             import sys
             _type, _value, _traceback = sys.exc_info()
