@@ -23,6 +23,7 @@ Kobin has following features.
 - **Statically-typed** web framework with PEP 0484(Type Hints).
 - **Lightweight** implementations for solving your problems easily.
 - Kobin provides Routing, WSGI request and response wrapper, Jinja2 template adapter and several useful utilities.
+- Convert URL variables types using Type Hints.
 
 
 Hello World
@@ -38,9 +39,13 @@ Hello World
    from kobin import Kobin
    app = Kobin()
 
-   @app.route('^/(?P<name>\w*)$')
-   def hello(name: str):
-       return "Hello {}!!".format(name)
+   @app.route('/')
+   def hello() -> str:
+       return "Hello World"
+
+   @app.route('/users/{user_id}')
+   def hello(user_id: int) -> str:
+       return "Hello {}!!".format(user_id)
 
    if __name__ == '__main__':
        app.run()
@@ -49,7 +54,7 @@ Hello World
 Requirements
 ============
 
-Kobin Requires the following:
+Kobin requires the following:
 
 - Python 3.5
 - Jinja2

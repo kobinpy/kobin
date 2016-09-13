@@ -46,4 +46,3 @@ If you add the changes to Kobin, Please run tox testing.
 * mypy: ``mypy kobin``
 * Flake8: ``flake8``
 * doctest: ``cd doc; make doctest``
-
