@@ -1,4 +1,4 @@
-from kobin import Kobin, request, response, template
+from kobin import Kobin, request, response, render_template
 from wsgi_static_middleware import StaticMiddleware
 
 app = Kobin()
@@ -8,7 +8,7 @@ app.config.load_from_pyfile('config.py')
 @app.route('/')
 def index():
     response.headers.add_header("hoge", "fuga")
-    return template('hello_jinja2', name='Kobin')
+    return render_template('hello_jinja2.html', name='Kobin')
 
 
 @app.route('/user/{name}')
