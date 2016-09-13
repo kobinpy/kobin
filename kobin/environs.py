@@ -4,7 +4,7 @@ import json
 from typing import Dict, List, Tuple, Any
 import http.client as http_client
 from urllib.parse import SplitResult
-from http.cookies import SimpleCookie
+from http.cookies import SimpleCookie  # type: ignore
 from wsgiref.headers import Headers  # type: ignore
 
 
@@ -210,12 +210,12 @@ class Response:
         for k, v in options.items():
             if k == 'max_age':
                 if isinstance(v, timedelta):
-                    v = v.seconds + v.days * 24 * 3600
+                    v = v.seconds + v.days * 24 * 3600  # type: ignore
             if k == 'expires':
                 if isinstance(v, (date, datetime)):
-                    v = v.timetuple()
+                    v = v.timetuple()  # type: ignore
                 elif isinstance(v, (int, float)):
-                    v = v.gmtime(value)
+                    v = v.gmtime(value)  # type: ignore
                 v = time.strftime("%a, %d %b %Y %H:%M:%S GMT", v)  # type: ignore
             self._cookies[key][k.replace('_', '-')] = v  # type: ignore
 
