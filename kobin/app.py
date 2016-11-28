@@ -50,7 +50,7 @@ class Kobin:
         return self.wsgi(environ, start_response)
 
     def run(self, host='', port=8000):
-        from wsgiref.simple_server import make_server
+        from wsgiref.simple_server import make_server  # type: ignore
         httpd = make_server(host, port, self)
         httpd.serve_forever()
 
