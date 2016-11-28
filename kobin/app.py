@@ -1,5 +1,5 @@
+from importlib.machinery import SourceFileLoader  # type: ignore
 import os
-import types
 from typing import Any, Callable, Dict, List, Union, Tuple
 from jinja2 import Environment, FileSystemLoader  # type: ignore
 
@@ -70,11 +70,9 @@ class Config(dict):
         self.update_jinja2_environment()
 
     def load_from_pyfile(self, file_name: str) -> None:
-        t = types.ModuleType('config')  # type: ignore
         file_path = os.path.join(self.root_path, file_name)
-        with open(file_path) as config_file:
-            exec(compile(config_file.read(), file_path, 'exec'), t.__dict__)  # type: ignore
-            self.load_from_module(t)
+        module = SourceFileLoader('config', file_path).load_module()  # type: ignore
+        self.load_from_module(module)
 
     def load_from_module(self, module) -> None:
         configs = {key: getattr(module, key) for key in dir(module) if key.isupper()}
