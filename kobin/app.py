@@ -49,6 +49,11 @@ class Kobin:
         """It is called when receive http request."""
         return self.wsgi(environ, start_response)
 
+    def run(self, host='', port=8000):
+        from wsgiref.simple_server import make_server
+        httpd = make_server(host, port, self)
+        httpd.serve_forever()
+
 
 class Config(dict):
     default_config = {  # type: Dict[str, Any]

@@ -20,8 +20,6 @@ def hello(name: str):
     """.format(name, request.path, str(response.headerlist))
 
 if __name__ == '__main__':
-    from wsgiref.simple_server import make_server
     app = StaticMiddleware(app, static_root=app.config['STATIC_URL'],
                            static_dirs=app.config['STATICFILES_DIRS'])
-    httpd = make_server('', 8080, app)
-    httpd.serve_forever()
+    app.run()
