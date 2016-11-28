@@ -1,7 +1,9 @@
 import os
 import types
 from typing import Any, Callable, Dict, List, Union, Tuple
-from .routes import Router, Route
+from jinja2 import Environment, FileSystemLoader  # type: ignore
+
+from .routes import Router
 from .environs import request, response
 from .exceptions import HTTPError
 
@@ -49,21 +51,18 @@ class Kobin:
 
 
 class Config(dict):
-    default_config = {
+    default_config = {  # type: Dict[str, Any]
         'BASE_DIR': os.path.abspath('.'),
         'TEMPLATE_DIRS': [os.path.join(os.path.abspath('.'), 'templates')],
         'STATICFILES_DIRS': [os.path.join(os.path.abspath('.'), 'static')],
         'STATIC_ROOT': '/static/',
-
-        'PORT': 8080,
-        'HOST': '127.0.0.1',
-        'SERVER': 'wsgiref',
-    }  # type: Dict[str, Any]
+    }
 
     def __init__(self, root_path: str, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.root_path = root_path
         self.update(self.default_config)
+        self.update_jinja2_environment()
 
     def load_from_pyfile(self, file_name: str) -> None:
         t = types.ModuleType('config')  # type: ignore
@@ -75,6 +74,10 @@ class Config(dict):
     def load_from_module(self, module) -> None:
         configs = {key: getattr(module, key) for key in dir(module) if key.isupper()}
         self.update(configs)
+        self.update_jinja2_environment()
+
+    def update_jinja2_environment(self):
+        self['JINJA2_ENV'] = Environment(loader=FileSystemLoader(self['TEMPLATE_DIRS']))
 
 
 def current_app() -> Kobin:
