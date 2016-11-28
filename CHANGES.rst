@@ -1,14 +1,15 @@
 CHANGES
 =======
 
-0.0.5 (2016-09-??)
+0.0.5 (2016-11-28)
 ------------------
 
 * Replace regex router with new style router.
 * Correspond reverse routing.
-* Remove serving static file. Please use wsgi-static-middleware
+* Remove serving static file. Please use wsgi-static-middleware.
 * Remove server adapter.
 * Support only Jinja2.
+* Refactoring.
 
 0.0.4 (2016-02-28)
 ------------------
