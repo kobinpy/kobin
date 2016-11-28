@@ -56,8 +56,7 @@ class Route:
 
         for r, p in zip(split_rule, split_path):
             if r.startswith('{') and r.endswith('}'):
-                url_var_key = r.lstrip('{').rstrip('}')
-                url_vars[url_var_key] = p
+                url_vars[r[1:-1]] = p
                 continue
             if r != p:
                 return  # type: ignore
