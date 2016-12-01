@@ -1,5 +1,4 @@
 from kobin import Kobin, request, response, render_template
-from wsgi_static_middleware import StaticMiddleware
 
 app = Kobin()
 app.config.load_from_pyfile('config.py')
@@ -18,13 +17,3 @@ def hello(name: str):
     <p>Request Path: {}</p>
     <p>Response Headers: {}</p>
     """.format(name, request.path, str(response.headerlist))
-
-if __name__ == '__main__':
-    from wsgiref.simple_server import make_server
-    app = StaticMiddleware(
-        app,
-        static_root=app.config['STATIC_URL'],
-        static_dirs=app.config['STATICFILES_DIRS']
-    )
-    httpd = make_server('', 8080, app)
-    httpd.serve_forever()
