@@ -1,11 +1,10 @@
 import threading
 import cgi
 import json
-from typing import Dict, List, Tuple, Any, Iterable
 import http.client as http_client
 from urllib.parse import SplitResult
-from http.cookies import SimpleCookie  # type: ignore
-from wsgiref.headers import Headers  # type: ignore
+from http.cookies import SimpleCookie
+from wsgiref.headers import Headers
 
 
 ##################################################################################
@@ -16,28 +15,28 @@ class Request:
     """
     __slots__ = ('environ', '_body', )
 
-    def __init__(self, environ: Dict=None) -> None:
+    def __init__(self, environ=None):
         self.environ = {} if environ is None else environ
         self.environ['kobin.request'] = self
-        self._body = None  # type: str
+        self._body = None
 
-    def get(self, value: str, default=None):
+    def get(self, value, default=None):
         return self.environ.get(value, default)
 
     @property
-    def path(self) -> str:
+    def path(self):
         """ The value of ``PATH_INFO`` with exactly one prefixed slash (to fix
             broken clients and avoid the "empty path" edge case). """
         return '/' + self.environ.get('PATH_INFO', '').lstrip('/')
 
     @property
-    def method(self) -> str:
+    def method(self):
         """ The ``REQUEST_METHOD`` value as an uppercase string. """
         return self.environ.get('REQUEST_METHOD', 'GET').upper()
 
     @property
-    def GET(self) -> Dict[str, str]:
-        params = cgi.FieldStorage(  # type: ignore
+    def GET(self):
+        params = cgi.FieldStorage(
             environ=self.environ,
             keep_blank_values=True,
         )
@@ -45,8 +44,8 @@ class Request:
         return p
 
     @property
-    def POST(self) -> Dict[str, str]:
-        form = cgi.FieldStorage(  # type: ignore
+    def POST(self):
+        form = cgi.FieldStorage(
             fp=self.environ['wsgi.input'],
             environ=self.environ,
             keep_blank_values=True,
@@ -55,29 +54,29 @@ class Request:
         return params
 
     @property
-    def body(self) -> str:
+    def body(self):
         if self._body is None:
             self._body = self.environ['wsgi.input'].read(int(self.environ.get('CONTENT_LENGTH', 0))).decode('utf-8')
         return self._body
 
     @property
-    def json(self) -> Dict:
+    def json(self):
         return json.loads(self.body)
 
     @property
-    def url(self) -> str:
+    def url(self):
         protocol = self.get('HTTP_X_FORWARDED_PROTO') or self.get('wsgi.url_scheme', 'http')
         host = self.get('HTTP_X_FORWARDED_HOST') or self.get('HTTP_HOST')
         query_params = self.get("QUERY_STRING")
-        url_split_result = SplitResult(protocol, host, self.path, query_params, '')  # type: ignore
+        url_split_result = SplitResult(protocol, host, self.path, query_params, '')
         return url_split_result.geturl()
 
     @property
-    def cookies(self) -> Dict[str, str]:
-        cookies = SimpleCookie(self.environ.get('HTTP_COOKIE', '')).values()  # type: ignore
+    def cookies(self):
+        cookies = SimpleCookie(self.environ.get('HTTP_COOKIE', '')).values()
         return {c.key: c.value for c in cookies}
 
-    def get_cookie(self, key: str, default: str=None, secret=None) -> str:
+    def get_cookie(self, key, default=None, secret=None):
         value = self.cookies.get(key)
         return value or default
 
@@ -138,7 +137,7 @@ class LocalRequest(Request):
     _body = _local_property()
 
 
-request = LocalRequest()  # type: LocalRequest
+request = LocalRequest()
 
 ##################################################################################
 # Response Object ################################################################
@@ -152,12 +151,11 @@ class Response:
     default_status = 200
     default_content_type = 'text/plain; charset=UTF-8'
 
-    def __init__(self, body: str='', status: int=None, headers: Dict=None,
-                 charset: str='utf-8') -> None:
+    def __init__(self, body='', status=None, headers=None, charset='utf-8'):
         self.headers = Headers()
         self._body = body
         self._status_code = status or self.default_status
-        self._cookies = SimpleCookie()  # type: ignore
+        self._cookies = SimpleCookie()
         self.charset = charset
 
         if headers:
@@ -165,7 +163,7 @@ class Response:
                 self.headers.add_header(name, value)
 
     @property
-    def body(self) -> Iterable[bytes]:
+    def body(self):
         return [self._body.encode(self.charset)]
 
     @property
@@ -182,13 +180,13 @@ class Response:
         return str(status or ('{} Unknown'.format(self._status_code)))
 
     @status.setter
-    def status(self, status_code: int):
+    def status(self, status_code):
         if not 100 <= status_code <= 999:
             raise ValueError('Status code out of range.')
         self._status_code = status_code
 
     @property
-    def headerlist(self) -> List[Tuple[str, str]]:
+    def headerlist(self):
         """ WSGI conform list of (header, value) tuples. """
         if 'Content-Type' not in self.headers:
             self.headers.add_header('Content-Type', self.default_content_type)
@@ -197,7 +195,7 @@ class Response:
                 self.headers.add_header('Set-Cookie', c.OutputString())
         return self.headers.items()
 
-    def set_cookie(self, key: str, value: Any, expires: str=None, path: str=None, **options: Dict[str, Any]) -> None:
+    def set_cookie(self, key, value, expires=None, path=None, **options):
         from datetime import timedelta, datetime, date
         import time
         self._cookies[key] = value
@@ -209,16 +207,16 @@ class Response:
         for k, v in options.items():
             if k == 'max_age':
                 if isinstance(v, timedelta):
-                    v = v.seconds + v.days * 24 * 3600  # type: ignore
+                    v = v.seconds + v.days * 24 * 3600
             if k == 'expires':
                 if isinstance(v, (date, datetime)):
-                    v = v.timetuple()  # type: ignore
+                    v = v.timetuple()
                 elif isinstance(v, (int, float)):
-                    v = v.gmtime(value)  # type: ignore
-                v = time.strftime("%a, %d %b %Y %H:%M:%S GMT", v)  # type: ignore
-            self._cookies[key][k.replace('_', '-')] = v  # type: ignore
+                    v = v.gmtime(value)
+                v = time.strftime("%a, %d %b %Y %H:%M:%S GMT", v)
+            self._cookies[key][k.replace('_', '-')] = v
 
-    def delete_cookie(self, key, **kwargs) -> None:
+    def delete_cookie(self, key, **kwargs):
         kwargs['max_age'] = -1
         kwargs['expires'] = 0
         self.set_cookie(key, '', **kwargs)
@@ -227,35 +225,33 @@ class Response:
 class JSONResponse(Response):
     default_content_type = 'application/json; charset=UTF-8'
 
-    def __init__(self, dic: Dict, status: int=200, headers: Dict=None,
-                 charset: str='utf-8', **dump_args) -> None:
+    def __init__(self, dic, status=200, headers=None, charset='utf-8', **dump_args):
         self.dic = dic
         self.json_dump_args = dump_args
         super().__init__('', status=status, headers=headers, charset=charset)
 
     @property
-    def body(self) -> Iterable[bytes]:
+    def body(self):
         return [json.dumps(self.dic, **self.json_dump_args).encode(self.charset)]
 
 
 class TemplateResponse(Response):
     default_content_type = 'text/html; charset=UTF-8'
 
-    def __init__(self, filename: str, status: int=200, headers: Dict=None,
-                 charset: str='utf-8', **tpl_args) -> None:
-        from . import current_config  # type: ignore
-        self.template = current_config()['JINJA2_ENV'].get_template(filename)  # type: ignore
+    def __init__(self, filename, status, headers=None, charset='utf-8', **tpl_args):
+        from . import current_config
+        self.template = current_config()['JINJA2_ENV'].get_template(filename)
         self.tpl_args = tpl_args
         super().__init__(body='', status=status, headers=headers, charset=charset)
 
     @property
-    def body(self) -> Iterable[bytes]:
+    def body(self):
         return [self.template.render(**self.tpl_args).encode(self.charset)]
 
 
 class HTTPError(Response, Exception):
     default_status = 500
 
-    def __init__(self, body: str, status: int, headers: Dict=None, charset: str='utf-8') -> None:
+    def __init__(self, body, status, headers=None, charset='utf-8'):
         super().__init__(body=body, status=status or self.default_status,
                          headers=headers, charset=charset)

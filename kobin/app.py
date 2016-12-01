@@ -1,32 +1,26 @@
-from importlib.machinery import SourceFileLoader  # type: ignore
-from jinja2 import Environment, FileSystemLoader  # type: ignore
+from importlib.machinery import SourceFileLoader
+from jinja2 import Environment, FileSystemLoader
 import os
 import traceback
-from typing import Any, Callable, Dict
 
 from .routes import Router
-from .environs import request, Response, HTTPError
-from .kobin_typings import (
-    WSGIEnviron, WSGIEnvironValue, WSGIResponse, StartResponse,
-    ViewResponse
-)
+from .environs import request, HTTPError
 
 
 class Kobin:
-    def __init__(self, root_path: str='.') -> None:
+    def __init__(self, root_path='.'):
         self.router = Router()
         self.config = Config(os.path.abspath(root_path))
 
-    def route(self, rule: str=None, method: str='GET', name: str=None,
-              callback: Callable[..., ViewResponse]=None) -> Callable[..., ViewResponse]:
-        def decorator(callback_func: Callable[..., Response]) -> Callable[..., ViewResponse]:
+    def route(self, rule=None, method='GET', name=None, callback=None):
+        def decorator(callback_func):
             self.router.add(method, rule, name, callback_func)
             return callback_func
         return decorator(callback) if callback else decorator
 
-    def _handle(self, environ: WSGIEnviron) -> ViewResponse:
+    def _handle(self, environ):
         environ['kobin.app'] = self
-        request.bind(environ)  # type: ignore
+        request.bind(environ)
 
         try:
             callback, kwargs = self.router.match(environ)
@@ -42,46 +36,46 @@ class Kobin:
             response = HTTPError(message, 500)
         return response
 
-    def wsgi(self, environ: WSGIEnviron, start_response: StartResponse) -> WSGIResponse:
+    def wsgi(self, environ, start_response):
         response = self._handle(environ)
         start_response(response.status, response.headerlist)
         return response.body
 
-    def __call__(self, environ: WSGIEnviron, start_response: StartResponse) -> WSGIResponse:
+    def __call__(self, environ, start_response):
         """It is called when receive http request."""
         return self.wsgi(environ, start_response)
 
 
 class Config(dict):
-    default_config = {  # type: WSGIEnviron
+    default_config = {
         'BASE_DIR': os.path.abspath('.'),
         'TEMPLATE_DIRS': [os.path.join(os.path.abspath('.'), 'templates')],
         'DEBUG': False,
     }
 
-    def __init__(self, root_path: str, *args, **kwargs) -> None:
+    def __init__(self, root_path, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.root_path = root_path
         self.update(self.default_config)
         self.update_jinja2_environment()
 
-    def load_from_pyfile(self, file_name: str) -> None:
+    def load_from_pyfile(self, file_name):
         file_path = os.path.join(self.root_path, file_name)
-        module = SourceFileLoader('config', file_path).load_module()  # type: ignore
+        module = SourceFileLoader('config', file_path).load_module()
         self.load_from_module(module)
 
-    def load_from_module(self, module) -> None:
+    def load_from_module(self, module):
         configs = {key: getattr(module, key) for key in dir(module) if key.isupper()}
         self.update(configs)
         self.update_jinja2_environment()
 
-    def update_jinja2_environment(self) -> None:
+    def update_jinja2_environment(self):
         self['JINJA2_ENV'] = Environment(loader=FileSystemLoader(self['TEMPLATE_DIRS']))
 
 
-def current_app() -> Kobin:
+def current_app():
     return request['kobin.app']
 
 
-def current_config() -> Config:
+def current_config():
     return current_app().config
