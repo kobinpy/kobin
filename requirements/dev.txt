@@ -1,8 +1,7 @@
-wsgi-static-middleware
-
 twine
 wheel
 ipython
+ipdb
 
 sphinx
 sphinx-intl

@@ -1,6 +1,12 @@
 CHANGES
 =======
 
+0.0.6 (2016-12-??)
+------------------
+
+* Integrating wsgicli.
+* Update documentations.
+
 0.0.5 (2016-11-28)
 ------------------
 
