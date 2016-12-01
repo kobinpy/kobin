@@ -15,6 +15,10 @@ Kobin
    :target: https://codeclimate.com/github/kobinpy/kobin
    :alt: Code Climate
 
+.. image:: https://readthedocs.org/projects/kobin/badge/?version=latest
+   :target: http://kobin.readthedocs.org/en/latest/?badge=latest
+   :alt: Documentation Status
+
 
 `Kobin <https://kobin.readthedocs.org/>`_ is a small and statically-typed WSGI micro web framework for Python.
 **This library is a pre-release. Expect missing docs and breaking API changes.**
@@ -69,12 +73,13 @@ Run server
    $ pip install gunicorn
    $ gunicorn main:app
 
+
 Requirements
 ============
 
 Kobin requires the following:
 
-- Python 3.5
+- Python 3.5 or 3.6(beta)
 - Jinja2
 - wsgicli
 

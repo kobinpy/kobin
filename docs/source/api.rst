@@ -1,6 +1,6 @@
-===
-API
-===
+=================
+API Documentation
+=================
 
 This documentations is generated from kobin's source code.
 

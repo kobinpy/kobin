@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-01 17:03+0900\n"
+"POT-Creation-Date: 2016-12-01 19:14+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,18 +18,16 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 
 #: ../../source/index.rst:5
-msgid "Welcome to Kobin"
-msgstr ""
+#, fuzzy
+msgid "Kobin Documentation"
+msgstr "Kobin ドキュメント"
 
 #: ../../source/index.rst:7
 msgid ""
 "Kobin is a small and statically-typed WSGI micro web framework for "
 "Python. **This library is a pre-release. Expect missing docs and breaking"
 " API changes.** Kobin has following features."
-msgstr ""
-"Kobin(小瓶)はPython製Webフレームワークです。"
-"開発中のためドキュメンテーションの不備やAPIの大きな変更があるかもしれません。ご注意ください。"
-"Kobinの特徴は以下のとおりです。"
+msgstr "Kobin(小瓶)はPython製Webフレームワークです。開発中のためドキュメンテーションの不備やAPIの大きな変更があるかもしれません。ご注意ください。Kobinの特徴は以下のとおりです。"
 
 #: ../../source/index.rst:11
 msgid "**Statically-typed** web framework with PEP 0484(Type Hints)."
@@ -46,79 +44,99 @@ msgid ""
 msgstr "Kobinは主にルーティング、WSGIリクエスト・レスポンスオブジェクト、Jinja2のアダプターを提供しています。"
 
 #: ../../source/index.rst:17
-msgid "Installation"
-msgstr "インストール"
-
-#: ../../source/index.rst:25
-msgid "Hello World"
+msgid "Getting Started"
 msgstr ""
 
-#: ../../source/index.rst:41
+#: ../../source/index.rst:20
 msgid "Requirements"
 msgstr ""
 
-#: ../../source/index.rst:43
-msgid "Kobin Requires the following:"
-msgstr "Kobinを動かすには以下のものが必要です。"
+#: ../../source/index.rst:22
+#, fuzzy
+msgid "Kobin requires the following:"
+msgstr "Kobinを動かすには以下が必要です。"
 
-#: ../../source/index.rst:45
-msgid "Python 3.5"
+#: ../../source/index.rst:24
+msgid "Python 3.5 or 3.6 (beta)"
 msgstr ""
 
-#: ../../source/index.rst:47
-msgid ""
-"Kobin is no dependencies other than the `Python Standard Library "
-"<https://docs.python.org/3/library/>`_. The following packages are "
-"optional:"
-msgstr "以下のライブラリはオプショナルです。必要に応じてインストールしてください。"
-
-#: ../../source/index.rst:50
+#: ../../source/index.rst:25
 msgid "Jinja2"
 msgstr ""
 
-#: ../../source/index.rst:51
-msgid "gunicorn"
+#: ../../source/index.rst:26
+msgid "wsgicli"
 msgstr ""
 
-#: ../../source/index.rst:55
+#: ../../source/index.rst:29
+msgid "Installation"
+msgstr "インストール"
+
+#: ../../source/index.rst:31
+msgid "Install using pip."
+msgstr "pipを使用してインストール"
+
+#: ../../source/index.rst:39
+msgid "Hello World Example"
+msgstr "Hello Worldの例"
+
+#: ../../source/index.rst:58
+msgid "Run server"
+msgstr "サーバの起動"
+
+#: ../../source/index.rst:60
+msgid "**Development**"
+msgstr "開発環境での実行"
+
+#: ../../source/index.rst:66
+msgid "**Production**"
+msgstr "本番環境での実行"
+
+#: ../../source/index.rst:75
 msgid "Kobin documentation contents"
 msgstr "目次"
 
-#: ../../source/index.rst:66
+#: ../../source/index.rst:86
 msgid "Links"
 msgstr "リンク"
 
-#: ../../source/index.rst:68
+#: ../../source/index.rst:88
+msgid "`Documentation (English) <https://kobin.readthedocs.org/en/latest/>`_"
+msgstr "`ドキュメント (英語) <https://kobin.readthedocs.org/en/latest/>`_"
+
+#: ../../source/index.rst:89
+#, fuzzy
+msgid "`Documentation (日本語) <https://kobin.readthedocs.org/ja/latest/>`_"
+msgstr "`ドキュメント (英語) <https://kobin.readthedocs.org/en/latest/>`_"
+
+#: ../../source/index.rst:90
 msgid "`Github <https://github.com/kobinpy/kobin>`_"
 msgstr ""
 
-#: ../../source/index.rst:69
+#: ../../source/index.rst:91
 msgid "`PyPI <https://pypi.python.org/pypi/kobin>`_"
 msgstr ""
 
-#: ../../source/index.rst:73
-msgid "Indices and tables"
-msgstr "索引表"
-
-#: ../../source/index.rst:75
-msgid ":ref:`genindex`"
-msgstr ""
-
-#: ../../source/index.rst:76
-msgid ":ref:`modindex`"
-msgstr ""
-
-#: ../../source/index.rst:77
-msgid ":ref:`search`"
-msgstr ""
-
-#: ../../source/index.rst:81
+#: ../../source/index.rst:95
 msgid "Statuses"
 msgstr "ステータス"
 
-#~ msgid "`Github <https://github.com/c-bata/kobin>`_"
-#~ msgstr ""
+#: ../../source/index.rst:116
+msgid "Indices and tables"
+msgstr "索引表"
 
-#~ msgid "|Welcome to Kobin|"
+#: ../../source/index.rst:118
+msgid ":ref:`genindex`"
+msgstr ""
+
+#: ../../source/index.rst:119
+msgid ":ref:`modindex`"
+msgstr ""
+
+#: ../../source/index.rst:120
+msgid ":ref:`search`"
+msgstr ""
+
+#~ msgid "`ドキュメント (日本語) <https://kobin.readthedocs.org/ja/latest/>`_"
 #~ msgstr ""
 

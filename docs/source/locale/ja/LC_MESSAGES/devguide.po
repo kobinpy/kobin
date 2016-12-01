@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0.4-alpha.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-01 15:14+0900\n"
+"POT-Creation-Date: 2016-12-01 19:09+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,11 +48,11 @@ msgstr "ビルド"
 
 #: ../../source/devguide.rst:20
 msgid "English: ``make html``"
-msgstr ""
+msgstr "英語: ``make html``"
 
 #: ../../source/devguide.rst:21
-msgid "日本語: ``make -e SPHINXOPTS=\"-D language='ja'\" html``"
-msgstr ""
+msgid "Japanese: ``make -e SPHINXOPTS=\"-D language='ja'\" html``"
+msgstr "日本語: ``make -e SPHINXOPTS=\"-D language='ja'\" html``"
 
 #: ../../source/devguide.rst:25
 msgid "Translation"
@@ -94,42 +94,5 @@ msgid "Flake8: ``flake8 kobin``"
 msgstr ""
 
 #: ../../source/devguide.rst:48
-msgid "doctest: ``cd doc; make doctest``"
+msgid "doctest: ``cd docs; make doctest``"
 msgstr ""
-
-#~ msgid "Japanese: ``make -e SPHINXOPTS=\"-D language='ja'\" html``"
-#~ msgstr ""
-
-#~ msgid "doctest"
-#~ msgstr ""
-
-#~ msgid "pytest"
-#~ msgstr ""
-
-#~ msgid "mypy"
-#~ msgstr ""
-
-#~ msgid "Flake8"
-#~ msgstr ""
-
-#~ msgid "``` $ tox ```"
-#~ msgstr ""
-
-#~ msgid "``` $ python setup.py test $ flake8 $ mypy kobin ```"
-#~ msgstr ""
-
-#~ msgid "``` $ cd doc $ make doctest ```"
-#~ msgstr ""
-
-#~ msgid "pytest: `python setup.py test`"
-#~ msgstr ""
-
-#~ msgid "mypy: `mypy kobin`"
-#~ msgstr ""
-
-#~ msgid "Flake8: `flake8`"
-#~ msgstr ""
-
-#~ msgid "doctest: `cd doc; make doctest`"
-#~ msgstr ""
-

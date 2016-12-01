@@ -18,7 +18,7 @@ Build
 -----
 
 * English: ``make html``
-* 日本語: ``make -e SPHINXOPTS="-D language='ja'" html``
+* Japanese: ``make -e SPHINXOPTS="-D language='ja'" html``
 
 
 Translation
@@ -45,4 +45,4 @@ If you add the changes to Kobin, Please run tox testing.
 * pytest: ``python setup.py test``
 * mypy: ``mypy kobin``
 * Flake8: ``flake8 kobin``
-* doctest: ``cd doc; make doctest``
+* doctest: ``cd docs; make doctest``
