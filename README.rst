@@ -64,6 +64,7 @@ Run server
 
 .. code-block:: console
 
+   $ pip install wsgicli
    $ wsgicli main.py app --reload
 
 **Production**
@@ -81,7 +82,6 @@ Kobin requires the following:
 
 - Python 3.5 or 3.6(beta)
 - Jinja2
-- wsgicli
 
 
 Resources

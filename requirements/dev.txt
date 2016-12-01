@@ -1,8 +1,21 @@
+# for running
+wsgicli
+
+# for packaging
 twine
 wheel
+
+# for debuging
 ipython
 ipdb
 
+# for documentation
 sphinx
 sphinx-intl
 solar-theme
+
+# for testing
+flake8
+mypy-lang
+pytest
+tox

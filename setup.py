@@ -57,7 +57,7 @@ setup(
     long_description=README + '\n\n' + CHANGES,
     classifiers=__classifiers__,
     packages=find_packages(exclude=['test*']),
-    install_requires=['jinja2', 'wsgicli'],
+    install_requires=['jinja2'],
     keywords='web framework wsgi',
     license=__license__,
     include_package_data=True,

@@ -9,5 +9,7 @@ def hello() -> str:
 
 
 @app.route('/hello/{name}')
-def hello(name: str) -> str:
-    return "Hello {}!!".format(name)
+def hello(name: str) -> dict:
+    return {
+        "name": name
+    }
