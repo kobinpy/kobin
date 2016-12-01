@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-01 19:14+0900\n"
+"POT-Creation-Date: 2016-12-02 05:28+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,75 +64,71 @@ msgstr ""
 msgid "Jinja2"
 msgstr ""
 
-#: ../../source/index.rst:26
-msgid "wsgicli"
-msgstr ""
-
-#: ../../source/index.rst:29
+#: ../../source/index.rst:28
 msgid "Installation"
 msgstr ""
 
-#: ../../source/index.rst:31
+#: ../../source/index.rst:30
 msgid "Install using pip."
 msgstr "pipを使用してインストール"
 
-#: ../../source/index.rst:39
+#: ../../source/index.rst:38
 msgid "Hello World Example"
 msgstr "Hello Worldの例"
 
-#: ../../source/index.rst:58
+#: ../../source/index.rst:57
 msgid "Run server"
 msgstr "サーバの起動"
 
-#: ../../source/index.rst:60
+#: ../../source/index.rst:59
 msgid "**Development**"
 msgstr "開発環境での実行"
 
-#: ../../source/index.rst:66
+#: ../../source/index.rst:65
 msgid "**Production**"
 msgstr "本番環境での実行"
 
-#: ../../source/index.rst:75
+#: ../../source/index.rst:74
 msgid "Kobin documentation contents"
 msgstr "目次"
 
-#: ../../source/index.rst:86
+#: ../../source/index.rst:85
 msgid "Links"
 msgstr "リンク"
 
-#: ../../source/index.rst:88
+#: ../../source/index.rst:87
 msgid "`Documentation (English) <https://kobin.readthedocs.org/en/latest/>`_"
 msgstr "`ドキュメント (英語) <https://kobin.readthedocs.org/en/latest/>`_"
 
-#: ../../source/index.rst:89
+#: ../../source/index.rst:88
 #, fuzzy
 msgid "`Documentation (日本語) <https://kobin.readthedocs.org/ja/latest/>`_"
 msgstr "`ドキュメント (英語) <https://kobin.readthedocs.org/en/latest/>`_"
 
-#: ../../source/index.rst:90
+#: ../../source/index.rst:89
 msgid "`Github <https://github.com/kobinpy/kobin>`_"
 msgstr ""
 
-#: ../../source/index.rst:91
+#: ../../source/index.rst:90
 msgid "`PyPI <https://pypi.python.org/pypi/kobin>`_"
 msgstr ""
 
-#: ../../source/index.rst:95
+#: ../../source/index.rst:94
 msgid "Statuses"
 msgstr "ステータス"
 
-#: ../../source/index.rst:116
+#: ../../source/index.rst:115
 msgid "Indices and tables"
 msgstr "索引表"
 
-#: ../../source/index.rst:118
+#: ../../source/index.rst:117
 msgid ":ref:`genindex`"
 msgstr ""
 
-#: ../../source/index.rst:119
+#: ../../source/index.rst:118
 msgid ":ref:`modindex`"
 msgstr ""
 
-#: ../../source/index.rst:120
+#: ../../source/index.rst:119
 msgid ":ref:`search`"
 msgstr ""

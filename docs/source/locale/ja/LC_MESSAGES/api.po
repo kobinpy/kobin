@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0.4-alpha.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-01 19:14+0900\n"
+"POT-Creation-Date: 2016-12-02 05:28+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,15 +41,8 @@ msgstr ""
 msgid "A thread local subclass of :class:`Request`"
 msgstr ""
 
-#: kobin.environs.LocalRequest.environ:1 kobin.environs.LocalResponse.body:1
-#: kobin.environs.LocalResponse.headers:1 of
+#: kobin.environs.LocalRequest.environ:1 of
 msgid "Thread-local property"
-msgstr ""
-
-#: kobin.environs.LocalResponse:1 of
-msgid ""
-"A thread-local subclass ob :class:`BaseResponse` with a different set of "
-"attributes for each thread"
 msgstr ""
 
 #: kobin.environs.Request:1 of
@@ -67,10 +60,6 @@ msgid ""
 msgstr ""
 
 #: ../../source/api.rst:26
-msgid "kobin.exceptions"
-msgstr ""
-
-#: ../../source/api.rst:32
 msgid "kobin.routes"
 msgstr ""
 
@@ -80,3 +69,4 @@ msgid ""
 "is also responsible for turing an URL path rule into a regular expression"
 " usable by the Router."
 msgstr ""
+

@@ -23,7 +23,6 @@ Kobin requires the following:
 
 - Python 3.5 or 3.6 (beta)
 - Jinja2
-- wsgicli
 
 Installation
 ------------
@@ -40,18 +39,18 @@ Hello World Example
 
 .. code-block:: python
 
-   from kobin import Kobin
+   from kobin import Kobin, Response, JSONResponse
    app = Kobin()
 
    @app.route('/')
-   def index() -> str:
-       return "Hello World!!"
+   def index() -> Response:
+       return Response("Hello World!!")
 
-   @app.route('/hello/{name}')
-   def hello(name: str) -> dict:
-       return {
-           "name": name
-       }
+   @app.route('/user/{user_id}')
+   def hello(user_id: str) -> JSONResponse:
+       return JSONResponse({
+           "message": "Hello User{}!".format(user_id)
+       })
 
 
 Run server
