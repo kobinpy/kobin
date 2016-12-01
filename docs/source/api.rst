@@ -22,12 +22,6 @@ kobin.environs
 .. automodule:: kobin.environs
     :members:
 
-kobin.exceptions
-----------------
-
-.. automodule:: kobin.exceptions
-   :members:
-
 kobin.routes
 ------------
 

@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 from jinja2 import Environment, FileSystemLoader
 from kobin import Kobin
-from kobin.templates import render_template
+from kobin.environs import TemplateResponse
 
 TEMPLATE_DIRS = [os.path.join(os.path.dirname(__file__), 'templates')]
 
@@ -20,6 +20,7 @@ class Jinja2TemplateTests(TestCase):
         mock_current_config.return_value = {
             'JINJA2_ENV': Environment(loader=FileSystemLoader(TEMPLATE_DIRS))
         }
-        actual = render_template('jinja2.html', var='kobin')
-        expected = "Hello kobin World."
+        response = TemplateResponse('jinja2.html', var='kobin')
+        actual = response.body
+        expected = [b"Hello kobin World."]
         self.assertEqual(actual, expected)

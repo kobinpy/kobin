@@ -1,6 +1,6 @@
 from unittest import TestCase
 from kobin.routes import Route, Router
-from kobin.exceptions import HTTPError
+from kobin.environs import HTTPError
 
 
 class RouteTests(TestCase):
