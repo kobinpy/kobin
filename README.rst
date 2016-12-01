@@ -26,13 +26,18 @@ Kobin has following features.
 - Convert URL variables types using Type Hints.
 
 
-Hello World
-===========
+Getting started
+===============
 
-::
+Installation
+------------
+
+.. code-block:: console
 
    $ pip install kobin
 
+Hello World with Kobin
+----------------------
 
 .. code-block:: python
 
@@ -47,9 +52,22 @@ Hello World
    def hello(user_id: int) -> str:
        return "Hello {}!!".format(user_id)
 
-   if __name__ == '__main__':
-       app.run()
 
+Run server
+----------
+
+**Development**
+
+.. code-block:: console
+
+   $ wsgicli main.py app --reload
+
+**Production**
+
+.. code-block:: console
+
+   $ pip install gunicorn
+   $ gunicorn main:app
 
 Requirements
 ============
