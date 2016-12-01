@@ -5,4 +5,4 @@ ipdb
 
 sphinx
 sphinx-intl
-sphinx-rtd-theme
+solar-theme

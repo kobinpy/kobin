@@ -1,0 +1,3 @@
+# Requirements file for read the docs
+sphinx
+solar-theme

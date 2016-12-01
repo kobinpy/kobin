@@ -38,7 +38,7 @@ coverage.xml
 *,cover
 
 # Sphinx documentation
-doc/build/
+docs/build/
 *.mo
 # transifex
 .tx
