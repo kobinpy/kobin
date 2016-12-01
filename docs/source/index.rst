@@ -1,11 +1,8 @@
 .. title:: Welcome to Kobin
 
-==================
-|Welcome to Kobin|
-==================
-
-.. |Welcome to Kobin| image:: ./_static/logo.png
-   :alt: Welcome to Kobin
+================
+Welcome to Kobin
+================
 
 Kobin is a small and statically-typed WSGI micro web framework for Python.
 **This library is a pre-release. Expect missing docs and breaking API changes.**

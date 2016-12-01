@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-01 15:14+0900\n"
+"POT-Creation-Date: 2016-12-01 17:03+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,101 +18,104 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 
 #: ../../source/index.rst:5
-msgid "|Welcome to Kobin|"
-msgstr ""
+msgid "Welcome to Kobin"
+msgstr "Kobin"
 
-#: ../../source/index.rst:10
+#: ../../source/index.rst:7
 msgid ""
 "Kobin is a small and statically-typed WSGI micro web framework for "
 "Python. **This library is a pre-release. Expect missing docs and breaking"
 " API changes.** Kobin has following features."
 msgstr "Kobin(小瓶)はPython製Webフレームワークです。開発中のためドキュメンテーションの不備やAPIの大きな変更があるかもしれません。ご注意ください。Kobinの特徴は以下のとおりです。"
 
-#: ../../source/index.rst:14
+#: ../../source/index.rst:11
 msgid "**Statically-typed** web framework with PEP 0484(Type Hints)."
 msgstr "PEP 0484(Type Hints)を活かした実装となっています。"
 
-#: ../../source/index.rst:15
+#: ../../source/index.rst:12
 msgid "**Lightweight** implementations for solving your problems easily."
 msgstr "フレームワーク自体がシンプルに実装されているため、問題が合ったときに内部まで目を通して解決することが出来ます。"
 
-#: ../../source/index.rst:16
+#: ../../source/index.rst:13
 msgid ""
 "Kobin provides Routing, WSGI request and response wrapper, Jinja2 "
 "template adapter and several useful utilities"
 msgstr "Kobinは主にルーティング、WSGIリクエスト・レスポンスオブジェクト、Jinja2のアダプターを提供しています。"
 
-#: ../../source/index.rst:20
+#: ../../source/index.rst:17
 msgid "Installation"
 msgstr "インストール"
 
-#: ../../source/index.rst:28
+#: ../../source/index.rst:25
 msgid "Hello World"
 msgstr ""
 
-#: ../../source/index.rst:44
+#: ../../source/index.rst:41
 msgid "Requirements"
 msgstr ""
 
-#: ../../source/index.rst:46
+#: ../../source/index.rst:43
 msgid "Kobin Requires the following:"
 msgstr "Kobinを動かすには以下のものが必要です。"
 
-#: ../../source/index.rst:48
+#: ../../source/index.rst:45
 msgid "Python 3.5"
 msgstr ""
 
-#: ../../source/index.rst:50
+#: ../../source/index.rst:47
 msgid ""
 "Kobin is no dependencies other than the `Python Standard Library "
 "<https://docs.python.org/3/library/>`_. The following packages are "
 "optional:"
 msgstr "以下のライブラリはオプショナルです。必要に応じてインストールしてください。"
 
-#: ../../source/index.rst:53
+#: ../../source/index.rst:50
 msgid "Jinja2"
 msgstr ""
 
-#: ../../source/index.rst:54
+#: ../../source/index.rst:51
 msgid "gunicorn"
 msgstr ""
 
-#: ../../source/index.rst:58
+#: ../../source/index.rst:55
 msgid "Kobin documentation contents"
 msgstr "目次"
 
-#: ../../source/index.rst:69
+#: ../../source/index.rst:66
 msgid "Links"
 msgstr "リンク"
 
-#: ../../source/index.rst:71
+#: ../../source/index.rst:68
 msgid "`Github <https://github.com/kobinpy/kobin>`_"
 msgstr ""
 
-#: ../../source/index.rst:72
+#: ../../source/index.rst:69
 msgid "`PyPI <https://pypi.python.org/pypi/kobin>`_"
 msgstr ""
 
-#: ../../source/index.rst:76
+#: ../../source/index.rst:73
 msgid "Indices and tables"
 msgstr "索引表"
 
-#: ../../source/index.rst:78
+#: ../../source/index.rst:75
 msgid ":ref:`genindex`"
 msgstr ""
 
-#: ../../source/index.rst:79
+#: ../../source/index.rst:76
 msgid ":ref:`modindex`"
 msgstr ""
 
-#: ../../source/index.rst:80
+#: ../../source/index.rst:77
 msgid ":ref:`search`"
 msgstr ""
 
-#: ../../source/index.rst:84
+#: ../../source/index.rst:81
 msgid "Statuses"
 msgstr "ステータス"
 
 #~ msgid "`Github <https://github.com/c-bata/kobin>`_"
+#~ msgstr ""
+
+#~ msgid "|Welcome to Kobin|"
 #~ msgstr ""
 

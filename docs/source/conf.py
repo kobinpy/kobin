@@ -3,6 +3,7 @@
 
 import sys
 import os
+import solar_theme
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -77,8 +78,8 @@ todo_include_todos = False
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'bizstyle'
-html_theme_options = {'maincolor' : "#3D90AB"}
+html_theme = 'solar_theme'
+html_theme_path = [solar_theme.theme_path]
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -97,7 +98,7 @@ html_theme_options = {'maincolor' : "#3D90AB"}
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-#html_logo = None
+html_logo = '_static/kobin.png'
 
 html_favicon = 'favicon.ico'
 

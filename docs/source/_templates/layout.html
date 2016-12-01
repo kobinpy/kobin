@@ -1,0 +1,65 @@
+{% extends "basic/layout.html" %}
+
+{%- block doctype -%}
+<!DOCTYPE html>
+{%- endblock -%}
+
+{%- block extrahead -%}
+<!-- meta title -->
+<meta content="{{ title }}" name="title" />
+<meta property="og:title" content="{{ title }}" />
+<meta name="twitter:title" content="{{ title }}" />
+
+<!-- Switch by language -->
+{% if language == 'ja' %}
+<meta name="description" content="Kobin(小瓶): Type Hintsを活用した軽量WSGIフレームワーク" />
+<meta property="og:description" content="Kobin(小瓶): Type Hintsを活用した軽量WSGIフレームワーク" />
+<meta name="twitter:description" content="Kobin(小瓶): Type Hintsを活用した軽量WSGIフレームワーク" />
+
+<meta property="og:url" content="http://kobin.readthedocs.io/ja/latest/" />
+<meta property="og:image" content="http://kobin.readthedocs.io/ja/latest/_images/ogp_ja.png" />
+<meta name="twitter:image" content="http://kobin.readthedocs.io/ja/latest/_images/twitter_share_ja.png" />
+{% else %} <!-- use en -->
+<meta name="description" content="Kobin is a small and statically-typed WSGI micro web framework for Python3." />
+<meta property="og:description" content="Kobin is a small and statically-typed WSGI micro web framework for Python3." />
+<meta name="twitter:description" content="Kobin is a small and statically-typed WSGI micro web framework for Python3." />
+
+<meta property="og:url" content="http://kobin.readthedocs.io/en/latest/" />
+<meta property="og:image" content="http://kobin.readthedocs.io/en/latest/_images/ogp.png" />
+<meta name="twitter:image" content="http://kobin.readthedocs.io/en/latest/_images/twitter_share.png" />
+{% endif %}
+
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<meta property="og:type" content="website" />
+<meta property="og:type" content="website"/>
+
+<meta name="twitter:card"  content="summary_large_image" />
+<meta name="twitter:site" content="@c_bata_" />
+
+<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+<link href="{{ pathto("_static/solarized-dark.css", 1) }}" rel="stylesheet">
+<link href="{{ pathto("_static/favicon.ico", 1) }}" rel="icon" }}">
+<style>
+    body {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+</style>
+{%- endblock -%}
+
+{# put the sidebar before the body #}
+{% block sidebar1 %}
+<a href="https://github.com/kobinpy/kobin"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+{{ sidebar() }}
+{% endblock %}
+{% block sidebar2 %}{% endblock %}
+
+{%- block footer %}
+    <div class="footer">
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />WebFramework in Python by Masashi Shibata is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+        <br />
+        {%- if show_sphinx %}{% trans sphinx_version=sphinx_version|e %}Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> {{ sphinx_version }}.Theme by <a href="http://github.com/vkvn">vkvn</a>{% endtrans %}{%- endif %}
+    </div>
+{%- endblock %}
