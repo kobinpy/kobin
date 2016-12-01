@@ -45,16 +45,18 @@ Hello World with Kobin
 
 .. code-block:: python
 
-   from kobin import Kobin
+   from kobin import Kobin, Response, JSONResponse
    app = Kobin()
 
    @app.route('/')
-   def hello() -> str:
-       return "Hello World"
+   def hello() -> Response:
+       return Response("Hello World")
 
    @app.route('/users/{user_id}')
    def hello(user_id: int) -> str:
-       return "Hello {}!!".format(user_id)
+       return JSONResponse(
+           "message": "Hello {}!!".format(user_id)
+       )
 
 
 Run server
