@@ -7,6 +7,7 @@ CHANGES
 * Integrating wsgicli.
 * Alter sphinx theme.
 * Update documentations.
+* View functions must return Response or its child class.
 
 0.0.5 (2016-11-28)
 ------------------
