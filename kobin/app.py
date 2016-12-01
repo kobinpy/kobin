@@ -59,8 +59,6 @@ class Config(dict):
     default_config = {  # type: Dict[str, Any]
         'BASE_DIR': os.path.abspath('.'),
         'TEMPLATE_DIRS': [os.path.join(os.path.abspath('.'), 'templates')],
-        'STATICFILES_DIRS': [os.path.join(os.path.abspath('.'), 'static')],
-        'STATIC_ROOT': '/static/',
     }
 
     def __init__(self, root_path: str, *args, **kwargs) -> None:
