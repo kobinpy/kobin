@@ -19,7 +19,7 @@ class KobinTests(TestCase):
 
         @self.app.route('/test/raise500')
         def raise500(typed_id: int):
-            a = 1 / 0
+            1 / 0
             return Response("Don't reach here")
 
     def test_route(self):
