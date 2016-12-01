@@ -11,22 +11,23 @@
 <meta name="twitter:title" content="{{ title }}" />
 
 <!-- Switch by language -->
+<!-- The ogp and twitter meta information prohibits relative url path. -->
 {% if language == 'ja' %}
 <meta name="description" content="Kobin(小瓶): Type Hintsを活用した軽量WSGIフレームワーク" />
 <meta property="og:description" content="Kobin(小瓶): Type Hintsを活用した軽量WSGIフレームワーク" />
 <meta name="twitter:description" content="Kobin(小瓶): Type Hintsを活用した軽量WSGIフレームワーク" />
 
 <meta property="og:url" content="http://kobin.readthedocs.io/ja/latest/" />
-<meta property="og:image" content="http://kobin.readthedocs.io/ja/latest/_images/ogp_ja.png" />
-<meta name="twitter:image" content="http://kobin.readthedocs.io/ja/latest/_images/twitter_share_ja.png" />
+<meta property="og:image" content="http://kobin.readthedocs.io/ja/latest/_static/ogp_ja.png" />
+<meta name="twitter:image" content="http://kobin.readthedocs.io/ja/latest/_static/twitter_share_ja.png" />
 {% else %} <!-- use en -->
 <meta name="description" content="Kobin is a small and statically-typed WSGI micro web framework for Python3." />
 <meta property="og:description" content="Kobin is a small and statically-typed WSGI micro web framework for Python3." />
 <meta name="twitter:description" content="Kobin is a small and statically-typed WSGI micro web framework for Python3." />
 
 <meta property="og:url" content="http://kobin.readthedocs.io/en/latest/" />
-<meta property="og:image" content="http://kobin.readthedocs.io/en/latest/_images/ogp.png" />
-<meta name="twitter:image" content="http://kobin.readthedocs.io/en/latest/_images/twitter_share.png" />
+<meta property="og:image" content="http://kobin.readthedocs.io/en/latest/_static/ogp.png" />
+<meta name="twitter:image" content="http://kobin.readthedocs.io/en/latest/_static/twitter_share.png" />
 {% endif %}
 
 <meta property="og:image:width" content="1200" />
