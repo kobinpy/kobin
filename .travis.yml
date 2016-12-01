@@ -7,10 +7,10 @@ env:
   - TOXENV=coveralls
   - TOXENV=flake8
   - TOXENV=mypy
-  - TOXENV=check_old_packages
 matrix:
-  allow_failures:
-    - env: TOXENV=check_old_packages
+  include:
+    - python: "nightly"
+      env: TOXENV=py36
 install:
   - pip install -q tox
 script:
