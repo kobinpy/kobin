@@ -9,7 +9,7 @@ env:
   - TOXENV=mypy
 matrix:
   include:
-    - python: "nightly"
+    - python: 3.6-dev
       env: TOXENV=py36
 install:
   - pip install -q tox
