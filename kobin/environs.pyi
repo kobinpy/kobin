@@ -91,7 +91,7 @@ class TemplateResponse(Response):
     template = ... # type: Template
     tpl_args = ... # type: Dict[str, Any]
 
-    def __init__(self, filename: str, status: int, headers: Dict, charset: str,
+    def __init__(self, filename: str, status: int, headers: Dict[str, str], charset: str,
                  **tpl_args: Any) -> None: ...
     @property
     def body(self) -> Iterable[bytes]: ...
