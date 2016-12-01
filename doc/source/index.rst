@@ -68,7 +68,7 @@ Kobin documentation contents
 Links
 =====
 
-* `Github <https://github.com/c-bata/kobin>`_
+* `Github <https://github.com/kobinpy/kobin>`_
 * `PyPI <https://pypi.python.org/pypi/kobin>`_
 
 
@@ -83,17 +83,17 @@ Indices and tables
 Statuses
 ========
 
-.. image:: https://travis-ci.org/c-bata/kobin.svg?branch=master
-   :target: https://travis-ci.org/c-bata/kobin
+.. image:: https://travis-ci.org/kobinpy/kobin.svg?branch=master
+   :target: https://travis-ci.org/kobinpy/kobin
 
 .. image:: https://badge.fury.io/py/kobin.svg
    :target: https://badge.fury.io/py/kobin
 
-.. image:: https://coveralls.io/repos/github/c-bata/kobin/badge.svg?branch=coveralls
-   :target: https://coveralls.io/github/c-bata/kobin?branch=master
+.. image:: https://coveralls.io/repos/github/kobinpy/kobin/badge.svg?branch=coveralls
+   :target: https://coveralls.io/github/kobinpy/kobin?branch=master
 
-.. image:: https://codeclimate.com/github/c-bata/kobin/badges/gpa.svg
-   :target: https://codeclimate.com/github/c-bata/kobin
+.. image:: https://codeclimate.com/github/kobinpy/kobin/badges/gpa.svg
+   :target: https://codeclimate.com/github/kobinpy/kobin
    :alt: Code Climate
 
 .. image:: https://readthedocs.org/projects/kobin/badge/?version=latest

@@ -2,17 +2,17 @@
 Kobin
 =====
 
-.. image:: https://travis-ci.org/c-bata/kobin.svg?branch=master
-   :target: https://travis-ci.org/c-bata/kobin
+.. image:: https://travis-ci.org/kobinpy/kobin.svg?branch=master
+   :target: https://travis-ci.org/kobinpy/kobin
 
 .. image:: https://badge.fury.io/py/kobin.svg
    :target: https://badge.fury.io/py/kobin
 
-.. image:: https://coveralls.io/repos/github/c-bata/kobin/badge.svg?branch=coveralls
-   :target: https://coveralls.io/github/c-bata/kobin?branch=master
+.. image:: https://coveralls.io/repos/github/kobinpy/kobin/badge.svg?branch=coveralls
+   :target: https://coveralls.io/github/kobinpy/kobin?branch=master
 
 .. image:: https://codeclimate.com/github/c-bata/kobin/badges/gpa.svg
-   :target: https://codeclimate.com/github/c-bata/kobin
+   :target: https://codeclimate.com/github/kobinpy/kobin
    :alt: Code Climate
 
 
@@ -58,6 +58,7 @@ Kobin requires the following:
 
 - Python 3.5
 - Jinja2
+- wsgicli
 
 
 Resources
@@ -65,7 +66,7 @@ Resources
 
 * `Documentation (English) <https://kobin.readthedocs.org/en/latest/>`_
 * `Documentation (日本語) <https://kobin.readthedocs.org/ja/latest/>`_
-* `Github <https://github.com/c-bata/kobin>`_
+* `Github <https://github.com/kobinpy/kobin>`_
 * `PyPI <https://pypi.python.org/pypi/kobin>`_
 
 

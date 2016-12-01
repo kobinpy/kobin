@@ -2,20 +2,19 @@
 # Copyright (C) 2016, Masashi Shibata
 # This file is distributed under the same license as the kobin package.
 # Masashi Shibata <contact@c-bata.link>, 2016.
-
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-27 18:01+0900\n"
+"POT-Creation-Date: 2016-12-01 15:14+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.2.0\n"
+"Generated-By: Babel 2.3.4\n"
 
 #: ../../source/tutorial.rst:3
 msgid "Tutorial"
@@ -29,27 +28,27 @@ msgstr "インストール"
 msgid "Install using pip, including any optional packages you want.."
 msgstr "以下のパッケージはオプショナルです。必要に応じてpipからインストールしてください。"
 
-#: ../../source/tutorial.rst:16
+#: ../../source/tutorial.rst:14
 msgid "We're ready to create our web site now."
 msgstr "これで準備が完了です。"
 
-#: ../../source/tutorial.rst:20
+#: ../../source/tutorial.rst:18
 msgid "Creating web site"
 msgstr "Webサイトの製作"
 
-#: ../../source/tutorial.rst:22
-msgid "`app.py`"
+#: ../../source/tutorial.rst:20
+msgid "WIP"
 msgstr ""
 
-#: ../../source/tutorial.rst:40
-msgid "`config.py`"
-msgstr ""
+#~ msgid "`app.py`"
+#~ msgstr ""
 
-#: ../../source/tutorial.rst:56
-msgid "`static/index.html`"
-msgstr ""
+#~ msgid "`config.py`"
+#~ msgstr ""
 
-#: ../../source/tutorial.rst:85
-msgid "`static/style.css`"
-msgstr ""
+#~ msgid "`static/index.html`"
+#~ msgstr ""
+
+#~ msgid "`static/style.css`"
+#~ msgstr ""
 

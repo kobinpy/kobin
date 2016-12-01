@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0.4-alpha.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-27 19:35+0900\n"
+"POT-Creation-Date: 2016-12-01 15:14+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.2.0\n"
+"Generated-By: Babel 2.3.4\n"
 
 #: ../../source/api.rst:3
 msgid "API"
@@ -37,29 +37,30 @@ msgstr ""
 msgid "kobin.environs"
 msgstr ""
 
-#: of kobin.environs.LocalRequest:1
+#: kobin.environs.LocalRequest:1 of
 msgid "A thread local subclass of :class:`Request`"
 msgstr ""
 
-#: of kobin.environs.LocalRequest.environ:1 kobin.environs.LocalResponse.body:1
+#: kobin.environs.LocalRequest.environ:1 kobin.environs.LocalResponse.body:1
+#: kobin.environs.LocalResponse.headers:1 of
 msgid "Thread-local property"
 msgstr ""
 
-#: of kobin.environs.LocalResponse:1
+#: kobin.environs.LocalResponse:1 of
 msgid ""
 "A thread-local subclass ob :class:`BaseResponse` with a different set of "
 "attributes for each thread"
 msgstr ""
 
-#: of kobin.environs.Request:1
+#: kobin.environs.Request:1 of
 msgid "A wrapper for WSGI environment dictionaries."
 msgstr ""
 
-#: of kobin.environs.Request.method:1
+#: kobin.environs.Request.method:1 of
 msgid "The ``REQUEST_METHOD`` value as an uppercase string."
 msgstr ""
 
-#: of kobin.environs.Request.path:1
+#: kobin.environs.Request.path:1 of
 msgid ""
 "The value of ``PATH_INFO`` with exactly one prefixed slash (to fix broken"
 " clients and avoid the \"empty path\" edge case)."
@@ -73,29 +74,25 @@ msgstr ""
 msgid "kobin.routes"
 msgstr ""
 
-#: of kobin.routes.Route:1
+#: kobin.routes.Route:1 of
 msgid ""
 "This class wraps a route callback along with route specific metadata. It "
 "is also responsible for turing an URL path rule into a regular expression"
 " usable by the Router."
 msgstr ""
 
-#: ../../source/api.rst:38
-msgid "kobin.server_adapters"
-msgstr ""
-
-#: ../../source/api.rst:44
-msgid "kobin.static_files"
-msgstr ""
-
-#: ../../source/api.rst:50
-msgid "kobin.templates"
-msgstr ""
-
-#: of kobin.templates.template:1
-msgid "Get a rendered template as string iterator."
-msgstr ""
-
 #~ msgid "This documentations is generated from source code."
+#~ msgstr ""
+
+#~ msgid "kobin.server_adapters"
+#~ msgstr ""
+
+#~ msgid "kobin.static_files"
+#~ msgstr ""
+
+#~ msgid "kobin.templates"
+#~ msgstr ""
+
+#~ msgid "Get a rendered template as string iterator."
 #~ msgstr ""
 

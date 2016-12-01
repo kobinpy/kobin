@@ -52,7 +52,7 @@ setup(
     version=__version__,
     author=__author__,
     author_email=__author_email__,
-    url='https://github.com/c-bata/kobin',
+    url='https://github.com/kobinpy/kobin',
     description='Kobin is a small and statically-typed web framework.',
     long_description=README + '\n\n' + CHANGES,
     classifiers=__classifiers__,
