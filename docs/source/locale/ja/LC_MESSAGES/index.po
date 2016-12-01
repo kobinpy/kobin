@@ -19,14 +19,17 @@ msgstr ""
 
 #: ../../source/index.rst:5
 msgid "Welcome to Kobin"
-msgstr "Kobin"
+msgstr ""
 
 #: ../../source/index.rst:7
 msgid ""
 "Kobin is a small and statically-typed WSGI micro web framework for "
 "Python. **This library is a pre-release. Expect missing docs and breaking"
 " API changes.** Kobin has following features."
-msgstr "Kobin(小瓶)はPython製Webフレームワークです。開発中のためドキュメンテーションの不備やAPIの大きな変更があるかもしれません。ご注意ください。Kobinの特徴は以下のとおりです。"
+msgstr ""
+"Kobin(小瓶)はPython製Webフレームワークです。"
+"開発中のためドキュメンテーションの不備やAPIの大きな変更があるかもしれません。ご注意ください。"
+"Kobinの特徴は以下のとおりです。"
 
 #: ../../source/index.rst:11
 msgid "**Statically-typed** web framework with PEP 0484(Type Hints)."
