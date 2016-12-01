@@ -70,7 +70,7 @@ msgstr ""
 
 #: ../../source/index.rst:29
 msgid "Installation"
-msgstr "インストール"
+msgstr ""
 
 #: ../../source/index.rst:31
 msgid "Install using pip."
@@ -136,7 +136,3 @@ msgstr ""
 #: ../../source/index.rst:120
 msgid ":ref:`search`"
 msgstr ""
-
-#~ msgid "`ドキュメント (日本語) <https://kobin.readthedocs.org/ja/latest/>`_"
-#~ msgstr ""
-
