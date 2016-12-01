@@ -76,7 +76,7 @@ class Router:
         self.routes = []  # type: List['Route']
 
     def match(self, environ: Dict[str, str]) \
-            -> Tuple[Callable[..., Union[str, bytes]], Dict[str, Any]]:
+            -> Tuple[Callable[..., Response], Dict[str, Any]]:
         method = environ['REQUEST_METHOD'].upper()
         path = environ['PATH_INFO'] or '/'
 

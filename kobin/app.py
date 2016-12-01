@@ -2,7 +2,7 @@ from importlib.machinery import SourceFileLoader  # type: ignore
 import os
 import sys
 import traceback
-from typing import Any, Callable, Dict, List, Tuple
+from typing import Any, Callable, Dict, List, Tuple, Union
 from jinja2 import Environment, FileSystemLoader  # type: ignore
 
 from .routes import Router
@@ -21,16 +21,15 @@ class Kobin:
             return callback_func
         return decorator(callback) if callback else decorator
 
-    def _handle(self, environ: Dict) -> Response:
+    def _handle(self, environ: Dict) -> Union[Response, HTTPError]:
         environ['kobin.app'] = self
-        request.bind(environ)
+        request.bind(environ)  # type: ignore
 
         try:
             callback, kwargs = self.router.match(environ)
-            response = callback(**kwargs) if kwargs else callback()
-        except HTTPError:
-            _type, _value, _traceback = sys.exc_info()
-            response = _value
+            response = callback(**kwargs) if kwargs else callback()  # type: Union[Response, HTTPError]
+        except HTTPError as e:
+            response = e
         except BaseException as e:
             traceback.print_tb(e.__traceback__)
             if self.config['DEBUG']:
@@ -75,7 +74,7 @@ class Config(dict):
         self.update(configs)
         self.update_jinja2_environment()
 
-    def update_jinja2_environment(self):
+    def update_jinja2_environment(self) -> None:
         self['JINJA2_ENV'] = Environment(loader=FileSystemLoader(self['TEMPLATE_DIRS']))
 
 

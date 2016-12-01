@@ -138,6 +138,7 @@ class LocalRequest(Request):
     environ = _local_property()
     _body = _local_property()
 
+
 request = LocalRequest()  # type: LocalRequest
 
 ##################################################################################
@@ -242,9 +243,9 @@ class TemplateResponse(Response):
     default_content_type = 'text/html; charset=UTF-8'
 
     def __init__(self, filename: str, status: int=200, headers: Dict=None,
-                 charset: str='utf-8', **tpl_args):
+                 charset: str='utf-8', **tpl_args) -> None:
         from . import current_config  # type: ignore
-        self.template = current_config()['JINJA2_ENV'].get_template(filename)
+        self.template = current_config()['JINJA2_ENV'].get_template(filename)  # type: ignore
         self.tpl_args = tpl_args
         super().__init__(body='', status=status, headers=headers, charset=charset)
 
