@@ -134,7 +134,7 @@ class RequestTests(TestCase):
 class ResponseTests(TestCase):
     def test_constructor_body(self):
         response = Response('')
-        self.assertEqual('', response.body)
+        self.assertEqual([b''], response.body)
 
     def test_constructor_status(self):
         response = Response('Body', 200)
@@ -147,7 +147,7 @@ class ResponseTests(TestCase):
 
     def test_constructor_headerlist(self):
         response = Response()
-        expected_content_type = ('Content-Type', 'text/html; charset=UTF-8')
+        expected_content_type = ('Content-Type', 'text/plain; charset=UTF-8')
         self.assertIn(expected_content_type, response.headerlist)
 
     def test_set_cookie(self):

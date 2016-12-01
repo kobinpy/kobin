@@ -1,18 +1,14 @@
 from urllib.parse import urljoin
 from typing import Callable, Dict, List, Tuple, Union, Any, get_type_hints  # type: ignore
 
-from .environs import request, response
-
-from kobin.exceptions import HTTPError
+from .environs import request, Response, HTTPError
 
 DEFAULT_ARG_TYPE = str
 
 
 def redirect(url):
     status = 303 if request.get('SERVER_PROTOCOL') == "HTTP/1.1" else 302
-    response.status = status
-    response.headers.add_header('Location', urljoin(request.url, url))
-    return ""
+    return Response('', status, {'Location': urljoin(request.url, url)})
 
 
 def split_by_slash(path: str) -> List[str]:

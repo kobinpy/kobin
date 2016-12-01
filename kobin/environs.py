@@ -8,24 +8,6 @@ from http.cookies import SimpleCookie  # type: ignore
 from wsgiref.headers import Headers  # type: ignore
 
 
-def _local_property():
-    ls = threading.local()
-
-    def fget(_):
-        try:
-            return ls.var
-        except AttributeError:
-            raise RuntimeError("Request context not initialized.")
-
-    def fset(_, value):
-        ls.var = value
-
-    def fdel(_):
-        del ls.var
-
-    return property(fget, fset, fdel, 'Thread-local property')
-
-
 ##################################################################################
 # Request Object #################################################################
 ##################################################################################
@@ -131,6 +113,24 @@ class Request:
         )
 
 
+def _local_property():
+    ls = threading.local()
+
+    def fget(_):
+        try:
+            return ls.var
+        except AttributeError:
+            raise RuntimeError("Request context not initialized.")
+
+    def fset(_, value):
+        ls.var = value
+
+    def fdel(_):
+        del ls.var
+
+    return property(fget, fset, fdel, 'Thread-local property')
+
+
 class LocalRequest(Request):
     """ A thread local subclass of :class:`Request`
     """
@@ -138,6 +138,7 @@ class LocalRequest(Request):
     environ = _local_property()
     _body = _local_property()
 
+request = LocalRequest()  # type: LocalRequest
 
 ##################################################################################
 # Response Object ################################################################
@@ -149,21 +150,23 @@ _HTTP_STATUS_LINES = dict((k, '%d %s' % (k, v)) for (k, v) in HTTP_CODES.items()
 
 class Response:
     default_status = 200
-    default_content_type = 'text/html; charset=UTF-8'
+    default_content_type = 'text/plain; charset=UTF-8'
 
     def __init__(self, body: str='', status: int=None, headers: Dict=None,
-                 **more_headers) -> None:
+                 charset: str='utf-8') -> None:
         self.headers = Headers()
-        self.body = body
+        self._body = body
         self._status_code = status or self.default_status
         self._cookies = SimpleCookie()  # type: ignore
+        self.charset = charset
 
         if headers:
             for name, value in headers.items():
                 self.headers.add_header(name, value)
-        if more_headers:
-            for name, value in more_headers.items():
-                self.headers.add_header(name, value)
+
+    @property
+    def body(self) -> List[bytes]:
+        return [self._body.encode(self.charset)]
 
     @property
     def status_code(self):
@@ -187,16 +190,12 @@ class Response:
     @property
     def headerlist(self) -> List[Tuple[str, str]]:
         """ WSGI conform list of (header, value) tuples. """
-        out = []  # type: List[Tuple[str, str]]
         if 'Content-Type' not in self.headers:
             self.headers.add_header('Content-Type', self.default_content_type)
-        out += [(key, value)
-                for key in self.headers.keys()
-                for value in self.headers.get_all(key)]
         if self._cookies:
             for c in self._cookies.values():
-                out.append(('Set-Cookie', c.OutputString()))
-        return [(k, v.encode('utf8').decode('latin1')) for (k, v) in out]
+                self.headers.add_header('Set-Cookie', c.OutputString())
+        return self.headers.items()
 
     def set_cookie(self, key: str, value: Any, expires: str=None, path: str=None, **options: Dict[str, Any]) -> None:
         from datetime import timedelta, datetime, date
@@ -224,28 +223,39 @@ class Response:
         kwargs['expires'] = 0
         self.set_cookie(key, '', **kwargs)
 
-    def apply(self, other):
-        self.status = other._status_code
-        self._cookies = other._cookies
-        self.headers = other.headers
-        self.body = other.body
+
+class JSONResponse(Response):
+    default_content_type = 'application/json; charset=UTF-8'
+
+    def __init__(self, dic: Dict, status: int=200, headers: Dict=None,
+                 charset: str='utf-8', **dump_args) -> None:
+        self.dic = dic
+        self.json_dump_args = dump_args
+        super().__init__('', status=status, headers=headers, charset=charset)
+
+    @property
+    def body(self) -> List[bytes]:
+        return [json.dumps(self.dic, **self.json_dump_args).encode(self.charset)]
 
 
-class LocalResponse(Response):
-    """ A thread-local subclass ob :class:`BaseResponse` with a different set
-        of attributes for each thread
-    """
-    bind = Response.__init__
-    _status_code = _local_property()
-    headers = _local_property()
-    _cookies = _local_property()
-    body = _local_property()
+class TemplateResponse(Response):
+    default_content_type = 'text/html; charset=UTF-8'
+
+    def __init__(self, filename: str, status: int=200, headers: Dict=None,
+                 charset: str='utf-8', **tpl_args):
+        from . import current_config  # type: ignore
+        self.template = current_config()['JINJA2_ENV'].get_template(filename)
+        self.tpl_args = tpl_args
+        super().__init__(body='', status=status, headers=headers, charset=charset)
+
+    @property
+    def body(self) -> List[bytes]:
+        return [self.template.render(**self.tpl_args).encode(self.charset)]
 
 
-##################################################################################
-# Make Request and Response object to thread local ###############################
-##################################################################################
+class HTTPError(Response, Exception):
+    default_status = 500
 
-request = LocalRequest()  # type: LocalRequest
-response = LocalResponse()  # type: LocalResponse
-local = threading.local()  # type: ignore
+    def __init__(self, body: str, status: int, headers: Dict=None, charset: str='utf-8') -> None:
+        super().__init__(body=body, status=status or self.default_status,
+                         headers=headers, charset=charset)  # type: ignore

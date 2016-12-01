@@ -1,11 +1,12 @@
 from importlib.machinery import SourceFileLoader  # type: ignore
 import os
-from typing import Any, Callable, Dict, List, Union, Tuple
+import sys
+import traceback
+from typing import Any, Callable, Dict, List, Tuple
 from jinja2 import Environment, FileSystemLoader  # type: ignore
 
 from .routes import Router
-from .environs import request, response
-from .exceptions import HTTPError
+from .environs import request, Response, HTTPError
 
 
 class Kobin:
@@ -14,36 +15,37 @@ class Kobin:
         self.config = Config(os.path.abspath(root_path))
 
     def route(self, rule: str=None, method: str='GET', name: str=None,
-              callback: Callable[..., Union[str, bytes]]=None) -> Callable[..., Union[str, bytes]]:
+              callback: Callable[..., Response]=None) -> Callable[..., Response]:
         def decorator(callback_func):
             self.router.add(method, rule, name, callback_func)
             return callback_func
         return decorator(callback) if callback else decorator
 
-    def _handle(self, environ: Dict) -> Union[str, bytes]:
+    def _handle(self, environ: Dict) -> Response:
         environ['kobin.app'] = self
-        request.bind(environ)  # type: ignore
-        response.bind()        # type: ignore
+        request.bind(environ)
+
         try:
             callback, kwargs = self.router.match(environ)
-            output = callback(**kwargs) if kwargs else callback()
+            response = callback(**kwargs) if kwargs else callback()
         except HTTPError:
-            import sys
             _type, _value, _traceback = sys.exc_info()
-            response.apply(_value)
-            output = response.body
-        except:
-            response.apply(HTTPError(500, 'Internal server error.'))
-            output = response.body
-        return output
+            response = _value
+        except BaseException as e:
+            traceback.print_tb(e.__traceback__)
+            if self.config['DEBUG']:
+                message = '\n'.join(traceback.format_tb(e.__traceback__))
+            else:
+                message = 'Internal Server Error'
+            response = HTTPError(message, 500)
+        return response
 
-    def wsgi(self, environ: Dict,
-             start_response: Callable[[bytes, List[Tuple[str, str]]], None]) -> List[bytes]:
-        out = self._handle(environ)
-        if isinstance(out, str):
-            out = out.encode('utf-8')
+    def wsgi(self, environ: Dict, start_response: Callable[[bytes, List[Tuple[str, str]]], None]) \
+            -> List[bytes]:
+        response = self._handle(environ)
+
         start_response(response.status, response.headerlist)
-        return [out]
+        return response.body
 
     def __call__(self, environ: Dict, start_response) -> List[bytes]:
         """It is called when receive http request."""
@@ -54,6 +56,7 @@ class Config(dict):
     default_config = {  # type: Dict[str, Any]
         'BASE_DIR': os.path.abspath('.'),
         'TEMPLATE_DIRS': [os.path.join(os.path.abspath('.'), 'templates')],
+        'DEBUG': False,
     }
 
     def __init__(self, root_path: str, *args, **kwargs) -> None:
