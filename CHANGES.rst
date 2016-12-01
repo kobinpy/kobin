@@ -8,6 +8,10 @@ CHANGES
 * Alter sphinx theme.
 * Update documentations.
 * View functions must return Response or its child class.
+* Make Request object to No thread local
+* Add Response, JSONResponse, TemplateResponse classes.
+* Refactor error handling.
+* Add stub files (`.pyi`).
 
 0.0.5 (2016-11-28)
 ------------------

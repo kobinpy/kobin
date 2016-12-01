@@ -238,7 +238,7 @@ class JSONResponse(Response):
 class TemplateResponse(Response):
     default_content_type = 'text/html; charset=UTF-8'
 
-    def __init__(self, filename, status, headers=None, charset='utf-8', **tpl_args):
+    def __init__(self, filename, status=200, headers=None, charset='utf-8', **tpl_args):
         from . import current_config
         self.template = current_config()['JINJA2_ENV'].get_template(filename)
         self.tpl_args = tpl_args
