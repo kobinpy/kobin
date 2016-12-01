@@ -53,7 +53,7 @@ Hello World with Kobin
        return Response("Hello World")
 
    @app.route('/users/{user_id}')
-   def hello(user_id: int) -> str:
+   def hello(user_id: int) -> JSONResponse:
        return JSONResponse({
            "message": "Hello {}!!".format(user_id)
        })
