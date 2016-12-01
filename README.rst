@@ -54,9 +54,9 @@ Hello World with Kobin
 
    @app.route('/users/{user_id}')
    def hello(user_id: int) -> str:
-       return JSONResponse(
+       return JSONResponse({
            "message": "Hello {}!!".format(user_id)
-       )
+       })
 
 
 Run server
