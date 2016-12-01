@@ -1,7 +1,7 @@
 import threading
 import cgi
 import json
-from typing import Dict, List, Tuple, Any
+from typing import Dict, List, Tuple, Any, Iterable
 import http.client as http_client
 from urllib.parse import SplitResult
 from http.cookies import SimpleCookie  # type: ignore
@@ -11,7 +11,6 @@ from wsgiref.headers import Headers  # type: ignore
 ##################################################################################
 # Request Object #################################################################
 ##################################################################################
-
 class Request:
     """ A wrapper for WSGI environment dictionaries.
     """
@@ -166,7 +165,7 @@ class Response:
                 self.headers.add_header(name, value)
 
     @property
-    def body(self) -> List[bytes]:
+    def body(self) -> Iterable[bytes]:
         return [self._body.encode(self.charset)]
 
     @property
@@ -235,7 +234,7 @@ class JSONResponse(Response):
         super().__init__('', status=status, headers=headers, charset=charset)
 
     @property
-    def body(self) -> List[bytes]:
+    def body(self) -> Iterable[bytes]:
         return [json.dumps(self.dic, **self.json_dump_args).encode(self.charset)]
 
 
@@ -250,7 +249,7 @@ class TemplateResponse(Response):
         super().__init__(body='', status=status, headers=headers, charset=charset)
 
     @property
-    def body(self) -> List[bytes]:
+    def body(self) -> Iterable[bytes]:
         return [self.template.render(**self.tpl_args).encode(self.charset)]
 
 
@@ -259,4 +258,4 @@ class HTTPError(Response, Exception):
 
     def __init__(self, body: str, status: int, headers: Dict=None, charset: str='utf-8') -> None:
         super().__init__(body=body, status=status or self.default_status,
-                         headers=headers, charset=charset)  # type: ignore
+                         headers=headers, charset=charset)

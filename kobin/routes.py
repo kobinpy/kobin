@@ -22,11 +22,11 @@ class Route:
         expression usable by the Router.
     """
     def __init__(self, rule: str, method: str, name: str,
-                 callback: Union[str, bytes]) -> None:
+                 callback: Callable[..., Response]) -> None:
         self.rule = rule
         self.method = method.upper()
         self.name = name
-        self.callback = callback
+        self.callback = callback  # type: Callable[..., Response]
 
     @property
     def callback_types(self) -> Dict[str, Any]:
@@ -75,18 +75,17 @@ class Router:
     def __init__(self) -> None:
         self.routes = []  # type: List['Route']
 
-    def match(self, environ: Dict[str, str]) \
-            -> Tuple[Callable[..., Response], Dict[str, Any]]:
+    def match(self, environ: Dict[str, str]) -> Tuple[Callable[..., Response], Dict[str, Any]]:
         method = environ['REQUEST_METHOD'].upper()
         path = environ['PATH_INFO'] or '/'
 
         for route in self.routes:
             url_vars = route.match(method, path)
             if url_vars is not None:
-                return route.callback, url_vars  # type: ignore
+                return route.callback, url_vars
         raise HTTPError(status=404, body='Not found: {}'.format(request.path))
 
-    def add(self, method: str, rule: str, name: str, callback: Union[str, bytes]) -> None:
+    def add(self, method: str, rule: str, name: str, callback: Callable[..., Response]) -> None:
         """ Add a new rule or replace the target for an existing rule. """
         route = Route(method=method.upper(), rule=rule, name=name, callback=callback)
         self.routes.append(route)
