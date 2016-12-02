@@ -74,8 +74,10 @@ class Config(dict):
 
 
 def current_app():
+    """Get your Kobin class object."""
     return request['kobin.app']
 
 
 def current_config():
+    """Get the configurations of your Kobin's application."""
     return current_app().config

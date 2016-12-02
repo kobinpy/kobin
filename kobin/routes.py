@@ -1,3 +1,16 @@
+"""
+Routing
+=======
+
+Kobin's routing system may be slightly distinctive.
+
+Rule Syntax
+-----------
+
+Reverse Routing
+---------------
+
+"""
 from typing import get_type_hints
 from urllib.parse import urljoin
 

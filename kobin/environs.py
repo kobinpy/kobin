@@ -1,3 +1,30 @@
+"""
+Request and Response
+====================
+
+Request
+-------
+
+When a page is requested, automatically created a :class:`Request` object that
+contains metadata about the request.
+Since this object is global within the thread,
+you can freely import from anywhere and retrieve request information.
+
+
+Response
+--------
+
+In contrast to :class:`Request` objects, which are created automatically,
+:class:`Response` objects are your responsibility.
+Each view functions you write is responsible
+for instantiating and returning an Response or its child classes.
+
+In Kobin, in addition to the ``Response`` class, the following child classes are provided.
+
+* :class:`TemplateResponse` : It returns HTML using Jinja2 Template Engine.
+* :class:`JSONResponse` : It returns JSON from dict or OrderedDict.
+* :class:`HTTPError` : It returns Error Message when raise this class.
+"""
 import threading
 import cgi
 import json
@@ -130,8 +157,6 @@ def _local_property():
 
 
 class LocalRequest(Request):
-    """ A thread local subclass of :class:`Request`
-    """
     bind = Request.__init__
     environ = _local_property()
     _body = _local_property()
