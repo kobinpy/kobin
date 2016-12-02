@@ -1,3 +1,4 @@
 # Requirements file for read the docs
 sphinx
+kobin
 solar-theme
