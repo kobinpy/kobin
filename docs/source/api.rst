@@ -8,7 +8,7 @@ This documentations is generated from kobin's source code.
    :members:
 
 .. automodule:: kobin.environs
-    :members:
+   :members:
 
 .. automodule:: kobin.routes
    :members:

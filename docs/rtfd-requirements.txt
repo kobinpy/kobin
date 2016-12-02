@@ -1,3 +1,0 @@
-kobin
-sphinx
-solar-theme
