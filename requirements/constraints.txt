@@ -16,7 +16,7 @@ ipdb==0.10.1
 ipython==5.1.0
 ipython-genutils==0.1.0
 Jinja2==2.8
--e git+git@github.com:c-bata/kobin.git@785f6f0af88cb20ad3a1ac25dc2c0cc0cc1da72f#egg=kobin
+-e git+git@github.com:c-bata/kobin.git@acc882e77eba4af46a01bd034e7bf28587a77347#egg=kobin
 MarkupSafe==0.23
 mccabe==0.5.2
 mypy-lang==0.4.6
@@ -40,6 +40,7 @@ requests-toolbelt==0.7.0
 simplegeneric==0.8.1
 six==1.10.0
 snowballstemmer==1.2.1
+solar-theme==1.3.2
 Sphinx==1.4.9
 sphinx-intl==0.9.9
 sphinx-rtd-theme==0.1.9
@@ -51,5 +52,5 @@ urllib3==1.19.1
 virtualenv==15.1.0
 wcwidth==0.1.7
 wsgi-lineprof==0.2.0
-wsgi-static-middleware==0.0.8
+wsgi-static-middleware==0.1.0
 wsgicli==0.1.0
