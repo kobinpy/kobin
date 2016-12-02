@@ -17,13 +17,10 @@ Response
 In contrast to :class:`Request` objects, which are created automatically,
 :class:`Response` objects are your responsibility.
 Each view functions you write is responsible
-for instantiating and returning an Response or its child classes.
+for instantiating and returning an :class:`Response` or its child classes.
 
-In Kobin, in addition to the ``Response`` class, the following child classes are provided.
-
-* :class:`TemplateResponse` : It returns HTML using Jinja2 Template Engine.
-* :class:`JSONResponse` : It returns JSON from dict or OrderedDict.
-* :class:`HTTPError` : It returns Error Message when raise this class.
+In addition to the :class:`Response` class, Kobin provides
+:class:`TemplateResponse` , :class:`JSONResponse` and :class:`HTTPError`.
 """
 import threading
 import cgi
@@ -173,6 +170,7 @@ _HTTP_STATUS_LINES = dict((k, '%d %s' % (k, v)) for (k, v) in HTTP_CODES.items()
 
 
 class Response:
+    """"""
     default_status = 200
     default_content_type = 'text/plain; charset=UTF-8'
 
@@ -248,6 +246,7 @@ class Response:
 
 
 class JSONResponse(Response):
+    """Returns a html using jinja2 template engine"""
     default_content_type = 'application/json; charset=UTF-8'
 
     def __init__(self, dic, status=200, headers=None, charset='utf-8', **dump_args):
@@ -261,6 +260,7 @@ class JSONResponse(Response):
 
 
 class TemplateResponse(Response):
+    """Returns a JSON text from dict or OrderedDict."""
     default_content_type = 'text/html; charset=UTF-8'
 
     def __init__(self, filename, status=200, headers=None, charset='utf-8', **tpl_args):
@@ -275,6 +275,7 @@ class TemplateResponse(Response):
 
 
 class HTTPError(Response, Exception):
+    """Return the error message when raise this class."""
     default_status = 500
 
     def __init__(self, body, status, headers=None, charset='utf-8'):

@@ -26,7 +26,7 @@ Translation
 
 Updating your po files by new pot files.
 
-::
+..code-block:: console
 
    $ make gettext
    $ sphinx-intl update -p build/locale

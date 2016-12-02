@@ -1,3 +1,22 @@
+"""
+Kobin class
+===========
+
+The Kobin instance are callable WSGI Application.
+
+Usage
+-----
+
+.. code-block:: python
+
+   from kobin import Kobin, Response
+   app = Kobin()
+
+   @app.route('/')
+   def index() -> Response:
+       return Response('Hello World')
+
+"""
 from importlib.machinery import SourceFileLoader
 from jinja2 import Environment, FileSystemLoader
 import os
@@ -8,6 +27,10 @@ from .environs import request, HTTPError
 
 
 class Kobin:
+    """
+    This class is a WSGI application implementation.
+    Create a instance, and run using WSGI Server.
+    """
     def __init__(self, root_path='.'):
         self.router = Router()
         self.config = Config(os.path.abspath(root_path))
@@ -47,6 +70,7 @@ class Kobin:
 
 
 class Config(dict):
+    """This class manages your application configs."""
     default_config = {
         'BASE_DIR': os.path.abspath('.'),
         'TEMPLATE_DIRS': [os.path.join(os.path.abspath('.'), 'templates')],
