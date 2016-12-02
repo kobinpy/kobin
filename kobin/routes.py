@@ -7,10 +7,55 @@ Kobin's routing system may be slightly distinctive.
 Rule Syntax
 -----------
 
+Kobin use decorator based URL dispatch.
+
+* Dynamic convert URL variables from Type Hints.
+
+.. code-block:: python
+
+   from kobin import Kobin, Response, RedirectResponse
+   app = Kobin()
+
+   @app.route('/')
+   def index() -> Response:
+       return Response('Hello World')
+
+   @app.route('/users/{user_id}')
+   def index(user_id: str) -> Response:
+       return Response('User List')
 
 
 Reverse Routing
 ---------------
+
+`app.router.reverse` function returns URL.
+The usage is like this:
+
+.. code-block:: python
+
+   from kobin import Kobin, Response
+   app = Kobin()
+
+   @app.route('/', 'top-page')
+   def index() -> Response:
+       return Response('Hello World')
+
+   @app.route('/users/{user_id}', 'user-detail')
+   def user_detail(user_id: int) -> Response:
+       return Response('Hello User{}'.format(user_id))
+
+   print(app.router.reverse('top-page'))
+   # http://hostname/
+
+   print(app.router.reverse('user-detail', user_id=1))
+   # http://hostname/users/1
+
+
+Reverse Routing and Redirecting
+-------------------------------
+
+:class:`RedirectResponse`
+The usage is like this:
 
 .. code-block:: python
 
@@ -21,11 +66,10 @@ Reverse Routing
    def index() -> Response:
        return Response('Hello World')
 
-   @app.route('/do-not-reach')
-   def do_not_reach() -> RedirectResponse:
+   @app.route('/404')
+   def user_detail() -> Response:
        top_url = app.router.reverse('top-page')
        return RedirectResponse(top_url)
-
 
 """
 from typing import get_type_hints

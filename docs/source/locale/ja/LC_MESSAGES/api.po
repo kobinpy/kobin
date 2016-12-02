@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0.4-alpha.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-02 12:50+0900\n"
+"POT-Creation-Date: 2016-12-02 14:09+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,9 +70,8 @@ msgid ""
 "within the thread, you can freely import from anywhere and retrieve "
 "request information."
 msgstr ""
-"リクエストを受け取ると、WSGIのリクエスト情報を元に :class:`Request` クラスのオブジェクトが自動生成されます。"
-"このオブジェクトは、スレッド内でグローバルなため、どこからでも自由にimportを行い"
-"リクエスト情報を取り出すことができます。リクエストが発生する度にこのオブジェクトは初期化されます。"
+"リクエストを受け取ると、WSGIのリクエスト情報を元に :class:`Request` "
+"クラスのオブジェクトが自動生成されます。このオブジェクトは、スレッド内でグローバルなため、どこからでも自由にimportを行いリクエスト情報を取り出すことができます。リクエストが発生する度にこのオブジェクトは初期化されます。"
 
 #: kobin.environs:14 of
 msgid "Response"
@@ -90,13 +89,18 @@ msgstr ""
 "オブジェクトは自分で生成する必要があります。Kobinでは、 View関数の返り値は必ずこの :class:`Response` "
 "クラスもしくはその派生クラスを返す必要があります。"
 
-#: kobin.environs:21 of
+#: kobin.environs:23 of
+#, fuzzy
 msgid ""
 "In addition to the :class:`Response` class, Kobin provides "
-":class:`TemplateResponse` , :class:`JSONResponse` and :class:`HTTPError`."
+":class:`TemplateResponse` ,"
 msgstr ""
-":class:`Response` クラスの他に、Kobinでは"
-" :class:`TemplateResponse` や :class:`JSONResponse` 、 :class:`HTTPError` を提供しています。"
+":class:`Response` クラスの他に、Kobinでは :class:`TemplateResponse` や "
+":class:`JSONResponse` 、 :class:`HTTPError` を提供しています。"
+
+#: kobin.environs:22 of
+msgid ":class:`JSONResponse` , :class:`RedirectResponse` and :class:`HTTPError`."
+msgstr ""
 
 #: kobin.environs.HTTPError:1 of
 #, fuzzy
@@ -106,6 +110,10 @@ msgstr "このクラスを ``raise`` するとエラーメッセージを返し�
 #: kobin.environs.JSONResponse:1 of
 msgid "Returns a html using jinja2 template engine"
 msgstr "jinja2のテンプレートエンジンを使用してHTMLを返します。"
+
+#: kobin.environs.RedirectResponse:1 of
+msgid "Redirect the specified url."
+msgstr ""
 
 #: kobin.environs.Request:1 of
 msgid "A wrapper for WSGI environment dictionaries."
@@ -137,14 +145,35 @@ msgstr "Kobinのルーティングシステムは少し特徴的かもしれま�
 msgid "Rule Syntax"
 msgstr "ルーティングの記述ルール"
 
-#: kobin.routes:10 of
+#: kobin.routes:9 of
+msgid "Kobin use decorator based URL dispatch."
+msgstr ""
+
+#: kobin.routes:11 of
+msgid "Dynamic convert URL variables from Type Hints."
+msgstr ""
+
+#: kobin.routes:28 of
 msgid "Reverse Routing"
 msgstr "URLの逆引き"
 
-#: kobin.routes.Route:1 of
-msgid ""
-"This class wraps a route callback along with route specific metadata. It "
-"is also responsible for turing an URL path rule into a regular expression"
-" usable by the Router."
+#: kobin.routes:30 of
+msgid "`app.router.reverse` function returns URL. The usage is like this:"
 msgstr ""
+
+#: kobin.routes:54 of
+msgid "Reverse Routing and Redirecting"
+msgstr ""
+
+#: kobin.routes:56 of
+msgid ":class:`RedirectResponse` The usage is like this:"
+msgstr ""
+
+#~ msgid ""
+#~ "This class wraps a route callback "
+#~ "along with route specific metadata. It"
+#~ " is also responsible for turing an"
+#~ " URL path rule into a regular "
+#~ "expression usable by the Router."
+#~ msgstr ""
 

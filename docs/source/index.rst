@@ -77,8 +77,8 @@ Kobin documentation contents
    :maxdepth: 2
 
    tutorial
-   devguide
    api
+   devguide
 
 
 Links
