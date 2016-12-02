@@ -7,21 +7,31 @@ Kobin's routing system may be slightly distinctive.
 Rule Syntax
 -----------
 
+
+
 Reverse Routing
 ---------------
 
+.. code-block:: python
+
+   from kobin import Kobin, Response, RedirectResponse
+   app = Kobin()
+
+   @app.route('/', 'top-page')
+   def index() -> Response:
+       return Response('Hello World')
+
+   @app.route('/do-not-reach')
+   def do_not_reach() -> RedirectResponse:
+       top_url = app.router.reverse('top-page')
+       return RedirectResponse(top_url)
+
+
 """
 from typing import get_type_hints
-from urllib.parse import urljoin
-
-from .environs import request, Response, HTTPError
+from .environs import request, HTTPError
 
 DEFAULT_ARG_TYPE = str
-
-
-def redirect(url):
-    status = 303 if request.get('SERVER_PROTOCOL') == "HTTP/1.1" else 302
-    return Response('', status, {'Location': urljoin(request.url, url)})
 
 
 def split_by_slash(path):
@@ -30,10 +40,6 @@ def split_by_slash(path):
 
 
 class Route:
-    """ This class wraps a route callback along with route specific metadata.
-        It is also responsible for turing an URL path rule into a regular
-        expression usable by the Router.
-    """
     def __init__(self, rule, method, name, callback):
         self.rule = rule
         self.method = method.upper()

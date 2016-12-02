@@ -19,14 +19,14 @@ In contrast to :class:`Request` objects, which are created automatically,
 Each view functions you write is responsible
 for instantiating and returning an :class:`Response` or its child classes.
 
-In addition to the :class:`Response` class, Kobin provides
-:class:`TemplateResponse` , :class:`JSONResponse` and :class:`HTTPError`.
+In addition to the :class:`Response` class, Kobin provides :class:`TemplateResponse` ,
+ :class:`JSONResponse` , :class:`RedirectResponse` and :class:`HTTPError`.
 """
 import threading
 import cgi
 import json
 import http.client as http_client
-from urllib.parse import SplitResult
+from urllib.parse import SplitResult, urljoin
 from http.cookies import SimpleCookie
 from wsgiref.headers import Headers
 
@@ -272,6 +272,13 @@ class TemplateResponse(Response):
     @property
     def body(self):
         return [self.template.render(**self.tpl_args).encode(self.charset)]
+
+
+class RedirectResponse(Response):
+    """Redirect the specified url."""
+    def __init__(self, url):
+        status = 303 if request.get('SERVER_PROTOCOL') == "HTTP/1.1" else 302
+        super().__init__('', status=status, headers={'Location': urljoin(request.url, url)})
 
 
 class HTTPError(Response, Exception):

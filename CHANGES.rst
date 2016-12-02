@@ -9,7 +9,7 @@ CHANGES
 * Update documentations.
 * View functions must return Response or its child class.
 * Make Request object to No thread local
-* Add Response, JSONResponse, TemplateResponse classes.
+* Add Response, JSONResponse, TemplateResponse, RedirectResponse.
 * Refactor error handling.
 * Add stub files (`.pyi`).
 * Python3.6 testing in travis-ci.org.

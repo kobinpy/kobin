@@ -1,7 +1,12 @@
+from jinja2 import Environment, FileSystemLoader
+import os
 from unittest import TestCase
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
-from kobin.environs import Request, Response
+from kobin import Kobin
+from kobin.environs import Request, Response, JSONResponse, TemplateResponse, RedirectResponse
+
+TEMPLATE_DIRS = [os.path.join(os.path.dirname(__file__), 'templates')]
 
 
 class RequestTests(TestCase):
@@ -178,4 +183,65 @@ class ResponseTests(TestCase):
     def test_constructor_headerlist_with_add_header(self):
         response = Response(headers={'key1': 'value1'})
         expected_content_type = ('key1', 'value1')
+        self.assertIn(expected_content_type, response.headerlist)
+
+
+class JSONResponseTests(TestCase):
+    def test_constructor_status(self):
+        response = JSONResponse({'foo': 'bar'})
+        self.assertEqual(response.status_code, 200)
+
+    def test_constructor_headerlist(self):
+        response = JSONResponse({'foo': 'bar'})
+        expected_content_type = ('Content-Type', 'application/json; charset=UTF-8')
+        self.assertIn(expected_content_type, response.headerlist)
+
+    def test_constructor_headerlist_with_add_header(self):
+        response = JSONResponse({'foo': 'bar'}, headers={'key1': 'value1'})
+        expected_content_type = ('key1', 'value1')
+        self.assertIn(expected_content_type, response.headerlist)
+
+
+class Jinja2TemplateTests(TestCase):
+    def setUp(self):
+        self.app = Kobin()
+        self.app.config['TEMPLATE_DIRS'] = TEMPLATE_DIRS
+
+    @patch('kobin.current_config')
+    def test_file(self, mock_current_config):
+        """ Templates: Jinja2 file """
+        mock_current_config.return_value = {
+            'JINJA2_ENV': Environment(loader=FileSystemLoader(TEMPLATE_DIRS))
+        }
+        response = TemplateResponse('jinja2.html', var='kobin')
+        actual = response.body
+        expected = [b"Hello kobin World."]
+        self.assertEqual(actual, expected)
+
+
+class RedirectResponseTests(TestCase):
+    def test_constructor_body(self):
+        response = RedirectResponse('/')
+        self.assertEqual(response.body, [b''])
+
+    def test_constructor_status_when_http10(self):
+        test_env = {'HTTP_HOST': 'localhost', 'SERVER_PROTOCOL': 'HTTP/1.0'}
+        app = Kobin()
+        app(test_env, lambda x, y: None)
+        response = RedirectResponse('/')
+        self.assertEqual(response.status_code, 302)
+
+    def test_constructor_status_when_http11(self):
+        test_env = {'HTTP_HOST': 'localhost', 'SERVER_PROTOCOL': 'HTTP/1.1'}
+        app = Kobin()
+        app(test_env, lambda x, y: None)
+        response = RedirectResponse('/')
+        self.assertEqual(response.status_code, 303)
+
+    def test_constructor_headerlist_has_location(self):
+        test_env = {'HTTP_HOST': 'localhost', 'SERVER_PROTOCOL': 'HTTP/1.1'}
+        app = Kobin()
+        app(test_env, lambda x, y: None)
+        response = RedirectResponse('/hello')
+        expected_content_type = ('Location', 'http://localhost/hello')
         self.assertIn(expected_content_type, response.headerlist)
