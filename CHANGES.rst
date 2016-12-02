@@ -12,6 +12,8 @@ CHANGES
 * Add Response, JSONResponse, TemplateResponse classes.
 * Refactor error handling.
 * Add stub files (`.pyi`).
+* Python3.6 testing in travis-ci.org.
+* Add API documentation.
 
 0.0.5 (2016-11-28)
 ------------------
