@@ -8,9 +8,9 @@ WSGIEnviron = Dict[str, WSGIEnvironValue]
 
 
 class Request:
-    __slots__ = ... # type: List[str]
-    environ = ... # type: WSGIEnviron
-    _body = ... # type: str
+    __slots__: List[str]
+    environ: WSGIEnviron
+    _body: str
 
     def __init__(self, environ: Dict = ...) -> None: ...
     def get(self, value: str, default: Any = ...): ...
@@ -42,25 +42,25 @@ def _local_property() -> Any: ...
 
 
 class LocalRequest(Request):
-    bind = ...  # type: Callable[[Dict], None]
-    environ = ...  # type: WSGIEnviron
-    _body = ...  # type: str
+    bind: Callable[[Dict], None]
+    environ: WSGIEnviron
+    _body: str
 
 
-request = ...  # type: LocalRequest
+request: LocalRequest
 
-HTTP_CODES = ... # type: Dict[int, str]
-_HTTP_STATUS_LINES = ... # type: Dict[int, str]
+HTTP_CODES: Dict[int, str]
+_HTTP_STATUS_LINES: Dict[int, str]
 
 
 class Response:
-    default_status = ...  # type: int
-    default_content_type = ...  # type: str
-    headers = ... # type: Headers
-    _body = ... # type: str
-    _status_code = ... # type: int
-    _cookies = ... # type: SimpleCookie
-    charset = ... # type: str
+    default_status: int
+    default_content_type: str
+    headers: Headers
+    _body: str
+    _status_code: int
+    _cookies: SimpleCookie
+    charset: str
 
     def __init__(self, body: str = ..., status: int = ..., headers: Dict = ...,
                  charset: str = ...) -> None: ...
@@ -79,8 +79,8 @@ class Response:
     def delete_cookie(self, key: str, **kwargs: Any) -> None: ...
 
 class JSONResponse(Response):
-    dic = ... # type: Dict[str, Any]
-    json_dump_args = ... # type: Dict[str, Any]
+    dic: Dict[str, Any]
+    json_dump_args: Dict[str, Any]
 
     def __init__(self, dic: Dict, status: int = ..., headers: Dict = ...,
                  charset: str = ..., **dump_args: Any) -> None: ...
@@ -89,8 +89,8 @@ class JSONResponse(Response):
 
 
 class TemplateResponse(Response):
-    template = ... # type: Template
-    tpl_args = ... # type: Dict[str, Any]
+    template: Template
+    tpl_args: Dict[str, Any]
 
     def __init__(self, filename: str, status: int = ..., headers: Dict[str, str] = ...,
                  charset: str = ..., **tpl_args: Any) -> None: ...

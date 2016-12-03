@@ -48,3 +48,6 @@ docs/build/
 
 ### Virtualenv
 venv/
+venv35/
+venv36/
+

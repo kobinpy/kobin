@@ -15,8 +15,8 @@ WSGIResponse = Iterable[bytes]
 
 
 class Kobin:
-    router = ...  # type: Router
-    config = ...  # type: Config
+    router: Router
+    config: Config
     def __init__(self, root_path: str = ...) -> None: ...
     def route(self, rule: str = ..., method: str = ..., name: str = ...,
               callback: ViewFunction = ...) -> ViewFunction: ...
@@ -26,8 +26,8 @@ class Kobin:
 
 
 class Config(dict):
-    root_path = ... # type: str
-    default_config = ...  # type: WSGIEnviron
+    root_path: str
+    default_config: WSGIEnviron
     def __init__(self, root_path: str, *args: str, **kwargs: WSGIEnvironValue) -> None: ...
     def load_from_pyfile(self, file_name: str) -> None: ...
     def load_from_module(self, module: ModuleType) -> None: ...
