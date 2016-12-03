@@ -125,7 +125,7 @@ msgstr "`ドキュメント (英語) <https://kobin.readthedocs.org/en/latest/>`
 #: ../../source/index.rst:95
 #, fuzzy
 msgid "`Documentation (日本語) <https://kobin.readthedocs.org/ja/latest/>`_"
-msgstr "`ドキュメント (英語) <https://kobin.readthedocs.org/en/latest/>`_"
+msgstr "`ドキュメント (日本語) <https://kobin.readthedocs.org/ja/latest/>`_"
 
 #: ../../source/index.rst:96
 msgid "`Github <https://github.com/kobinpy/kobin>`_"
@@ -145,12 +145,12 @@ msgstr "索引表"
 
 #: ../../source/index.rst:124
 msgid ":ref:`genindex`"
-msgstr ""
+msgstr ":ref:`インデックス生成`"
 
 #: ../../source/index.rst:125
 msgid ":ref:`modindex`"
-msgstr ""
+msgstr ":ref:`モジュール索引`"
 
 #: ../../source/index.rst:126
 msgid ":ref:`search`"
-msgstr ""
+msgstr ":ref:`検索`"
