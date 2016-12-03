@@ -59,7 +59,7 @@ class Request:
         return self.environ.get('REQUEST_METHOD', 'GET').upper()
 
     @property
-    def GET(self):
+    def query(self):
         params = cgi.FieldStorage(
             environ=self.environ,
             keep_blank_values=True,
@@ -68,7 +68,7 @@ class Request:
         return p
 
     @property
-    def POST(self):
+    def forms(self):
         form = cgi.FieldStorage(
             fp=self.environ['wsgi.input'],
             environ=self.environ,
