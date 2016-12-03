@@ -4,7 +4,7 @@
 Kobin Documentation
 ===================
 
-A Minimal WSGI Framework to comfortably develop your web application for Python3.
+A Minimal WSGI Framework to develop your web application comfortably.
 
 Kobin has following features.
 

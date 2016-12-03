@@ -20,7 +20,7 @@ Kobin
    :alt: Documentation Status
 
 
-A Minimal WSGI Framework to comfortably develop your web application for Python3.
+A Minimal WSGI Framework to develop your web application comfortably.
 **This library is a pre-release. Expect missing docs and breaking API changes.**
 
 Kobin has following features.

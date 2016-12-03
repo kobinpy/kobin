@@ -55,7 +55,7 @@ setup(
     author=__author__,
     author_email=__author_email__,
     url='https://github.com/kobinpy/kobin',
-    description='A Minimal WSGI Framework to comfortably develop your web application for Python3',
+    description='A Minimal WSGI Framework to develop your web application comfortably',
     long_description=README + '\n\n' + CHANGES,
     classifiers=__classifiers__,
     packages=find_packages(exclude=['test*']),
