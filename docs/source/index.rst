@@ -99,6 +99,7 @@ Run server
 
 .. code-block:: console
 
+   $ pip install wsgicli
    $ wsgicli main.py app --reload
 
 **Production**
