@@ -55,7 +55,7 @@ msgstr "Kobinは次にあげる機能を持ちません。"
 
 #: ../../source/index.rst:18
 msgid "*WSGI Server Adapters*: Please use WSGICLI or Gunicorn CLI."
-msgstr "WSGIサーバのアダプター: WSGICLIやGunicornのCLIを使用してください。"
+msgstr "*WSGIサーバのアダプター*: WSGICLIやGunicornのCLIを使用してください。"
 
 #: ../../source/index.rst:19
 msgid "*Serving static contents*: Please use WSGICLI and Nginx."
