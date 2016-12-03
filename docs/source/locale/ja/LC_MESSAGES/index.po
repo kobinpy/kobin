@@ -63,7 +63,7 @@ msgstr "*静的ファイルの配信*: WSGICLIやNginxを使用してくださ�
 
 #: ../../source/index.rst:20
 msgid "*Template Engine*: But Kobin provides template adapter."
-msgstr "**Template Engine*: Kobinではテンプレートエンジンへのアダプタのみを提供します"
+msgstr "*Template Engine*: Kobinではテンプレートエンジンへのアダプタのみを提供します"
 
 #: ../../source/index.rst:24
 msgid "Getting Started"
