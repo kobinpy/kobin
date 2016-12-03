@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0.4-alpha.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-02 12:31+0900\n"
+"POT-Creation-Date: 2016-12-03 18:32+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,11 +97,13 @@ msgid "pytest: ``python setup.py test``"
 msgstr ""
 
 #: ../../source/devguide.rst:46
-msgid "mypy: ``mypy kobin``"
+msgid ""
+"mypy: ``mypy --check-untyped-defs --fast-parser --python-version 3.6 "
+"kobin``"
 msgstr ""
 
 #: ../../source/devguide.rst:47
-msgid "Flake8: ``flake8 kobin``"
+msgid "Flake8: ``flake8``"
 msgstr ""
 
 #: ../../source/devguide.rst:48

@@ -4,13 +4,20 @@
 Kobin Documentation
 ===================
 
-Kobin is a small and statically-typed WSGI micro web framework for Python.
-**This library is a pre-release. Expect missing docs and breaking API changes.**
+A Minimal WSGI Framework to comfortably develop your web application for Python3.
+
 Kobin has following features.
 
-- **Statically-typed** web framework with PEP 0484(Type Hints).
-- **Lightweight** implementations for solving your problems easily.
-- Kobin provides Routing, WSGI request and response wrapper, Jinja2 template adapter and several useful utilities
+- Decorator based Routing System exploited Type Hints.
+- WSGI request and response Wrapper.
+- Provide type annotations from stub files.
+- and other convenient utilities...
+
+And Kobin has **NO** following features:
+
+- *WSGI Server Adapters*: Please use WSGICLI or Gunicorn CLI.
+- *Serving static contents*: Please use WSGICLI and Nginx.
+- *Template Engine*: But Kobin provides template adapter.
 
 
 Getting Started
