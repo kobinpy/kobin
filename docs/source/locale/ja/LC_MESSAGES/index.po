@@ -51,19 +51,19 @@ msgstr "他にもWebアプリケーション開発に便利なユーティリテ
 
 #: ../../source/index.rst:16
 msgid "And Kobin has **NO** following features:"
-msgstr "Kobinは次にあげる機能を持ちません。"
+msgstr "Kobinは次の機能を提供**しません**。"
 
 #: ../../source/index.rst:18
 msgid "*WSGI Server Adapters*: Please use WSGICLI or Gunicorn CLI."
-msgstr "*WSGIサーバのアダプター*: WSGICLIやGunicornのCLIを使用してください。"
+msgstr "**WSGIサーバのアダプター** : WSGICLIやGunicornのCLIを使用してください。"
 
 #: ../../source/index.rst:19
 msgid "*Serving static contents*: Please use WSGICLI and Nginx."
-msgstr "*静的ファイルの配信*: WSGICLIやNginxを使用してください。"
+msgstr "**静的ファイルの配信** : WSGICLIやNginxを使用してください。"
 
 #: ../../source/index.rst:20
 msgid "*Template Engine*: But Kobin provides template adapter."
-msgstr "*Template Engine*: Kobinではテンプレートエンジンへのアダプタのみを提供します"
+msgstr "**Template Engine** : Kobinではテンプレートエンジンへのアダプタのみを提供します"
 
 #: ../../source/index.rst:24
 msgid "Getting Started"
