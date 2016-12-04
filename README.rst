@@ -39,6 +39,17 @@ And Kobin has **NO** following features:
 Getting started
 ===============
 
+Requirements
+------------
+
+Supported python versions are python 3.5 or 3.6(beta).
+And Kobin has no required dependencies other than the Python Standard Libraries.
+
+The following packages are optional:
+
+* wsgicli - Command Line Interface for developing WSGI application.
+* jinja2 - Jinja2 is a full featured template engine for Python.
+
 Installation
 ------------
 
@@ -83,15 +94,6 @@ Run server
    $ gunicorn main:app
 
 
-Requirements
-============
-
-Kobin requires the following:
-
-- Python 3.5 or 3.6(beta)
-- Jinja2
-
-
 Resources
 =========
 
@@ -99,6 +101,7 @@ Resources
 * `Documentation (日本語) <https://kobin.readthedocs.org/ja/latest/>`_
 * `Github <https://github.com/kobinpy/kobin>`_
 * `PyPI <https://pypi.python.org/pypi/kobin>`_
+* `Kobin Example <https://github.com/kobinpy/kobin-example>`_
 
 
 License
