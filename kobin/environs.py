@@ -276,7 +276,10 @@ class TemplateResponse(Response):
 
     def __init__(self, filename, status=200, headers=None, charset='utf-8', **tpl_args):
         from . import current_config
-        self.template = current_config()['JINJA2_ENV'].get_template(filename)
+        jinja2_env = current_config().get('JINJA2_ENV')
+        if jinja2_env is None:
+            raise ImportError('Please install jinja2!')
+        self.template = jinja2_env.get_template(filename)
         self.tpl_args = tpl_args
         super().__init__(body='', status=status, headers=headers, charset=charset)
 

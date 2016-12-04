@@ -18,7 +18,6 @@ Usage
 
 """
 from importlib.machinery import SourceFileLoader
-from jinja2 import Environment, FileSystemLoader
 import os
 import traceback
 
@@ -81,6 +80,7 @@ class Config(dict):
         super().__init__(*args, **kwargs)
         self.root_path = root_path
         self.update(self.default_config)
+
         self.update_jinja2_environment()
 
     def load_from_pyfile(self, file_name):
@@ -94,7 +94,11 @@ class Config(dict):
         self.update_jinja2_environment()
 
     def update_jinja2_environment(self):
-        self['JINJA2_ENV'] = Environment(loader=FileSystemLoader(self['TEMPLATE_DIRS']))
+        try:
+            from jinja2 import Environment, FileSystemLoader
+            self['JINJA2_ENV'] = Environment(loader=FileSystemLoader(self['TEMPLATE_DIRS']))
+        except ImportError:
+            pass
 
 
 def current_app():

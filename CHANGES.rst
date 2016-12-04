@@ -1,11 +1,12 @@
 CHANGES
 =======
 
-0.1.0 (2016-12-??)
+0.0.7 (2016-12-??)
 ------------------
 
 * headers property in Request object.
 * raw_body property in Request object.
+* Remove jinja2 from install_requires.
 * Update docs.
 
 0.0.6 (2016-12-04)

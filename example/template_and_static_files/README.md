@@ -7,7 +7,7 @@
 Please run with wsgicli.
 
 ```console
-$ pip install kobin wsgicli
+$ pip install kobin wsgicli jinja2
 $ wsgicli app.py app --reload --static --static-root /static/ --static-dirs ./static/
 ```
 
