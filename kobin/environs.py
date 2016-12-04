@@ -59,6 +59,12 @@ class Request:
         return self.environ.get('REQUEST_METHOD', 'GET').upper()
 
     @property
+    def headers(self):
+        return {k[len('HTTP_'):]: v
+                for k, v in self.environ.items()
+                if k.startswith('HTTP_')}
+
+    @property
     def query(self):
         params = cgi.FieldStorage(
             environ=self.environ,

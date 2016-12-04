@@ -147,6 +147,10 @@ class RequestTests(TestCase):
         actual = request.url
         self.assertEqual(actual, "http://localhost/hoge?key1=value1&key2=value2")
 
+    def test_headers(self):
+        request = Request({'HTTP_FOO': 'Bar', 'QUERY_STRING': 'key1=value1'})
+        self.assertEqual(request.headers['FOO'], 'Bar')
+
 
 class ResponseTests(TestCase):
     def test_constructor_body(self):

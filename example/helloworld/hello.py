@@ -1,10 +1,11 @@
-from kobin import Kobin, Response, JSONResponse
+from kobin import Kobin, request, Response, JSONResponse
 
 app = Kobin()
 
 
 @app.route('/')
 def hello() -> Response:
+    print(request.headers)
     return Response("Hello World!!")
 
 
