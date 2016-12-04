@@ -4,7 +4,9 @@ CHANGES
 0.1.0 (2016-12-??)
 ------------------
 
-* Add tutorial.
+* headers property in Request object.
+* raw_body property in Request object.
+* Update docs.
 
 0.0.6 (2016-12-04)
 ------------------
