@@ -143,13 +143,12 @@ msgstr "索引表"
 
 #: ../../source/index.rst:125
 msgid ":ref:`genindex`"
-msgstr ":ref:`インデックス生成`"
+msgstr ""
 
 #: ../../source/index.rst:126
 msgid ":ref:`modindex`"
-msgstr ":ref:`モジュール索引`"
+msgstr ""
 
 #: ../../source/index.rst:127
 msgid ":ref:`search`"
-msgstr ":ref:`検索`"
-
+msgstr ""
