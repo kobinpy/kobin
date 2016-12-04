@@ -78,10 +78,15 @@ class Request:
         return params
 
     @property
-    def body(self):
+    def raw_body(self):
         if self._body is None:
-            self._body = self.environ['wsgi.input'].read(int(self.environ.get('CONTENT_LENGTH', 0))).decode('utf-8')
+            self._body = self.environ['wsgi.input'].read(
+                int(self.environ.get('CONTENT_LENGTH', 0)))
         return self._body
+
+    @property
+    def body(self):
+        return self.raw_body.decode('utf-8')
 
     @property
     def json(self):

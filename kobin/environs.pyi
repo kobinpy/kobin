@@ -57,7 +57,7 @@ class Response:
     default_status: int
     default_content_type: str
     headers: Headers
-    _body: str
+    _body: bytes
     _status_code: int
     _cookies: SimpleCookie
     charset: str
@@ -65,7 +65,9 @@ class Response:
     def __init__(self, body: str = ..., status: int = ..., headers: Dict = ...,
                  charset: str = ...) -> None: ...
     @property
-    def body(self) -> Iterable[bytes]: ...
+    def raw_body(self) -> bytes: ...
+    @property
+    def body(self) -> str: ...
     @property
     def status_code(self) -> int: ...
     @property
@@ -78,7 +80,7 @@ class Response:
                    **options: Any) -> None: ...
     def delete_cookie(self, key: str, **kwargs: Any) -> None: ...
 
-class JSONResponse(Response):
+class JSONResponse:
     dic: Dict[str, Any]
     json_dump_args: Dict[str, Any]
 
@@ -88,7 +90,7 @@ class JSONResponse(Response):
     def body(self) -> Iterable[bytes]: ...
 
 
-class TemplateResponse(Response):
+class TemplateResponse:
     template: Template
     tpl_args: Dict[str, Any]
 
