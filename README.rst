@@ -60,4 +60,4 @@ Resources
 License
 =======
 
-This software and Documentation are licensed under the MIT License (See [LICENSE](./LICENSE)).
+This software is licensed under the MIT License (See [LICENSE](./LICENSE)).
