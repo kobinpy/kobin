@@ -47,7 +47,7 @@ msgstr "他にもWebアプリケーション開発に便利なユーティリテ
 
 #: ../../source/index.rst:16
 msgid "And Kobin has **NO** following features:"
-msgstr "Kobinは次の機能を提供 **しません** 。"
+msgstr "Kobinは次の機能を提供しません。"
 
 #: ../../source/index.rst:18
 msgid "*WSGI Server Adapters*: Please use WSGICLI or Gunicorn CLI."
