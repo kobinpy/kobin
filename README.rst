@@ -57,6 +57,14 @@ Resources
 * `Kobin Example <https://github.com/kobinpy/kobin-example>`_
 
 
+Kobin's documentation is not yet complete very much.
+If you want to know the best practices in Kobin,
+Please check  `Kobin Example <https://github.com/kobinpy/kobin-example>`_ .
+
+.. image:: docs/source/_static/kobin-example.gif
+   :alt: Kobin Example Demo Animation
+   :align: center
+
 License
 =======
 

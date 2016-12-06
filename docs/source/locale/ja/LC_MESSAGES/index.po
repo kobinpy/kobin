@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-07 01:28+0900\n"
+"POT-Creation-Date: 2016-12-07 01:34+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,29 +115,18 @@ msgstr ""
 msgid "`Kobin Example <https://github.com/kobinpy/kobin-example>`_"
 msgstr ""
 
-#: ../../source/index.rst:76
-msgid ""
-"Kobin's documentation is not yet complete very much. If you want to know "
-"the best practices in Kobin, Please check  `Kobin Example "
-"<https://github.com/kobinpy/kobin-example>`_ ."
-msgstr ""
-"Kobinドキュメンテーションはまだあまり整っているとはいえません。"
-"もしKobinの使い方やベストプラクティスを知りたい方は、 `Kobin Example <https://github.com/kobinpy/kobin-example>`_ "
-"をチェックしてみてください。"
-
-#: ../../source/index.rst:85
+#: ../../source/index.rst:77
 msgid "Indices and tables"
 msgstr "索引表"
 
-#: ../../source/index.rst:87
+#: ../../source/index.rst:79
 msgid ":ref:`genindex`"
 msgstr ""
 
-#: ../../source/index.rst:88
+#: ../../source/index.rst:80
 msgid ":ref:`modindex`"
 msgstr ""
 
-#: ../../source/index.rst:89
+#: ../../source/index.rst:81
 msgid ":ref:`search`"
 msgstr ""
-
