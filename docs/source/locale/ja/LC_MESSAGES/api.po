@@ -78,7 +78,6 @@ msgid "Response"
 msgstr "レスポンス"
 
 #: kobin.environs:16 of
-#, fuzzy
 msgid ""
 "In contrast to :class:`Request` objects, which are created automatically,"
 " :class:`Response` objects are your responsibility. Each view functions "
@@ -90,7 +89,6 @@ msgstr ""
 "クラスもしくはその派生クラスを返す必要があります。"
 
 #: kobin.environs:23 of
-#, fuzzy
 msgid ""
 "In addition to the :class:`Response` class, Kobin provides "
 ":class:`TemplateResponse` ,"
@@ -103,7 +101,6 @@ msgid ":class:`JSONResponse` , :class:`RedirectResponse` and :class:`HTTPError`.
 msgstr ""
 
 #: kobin.environs.HTTPError:1 of
-#, fuzzy
 msgid "Return the error message when raise this class."
 msgstr "このクラスを ``raise`` するとエラーメッセージを返します。"
 
@@ -168,12 +165,3 @@ msgstr ""
 #: kobin.routes:56 of
 msgid ":class:`RedirectResponse` The usage is like this:"
 msgstr ""
-
-#~ msgid ""
-#~ "This class wraps a route callback "
-#~ "along with route specific metadata. It"
-#~ " is also responsible for turing an"
-#~ " URL path rule into a regular "
-#~ "expression usable by the Router."
-#~ msgstr ""
-

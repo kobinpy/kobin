@@ -63,7 +63,6 @@ msgid "Updating your po files by new pot files."
 msgstr "``po`` ファイルをアップデートしてください。"
 
 #: ../../source/devguide.rst:36
-#, fuzzy
 msgid ""
 "Reference: `Internationalization -- Sphinx documentation <http://www"
 ".sphinx-doc.org/en/stable/intl.html>`_"

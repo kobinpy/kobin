@@ -18,12 +18,10 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 
 #: ../../source/index.rst:5
-#, fuzzy
 msgid "Kobin Documentation"
 msgstr "Kobin ドキュメント"
 
 #: ../../source/index.rst:7
-#, fuzzy
 msgid "A Minimal WSGI Framework to develop your web application comfortably."
 msgstr "Kobinは、Webアプリケーションを快適に開発するための最も小さなフレームワークです。"
 
@@ -104,7 +102,6 @@ msgid "`Documentation (English) <https://kobin.readthedocs.org/en/latest/>`_"
 msgstr "`ドキュメント (英語) <https://kobin.readthedocs.org/en/latest/>`_"
 
 #: ../../source/index.rst:71
-#, fuzzy
 msgid "`Documentation (日本語) <https://kobin.readthedocs.org/ja/latest/>`_"
 msgstr "`ドキュメント (日本語) <https://kobin.readthedocs.org/ja/latest/>`_"
 
