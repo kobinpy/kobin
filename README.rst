@@ -68,4 +68,4 @@ Please check  `Kobin Example <https://github.com/kobinpy/kobin-example>`_ .
 License
 =======
 
-This software is licensed under the MIT License (See [LICENSE](./LICENSE)).
+This software is licensed under the MIT License (See `LICENSE <./LICENSE>`_ ).
