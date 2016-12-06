@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 18:26+0900\n"
+"POT-Creation-Date: 2016-12-07 01:28+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,9 +77,7 @@ msgstr ""
 msgid ""
 "Supported python versions are python 3.5 or 3.6(beta). And Kobin has no "
 "required dependencies other than the Python Standard Libraries."
-msgstr ""
-"Kobinでは、Python 3.5と3.6(beta)をサポートしています。"
-"またKobinはサードパーティのライブラリに依存していません。"
+msgstr "Kobinでは、Python 3.5と3.6(beta)をサポートしています。またKobinはサードパーティのライブラリに依存していません。"
 
 #: ../../source/index.rst:61
 msgid "The following packages are optional:"
@@ -113,18 +111,33 @@ msgstr ""
 msgid "`PyPI <https://pypi.python.org/pypi/kobin>`_"
 msgstr ""
 
-#: ../../source/index.rst:77
+#: ../../source/index.rst:74
+msgid "`Kobin Example <https://github.com/kobinpy/kobin-example>`_"
+msgstr ""
+
+#: ../../source/index.rst:76
+msgid ""
+"Kobin's documentation is not yet complete very much. If you want to know "
+"the best practices in Kobin, Please check  `Kobin Example "
+"<https://github.com/kobinpy/kobin-example>`_ ."
+msgstr ""
+"Kobinドキュメンテーションはまだあまり整っているとはいえません。"
+"もしKobinの使い方やベストプラクティスを知りたい方は、 `Kobin Example <https://github.com/kobinpy/kobin-example>`_ "
+"をチェックしてみてください。"
+
+#: ../../source/index.rst:85
 msgid "Indices and tables"
 msgstr "索引表"
 
-#: ../../source/index.rst:79
+#: ../../source/index.rst:87
 msgid ":ref:`genindex`"
 msgstr ""
 
-#: ../../source/index.rst:80
+#: ../../source/index.rst:88
 msgid ":ref:`modindex`"
 msgstr ""
 
-#: ../../source/index.rst:81
+#: ../../source/index.rst:89
 msgid ":ref:`search`"
 msgstr ""
+

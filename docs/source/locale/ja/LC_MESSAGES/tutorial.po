@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 18:26+0900\n"
+"POT-Creation-Date: 2016-12-07 01:31+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,66 +36,58 @@ msgstr ""
 msgid "WSGICLI: Command line tools for developing your WSGI Application"
 msgstr ""
 
-#: ../../source/tutorial.rst:19
-msgid "Jinja2: Template Engine"
-msgstr ""
-
-#: ../../source/tutorial.rst:23
+#: ../../source/tutorial.rst:22
 msgid "Your first kobin app"
 msgstr "初めてのKobinアプリケーション"
 
-#: ../../source/tutorial.rst:25
+#: ../../source/tutorial.rst:24
 msgid "Let's make Kobin's application. Please create a ``main.py``:"
 msgstr "ここからは、実際にKobinのアプリケーションをつくってみます。 ``main.py`` を作成してください。"
 
-#: ../../source/tutorial.rst:43
+#: ../../source/tutorial.rst:42
 msgid ""
 "For those who have used the WSGI framework such as Bottle and Flask, it "
 "may be familiar with this code. One distinctive feature is the existence "
 "of type hints. Kobin casts the URL variable based on the type hinting and"
 " passes it to the View function."
-msgstr ""
-"BottleやFlaskなどのWSGIフレームワークを使用したことのある方にとっては、馴染みのあるものかもしれません。"
-"一つ特徴的なのは、型ヒントの存在でしょうか。"
-"Kobinでは、引数の型ヒントを元にURL変数をキャストし、View関数に渡します。"
+msgstr "BottleやFlaskなどのWSGIフレームワークを使用したことのある方にとっては、馴染みのあるものかもしれません。一つ特徴的なのは、型ヒントの存在でしょうか。Kobinでは、引数の型ヒントを元にURL変数をキャストし、View関数に渡します。"
 
-#: ../../source/tutorial.rst:48
+#: ../../source/tutorial.rst:47
 msgid ""
 "Let's actually move it. There are several ways to run WSGI's application."
 " In the development environment we recommend a command line tool called "
 "``wsgicli``."
 msgstr ""
-"それでは実際に動かしてみましょう。"
-"WSGIのアプリケーションを動かす方法はいくつかありますが、"
-"開発環境では ``wsgicli`` というコマンドラインツールを推奨しています。"
+"それでは実際に動かしてみましょう。WSGIのアプリケーションを動かす方法はいくつかありますが、開発環境では ``wsgicli`` "
+"というコマンドラインツールを推奨しています。"
 
-#: ../../source/tutorial.rst:57
+#: ../../source/tutorial.rst:56
 msgid "When the server starts up successfully, let's access following urls."
 msgstr "サーバが無事に起動したら、実際にアクセスしてみましょう。"
 
-#: ../../source/tutorial.rst:59
+#: ../../source/tutorial.rst:58
 msgid "http://localhost:8000/"
 msgstr ""
 
-#: ../../source/tutorial.rst:60
+#: ../../source/tutorial.rst:59
 msgid "http://localhost:8000/users/1"
 msgstr ""
 
-#: ../../source/tutorial.rst:62
+#: ../../source/tutorial.rst:61
 msgid "Did you see any message? Congratulations!"
 msgstr "何かメッセージが表示されましたか？おめでとうございます。"
 
-#: ../../source/tutorial.rst:66
+#: ../../source/tutorial.rst:65
 msgid "Deploy to production"
 msgstr "本番環境へのデプロイ"
 
-#: ../../source/tutorial.rst:68
+#: ../../source/tutorial.rst:67
 msgid ""
 "In a production, let's use ``gunicorn`` instead of using ``wsgicli`` for "
 "a performance reasons."
 msgstr "本番環境では、パフォーマンスの観点からこれまで使用してきた ``wsgicli`` ではなく ``gunicorn`` を使いましょう。"
 
-#: ../../source/tutorial.rst:75
+#: ../../source/tutorial.rst:74
 msgid ""
 "Then please try accessing your website. If you use the function of static"
 " file serving in wsgicli, maybe the layout and styles have gone wrong. "
@@ -105,27 +97,30 @@ msgid ""
 "`Serving Static Content - Nginx <https://www.nginx.com/resources/admin-"
 "guide/serving-static-content/>`_ ."
 msgstr ""
-"それではアクセスしてみてください。大変です、表示がおかしくなってしまいました。"
-"実は、gunicornにはCSSやJS、画像ファイルといった静的コンテンツを配信する機能はありません。"
-"本番環境では、Nginx等のリバースプロキシを用いて静的コンテンツを配信することが一般的です"
-"(参考: `Serving Static Content - Nginx <https://www.nginx.com/resources/admin-guide/serving-static-content/>`_ )"
+"それではアクセスしてみてください。大変です、表示がおかしくなってしまいました。実は、gunicornにはCSSやJS、画像ファイルといった静的コンテンツを配信する機能はありません。本番環境では、Nginx等のリバースプロキシを用いて静的コンテンツを配信することが一般的です(参考:"
+" `Serving Static Content - Nginx <https://www.nginx.com/resources/admin-"
+"guide/serving-static-content/>`_ )"
 
-#: ../../source/tutorial.rst:81
+#: ../../source/tutorial.rst:80
 msgid ""
 "If you absolutely need to serve static contents in Python's application "
 "side (ex: Using Heroku), Please use `kobinpy/wsgi-static-middleware "
 "<https://github.com/kobinpy/wsgi-static-middleware>`_ ."
 msgstr ""
-"もし、HerokuなどどうしてもPythonのアプリケーション側で静的ファイルを配信する必要がある場合は、"
-"`kobinpy/wsgi-static-middleware <https://github.com/kobinpy/wsgi-static-middleware>`_ を利用してください。"
+"もし、HerokuなどどうしてもPythonのアプリケーション側で静的ファイルを配信する必要がある場合は、`kobinpy/wsgi-"
+"static-middleware <https://github.com/kobinpy/wsgi-static-middleware>`_ "
+"を利用してください。"
 
-#: ../../source/tutorial.rst:86
-msgid "Conclusion"
-msgstr "おわりに"
+#: ../../source/tutorial.rst:85
+msgid "Next Step"
+msgstr "次のステップ"
 
-#: ../../source/tutorial.rst:88
+#: ../../source/tutorial.rst:87
 msgid ""
 "More practical example is `kobin-example <https://github.com/kobinpy"
-"/kobin-example>`_ . Please see it."
-msgstr "より実践的なアプリケーションとして、 `kobin-example <https://github.com/kobinpy/kobin-example>`_ があります。"
-"ぜひご覧ください。"
+"/kobin-example>`_ . If you want to know the best practices in Kobin, "
+"Please check it."
+msgstr ""
+"より実践的なアプリケーションとして、 `kobin-example <https://github.com/kobinpy/kobin-"
+"example>`_ があります。"
+"もしKobinの使い方やベストプラクティスについてもう少し学びたい方は、そちらをチェックしてください。"

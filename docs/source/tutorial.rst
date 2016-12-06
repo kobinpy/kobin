@@ -12,11 +12,10 @@ In this tutorial, we will use Python 3.6.
    $ python --version
    Python 3.6.0b4
    $ pip install -U pip
-   $ pip install kobin wsgicli jinja2
+   $ pip install kobin wsgicli
 
 * Kobin: WSGI Framework
 * WSGICLI: Command line tools for developing your WSGI Application
-* Jinja2: Template Engine
 
 
 Your first kobin app
@@ -82,8 +81,12 @@ If you absolutely need to serve static contents in Python's application side (ex
 Please use `kobinpy/wsgi-static-middleware <https://github.com/kobinpy/wsgi-static-middleware>`_ .
 
 
-Conclusion
-==========
+Next Step
+=========
 
 More practical example is `kobin-example <https://github.com/kobinpy/kobin-example>`_ .
-Please see it.
+If you want to know the best practices in Kobin, Please check it.
+
+.. image:: _static/kobin-example.gif
+   :alt: Kobin Example Demo Animation
+   :align: center
