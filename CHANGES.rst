@@ -1,9 +1,11 @@
 CHANGES
 =======
 
-0.1.0 (2016-12-XX)
+0.1.0 (2016-12-07)
 ------------------
 
+* Add before_request / after_request hook
+* Update docs.
 
 0.0.7 (2016-12-05)
 ------------------
