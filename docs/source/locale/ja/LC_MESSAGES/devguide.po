@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0.4-alpha.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-03 18:32+0900\n"
+"POT-Creation-Date: 2016-12-06 18:34+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,17 +61,6 @@ msgstr "翻訳"
 #: ../../source/devguide.rst:27
 msgid "Updating your po files by new pot files."
 msgstr "``po`` ファイルをアップデートしてください。"
-
-#: ../../source/devguide.rst:29
-msgid "..code-block:: console"
-msgstr ""
-
-#: ../../source/devguide.rst:31
-msgid ""
-"$ make gettext $ sphinx-intl update -p build/locale # edit "
-"doc/source/locale/*.po files $ make -e SPHINXOPTS=\"-D language='ja'\" "
-"html"
-msgstr ""
 
 #: ../../source/devguide.rst:36
 #, fuzzy

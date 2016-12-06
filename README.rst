@@ -34,13 +34,10 @@ And Kobin has **NO** following features:
 
 - *WSGI Server Adapters*: Please use WSGICLI or Gunicorn CLI.
 - *Serving static contents*: Please use WSGICLI and Nginx.
-- *Template Engine*: But Kobin provides template adapter.
-
-Getting started
-===============
+- *Template Engine*: But Kobin provides template adapter for Jinja2.
 
 Requirements
-------------
+============
 
 Supported python versions are python 3.5 or 3.6(beta).
 And Kobin has no required dependencies other than the Python Standard Libraries.
@@ -50,55 +47,11 @@ The following packages are optional:
 * wsgicli - Command Line Interface for developing WSGI application.
 * jinja2 - Jinja2 is a full featured template engine for Python.
 
-Installation
-------------
-
-.. code-block:: console
-
-   $ pip install kobin
-
-Hello World with Kobin
-----------------------
-
-.. code-block:: python
-
-   from kobin import Kobin, Response, JSONResponse
-   app = Kobin()
-
-   @app.route('/')
-   def hello() -> Response:
-       return Response("Hello World")
-
-   @app.route('/users/{user_id}')
-   def hello(user_id: int) -> JSONResponse:
-       return JSONResponse({
-           "message": "Hello {}!!".format(user_id)
-       })
-
-
-Run server
-----------
-
-**Development**
-
-.. code-block:: console
-
-   $ pip install wsgicli
-   $ wsgicli main.py app --reload
-
-**Production**
-
-.. code-block:: console
-
-   $ pip install gunicorn
-   $ gunicorn main:app
-
-
 Resources
 =========
 
 * `Documentation (English) <https://kobin.readthedocs.org/en/latest/>`_
-* `Documentation (日本語) <https://kobin.readthedocs.org/ja/latest/>`_
+* `Documentation (Japanese) <https://kobin.readthedocs.org/ja/latest/>`_
 * `Github <https://github.com/kobinpy/kobin>`_
 * `PyPI <https://pypi.python.org/pypi/kobin>`_
 * `Kobin Example <https://github.com/kobinpy/kobin-example>`_
@@ -107,4 +60,4 @@ Resources
 License
 =======
 
-This software is licensed under the MIT License.
+This software and Documentation are licensed under the MIT License (See [LICENSE](./LICENSE)).

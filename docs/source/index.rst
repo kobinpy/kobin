@@ -52,62 +52,16 @@ Kobin documentation contents
    devguide
 
 
-Getting Started
-===============
-
 Requirements
-------------
+============
 
-Kobin requires the following:
+Supported python versions are python 3.5 or 3.6(beta).
+And Kobin has no required dependencies other than the Python Standard Libraries.
 
-- Python 3.5 or 3.6 (beta)
-- Jinja2
+The following packages are optional:
 
-Installation
-------------
-
-Install using pip.
-
-.. code-block:: console
-
-   $ pip install kobin
-
-
-Hello World Example
--------------------
-
-.. code-block:: python
-
-   from kobin import Kobin, Response, JSONResponse
-   app = Kobin()
-
-   @app.route('/')
-   def index() -> Response:
-       return Response("Hello World!!")
-
-   @app.route('/user/{user_id}')
-   def hello(user_id: str) -> JSONResponse:
-       return JSONResponse({
-           "message": "Hello User{}!".format(user_id)
-       })
-
-
-Run server
-----------
-
-**Development**
-
-.. code-block:: console
-
-   $ pip install wsgicli
-   $ wsgicli main.py app --reload
-
-**Production**
-
-.. code-block:: console
-
-   $ pip install gunicorn
-   $ gunicorn main:app
+* wsgicli - Command Line Interface for developing WSGI application.
+* jinja2 - Jinja2 is a full featured template engine for Python.
 
 
 Links
