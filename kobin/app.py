@@ -33,6 +33,8 @@ class Kobin:
     def __init__(self, root_path='.'):
         self.router = Router()
         self.config = Config(os.path.abspath(root_path))
+        self.before_request_callback = None
+        self.after_request_callback = None
 
     def route(self, rule=None, method='GET', name=None, callback=None):
         def decorator(callback_func):
@@ -40,13 +42,31 @@ class Kobin:
             return callback_func
         return decorator(callback) if callback else decorator
 
+    def before_request(self, callback):
+        def decorator(callback_func):
+            self.before_request_callback = callback_func
+            return callback_func
+        return decorator(callback)
+
+    def after_request(self, callback):
+        def decorator(callback_func):
+            self.after_request_callback = callback_func
+            return callback_func
+        return decorator(callback)
+
     def _handle(self, environ):
         environ['kobin.app'] = self
         request.bind(environ)
 
         try:
+            if self.before_request_callback:
+                self.before_request_callback()
+
             callback, kwargs = self.router.match(environ)
             response = callback(**kwargs) if kwargs else callback()
+
+            if self.after_request_callback:
+                response = self.after_request_callback(response)
         except HTTPError as e:
             response = e
         except BaseException as e:
