@@ -1,6 +1,7 @@
+from datetime import timedelta, date, datetime
 from jinja2 import Template  # type: ignore
 from http.cookies import SimpleCookie
-from typing import Dict, List, Tuple, Any, Iterable, TypeVar, Callable
+from typing import Dict, List, Tuple, Any, Iterable, TypeVar, Callable, Union
 from wsgiref.headers import Headers  # type: ignore
 
 WSGIEnvironValue = TypeVar('WSGIEnvironValue')
@@ -78,8 +79,8 @@ class Response:
     def status(self, status_code: int) -> None: ...
     @property
     def headerlist(self) -> List[Tuple[str, str]]: ...
-    def set_cookie(self, key: str, value: Any, expires: str = ..., path: str = ...,
-                   **options: Any) -> None: ...
+    def set_cookie(self, key: str, value: Any, expires: Union[date, datetime] = ...,
+                   max_age: timedelta = ..., path: str = ...) -> None: ...
     def delete_cookie(self, key: str, **kwargs: Any) -> None: ...
 
 class JSONResponse:

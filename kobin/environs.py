@@ -229,26 +229,17 @@ class Response:
                 self.headers.add_header('Set-Cookie', c.OutputString())
         return self.headers.items()
 
-    def set_cookie(self, key, value, expires=None, path=None, **options):
-        from datetime import timedelta, datetime, date
+    def set_cookie(self, key, value, expires=None, max_age=None, path=None):
         import time
         self._cookies[key] = value
+        if max_age:
+            max_age_value = max_age.seconds + max_age.days * 24 * 3600
+            self._cookies[key]['max-age'] = max_age_value
         if expires:
-            self._cookies[key]['expires'] = expires
+            expires_value = time.strftime("%a, %d %b %Y %H:%M:%S GMT", expires.timetuple())
+            self._cookies[key]['expires'] = expires_value
         if path:
             self._cookies[key]['path'] = path
-
-        for k, v in options.items():
-            if k == 'max_age':
-                if isinstance(v, timedelta):
-                    v = v.seconds + v.days * 24 * 3600
-            if k == 'expires':
-                if isinstance(v, (date, datetime)):
-                    v = v.timetuple()
-                elif isinstance(v, (int, float)):
-                    v = v.gmtime(value)
-                v = time.strftime("%a, %d %b %Y %H:%M:%S GMT", v)
-            self._cookies[key][k.replace('_', '-')] = v
 
     def delete_cookie(self, key, **kwargs):
         kwargs['max_age'] = -1
