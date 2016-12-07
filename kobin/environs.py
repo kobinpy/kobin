@@ -232,11 +232,17 @@ class Response:
     def set_cookie(self, key, value, expires=None, max_age=None, path=None):
         import time
         self._cookies[key] = value
-        if max_age:
-            max_age_value = max_age.seconds + max_age.days * 24 * 3600
+        if max_age is not None:
+            if isinstance(max_age, int):
+                max_age_value = max_age
+            else:
+                max_age_value = max_age.seconds + max_age.days * 24 * 3600
             self._cookies[key]['max-age'] = max_age_value
-        if expires:
-            expires_value = time.strftime("%a, %d %b %Y %H:%M:%S GMT", expires.timetuple())
+        if expires is not None:
+            if isinstance(expires, int):
+                expires_value = self.set_cookie[key]['expires'] = expires
+            else:
+                expires_value = time.strftime("%a, %d %b %Y %H:%M:%S GMT", expires.timetuple())
             self._cookies[key]['expires'] = expires_value
         if path:
             self._cookies[key]['path'] = path
