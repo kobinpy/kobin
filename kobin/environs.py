@@ -240,7 +240,7 @@ class Response:
             self._cookies[key]['max-age'] = max_age_value
         if expires is not None:
             if isinstance(expires, int):
-                expires_value = self.set_cookie[key]['expires'] = expires
+                expires_value = expires
             else:
                 expires_value = time.strftime("%a, %d %b %Y %H:%M:%S GMT", expires.timetuple())
             self._cookies[key]['expires'] = expires_value
