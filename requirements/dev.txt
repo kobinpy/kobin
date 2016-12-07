@@ -1,5 +1,6 @@
 # for running
 wsgicli
+jinja2
 
 # for packaging
 twine

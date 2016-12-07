@@ -1,0 +1,4 @@
+# Requirements file for tox
+jinja2
+pytest
+freezegun
