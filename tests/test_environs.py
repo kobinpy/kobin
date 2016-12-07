@@ -1,3 +1,5 @@
+from datetime import timedelta, datetime
+import freezegun
 from jinja2 import Environment, FileSystemLoader
 import os
 from unittest import TestCase
@@ -177,10 +179,25 @@ class ResponseTests(TestCase):
         expected_set_cookie = ('Set-Cookie', 'foo=bar')
         self.assertIn(expected_set_cookie, response.headerlist)
 
+    def test_set_cookie_with_max_age(self):
+        response = Response()
+        response.set_cookie('foo', 'bar', max_age=timedelta(seconds=10))
+        expected_set_cookie = ('Set-Cookie', 'foo=bar; Max-Age=10')
+        self.assertIn(expected_set_cookie, response.headerlist)
+
+    def test_set_cookie_with_expires(self):
+        response = Response()
+        response.set_cookie('foo', 'bar', expires=datetime(2017, 1, 1, 0, 0, 0))
+        expected_set_cookie = ('Set-Cookie', 'foo=bar; expires=Sun, 01 Jan 2017 00:00:00 GMT')
+        self.assertIn(expected_set_cookie, response.headerlist)
+
+    @freezegun.freeze_time('2017-01-01 00:00:00')
     def test_delete_cookie(self):
         response = Response()
         response.delete_cookie('foo')
-        expected_set_cookie = ('Set-Cookie', 'foo=""; Max-Age=-1')
+        expected_set_cookie = (
+            'Set-Cookie',
+            'foo=""; expires=Sun, 01 Jan 2017 00:00:00 GMT; Max-Age=-1')
         self.assertIn(expected_set_cookie, response.headerlist)
 
     def test_constructor_headerlist_has_already_content_type(self):
