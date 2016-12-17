@@ -26,6 +26,8 @@ class Request:
     @property
     def forms(self) -> Dict[str, str]: ...
     @property
+    def raw_body(self) -> bytes: ...
+    @property
     def body(self) -> str: ...
     @property
     def json(self) -> Dict[str, Any]: ...
@@ -65,10 +67,8 @@ class Response:
     _cookies: SimpleCookie
     charset: str
 
-    def __init__(self, body: str = ..., status: int = ..., headers: Dict = ...,
+    def __init__(self, body: Union[str, bytes] = ..., status: int = ..., headers: Dict = ...,
                  charset: str = ...) -> None: ...
-    @property
-    def raw_body(self) -> bytes: ...
     @property
     def body(self) -> str: ...
     @property
@@ -86,6 +86,7 @@ class Response:
 class JSONResponse:
     dic: Dict[str, Any]
     json_dump_args: Dict[str, Any]
+    charset: str
 
     def __init__(self, dic: Dict, status: int = ..., headers: Dict = ...,
                  charset: str = ..., **dump_args: Any) -> None: ...
@@ -96,6 +97,7 @@ class JSONResponse:
 class TemplateResponse:
     template: Template
     tpl_args: Dict[str, Any]
+    charset: str
 
     def __init__(self, filename: str, status: int = ..., headers: Dict[str, str] = ...,
                  charset: str = ..., **tpl_args: Any) -> None: ...

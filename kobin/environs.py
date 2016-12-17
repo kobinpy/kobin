@@ -198,6 +198,8 @@ class Response:
 
     @property
     def body(self):
+        if isinstance(self._body, bytes):
+            return [self._body]
         return [self._body.encode(self.charset)]
 
     @property
