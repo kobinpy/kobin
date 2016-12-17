@@ -1,16 +1,15 @@
-from typing import Callable, Dict, List, Tuple, Union, Iterable, TypeVar
+from typing import Callable, Dict, List, Tuple, Iterable, TypeVar
 from types import ModuleType
 
 from .routes import Router
-from .environs import Response, JSONResponse, TemplateResponse, HTTPError
+from .environs import BaseResponse
 
 
 WSGIEnvironValue = TypeVar('WSGIEnvironValue')
 WSGIEnviron = Dict[str, WSGIEnvironValue]
 StartResponse = Callable[[bytes, List[Tuple[str, str]]], None]
 
-ViewResponse = Union[Response, JSONResponse, TemplateResponse, HTTPError]
-ViewFunction = Callable[..., ViewResponse]
+ViewFunction = Callable[..., BaseResponse]
 WSGIResponse = Iterable[bytes]
 
 
@@ -18,15 +17,15 @@ class Kobin:
     router: Router
     config: Config
     before_request_callback: Callable[[], None]
-    after_request_callback: Callable[[Response], Response]
+    after_request_callback: Callable[[BaseResponse], BaseResponse]
 
     def __init__(self, root_path: str = ...) -> None: ...
     def route(self, rule: str = ..., method: str = ..., name: str = ...,
               callback: ViewFunction = ...) -> ViewFunction: ...
     def before_request(self, callback: Callable[[], None]) -> Callable[[], None]: ...
-    def after_request(self, callback: Callable[[Response], Response]) -> \
-            Callable[[Response], Response]: ...
-    def _handle(self, environ: WSGIEnviron) -> ViewResponse: ...
+    def after_request(self, callback: Callable[[BaseResponse], BaseResponse]) -> \
+            Callable[[BaseResponse], BaseResponse]: ...
+    def _handle(self, environ: WSGIEnviron) -> BaseResponse: ...
     def wsgi(self, environ: WSGIEnviron, start_response: StartResponse) -> WSGIResponse: ...
     def __call__(self, environ: WSGIEnviron, start_response: StartResponse) -> WSGIResponse: ...
 

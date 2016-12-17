@@ -1,12 +1,11 @@
 from typing import Callable, Dict, List, Tuple, Union, Any
 
-from .environs import Response, JSONResponse, TemplateResponse, HTTPError
+from .environs import BaseResponse
 
-ViewResponse = Union[Response, JSONResponse, TemplateResponse, HTTPError]
-ViewFunction = Callable[..., ViewResponse]
+ViewFunction = Callable[..., BaseResponse]
 DEFAULT_ARG_TYPE = ... # type: type
 
-def redirect(url: str) -> Response: ...
+def redirect(url: str) -> BaseResponse: ...
 def split_by_slash(path: str) -> List[str]: ...
 
 class Route:

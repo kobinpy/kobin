@@ -58,19 +58,17 @@ HTTP_CODES: Dict[int, str]
 _HTTP_STATUS_LINES: Dict[int, str]
 
 
-class Response:
+class BaseResponse:
     default_status: int
     default_content_type: str
     headers: Headers
     _body: bytes
     _status_code: int
     _cookies: SimpleCookie
-    charset: str
 
-    def __init__(self, body: Union[str, bytes] = ..., status: int = ..., headers: Dict = ...,
-                 charset: str = ...) -> None: ...
+    def __init__(self, body: bytes = ..., status: int = ..., headers: Dict = ...) -> None: ...
     @property
-    def body(self) -> str: ...
+    def body(self) -> Iterable[bytes]: ...
     @property
     def status_code(self) -> int: ...
     @property
@@ -82,6 +80,17 @@ class Response:
     def set_cookie(self, key: str, value: Any, expires: Union[date, datetime, int] = ...,
                    max_age: Union[timedelta, int] = ..., path: str = ...) -> None: ...
     def delete_cookie(self, key: str, **kwargs: Any) -> None: ...
+
+class Response:
+    default_status: int
+    default_content_type: str
+    charset: str
+    _body: bytes
+
+    def __init__(self, body: Union[str, bytes] = ..., status: int = ..., headers: Dict = ...,
+                 charset: str = ...) -> None: ...
+    @property
+    def body(self) -> Iterable[bytes]: ...
 
 class JSONResponse:
     dic: Dict[str, Any]

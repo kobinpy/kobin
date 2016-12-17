@@ -180,17 +180,16 @@ HTTP_CODES = http_client.responses.copy()
 _HTTP_STATUS_LINES = dict((k, '%d %s' % (k, v)) for (k, v) in HTTP_CODES.items())
 
 
-class Response:
-    """"""
+class BaseResponse:
+    """Base class for Response"""
     default_status = 200
-    default_content_type = 'text/plain; charset=UTF-8'
+    default_content_type = 'text/plain;'
 
-    def __init__(self, body='', status=None, headers=None, charset='utf-8'):
+    def __init__(self, body=b'', status=None, headers=None):
         self.headers = Headers()
         self._body = body
         self._status_code = status or self.default_status
         self._cookies = SimpleCookie()
-        self.charset = charset
 
         if headers:
             for name, value in headers.items():
@@ -198,9 +197,7 @@ class Response:
 
     @property
     def body(self):
-        if isinstance(self._body, bytes):
-            return [self._body]
-        return [self._body.encode(self.charset)]
+        return [self._body]
 
     @property
     def status_code(self):
@@ -255,43 +252,60 @@ class Response:
         self.set_cookie(key, '', **kwargs)
 
 
-class JSONResponse(Response):
+class Response(BaseResponse):
+    """Returns a plain text"""
+    default_content_type = 'text/plain; charset=UTF-8'
+
+    def __init__(self, body='', status=None, headers=None, charset='utf-8'):
+        if isinstance(body, str):
+            body = body.encode(charset)
+        super().__init__(body, status, headers)
+        self.charset = charset
+
+    @property
+    def body(self):
+        return [self._body]
+
+
+class JSONResponse(BaseResponse):
     """Returns a html using jinja2 template engine"""
     default_content_type = 'application/json; charset=UTF-8'
 
     def __init__(self, dic, status=200, headers=None, charset='utf-8', **dump_args):
+        super().__init__(b'', status=status, headers=headers)
         self.dic = dic
         self.json_dump_args = dump_args
-        super().__init__('', status=status, headers=headers, charset=charset)
+        self.charset = charset
 
     @property
     def body(self):
         return [json.dumps(self.dic, **self.json_dump_args).encode(self.charset)]
 
 
-class TemplateResponse(Response):
+class TemplateResponse(BaseResponse):
     """Returns a JSON text from dict or OrderedDict."""
     default_content_type = 'text/html; charset=UTF-8'
 
     def __init__(self, filename, status=200, headers=None, charset='utf-8', **tpl_args):
+        super().__init__(b'', status=status, headers=headers)
         from . import current_config
         jinja2_env = current_config().get('JINJA2_ENV')
         if jinja2_env is None:
             raise ImportError('Please install jinja2!')
         self.template = jinja2_env.get_template(filename)
         self.tpl_args = tpl_args
-        super().__init__(body='', status=status, headers=headers, charset=charset)
+        self.charset = charset
 
     @property
     def body(self):
         return [self.template.render(**self.tpl_args).encode(self.charset)]
 
 
-class RedirectResponse(Response):
+class RedirectResponse(BaseResponse):
     """Redirect the specified url."""
     def __init__(self, url):
         status = 303 if request.get('SERVER_PROTOCOL') == "HTTP/1.1" else 302
-        super().__init__('', status=status, headers={'Location': urljoin(request.url, url)})
+        super().__init__(b'', status=status, headers={'Location': urljoin(request.url, url)})
 
 
 class HTTPError(Response, Exception):

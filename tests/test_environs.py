@@ -6,7 +6,10 @@ from unittest import TestCase
 from unittest.mock import MagicMock, patch
 
 from kobin import Kobin
-from kobin.environs import Request, Response, JSONResponse, TemplateResponse, RedirectResponse
+from kobin.environs import (
+    Request, BaseResponse, Response,
+    JSONResponse, TemplateResponse, RedirectResponse
+)
 
 TEMPLATE_DIRS = [os.path.join(os.path.dirname(__file__), 'templates')]
 
@@ -154,46 +157,46 @@ class RequestTests(TestCase):
         self.assertEqual(request.headers['FOO'], 'Bar')
 
 
-class ResponseTests(TestCase):
+class BaseResponseTests(TestCase):
     def test_constructor_body(self):
-        response = Response('')
-        self.assertEqual([b''], response.body)
+        response = BaseResponse(b'Body')
+        self.assertEqual([b'Body'], response.body)
 
     def test_constructor_status(self):
-        response = Response('Body', 200)
+        response = BaseResponse(b'Body', 200)
         self.assertEqual(response.status_code, 200)
 
     def test_set_status(self):
-        response = Response()
+        response = BaseResponse()
         response.status = 200
         self.assertEqual(response.status, '200 OK')
 
     def test_constructor_headerlist(self):
-        response = Response()
-        expected_content_type = ('Content-Type', 'text/plain; charset=UTF-8')
+        response = BaseResponse()
+        expected_content_type = ('Content-Type', 'text/plain;')
         self.assertIn(expected_content_type, response.headerlist)
 
     def test_set_cookie(self):
-        response = Response()
+        response = BaseResponse()
         response.set_cookie('foo', 'bar')
         expected_set_cookie = ('Set-Cookie', 'foo=bar')
         self.assertIn(expected_set_cookie, response.headerlist)
 
     def test_set_cookie_with_max_age(self):
-        response = Response()
+        response = BaseResponse()
         response.set_cookie('foo', 'bar', max_age=timedelta(seconds=10))
         expected_set_cookie = ('Set-Cookie', 'foo=bar; Max-Age=10')
         self.assertIn(expected_set_cookie, response.headerlist)
 
     def test_set_cookie_with_expires(self):
-        response = Response()
+        response = BaseResponse()
         response.set_cookie('foo', 'bar', expires=datetime(2017, 1, 1, 0, 0, 0))
         expected_set_cookie = ('Set-Cookie', 'foo=bar; expires=Sun, 01 Jan 2017 00:00:00 GMT')
         self.assertIn(expected_set_cookie, response.headerlist)
 
     @freezegun.freeze_time('2017-01-01 00:00:00')
     def test_delete_cookie(self):
-        response = Response()
+        response = BaseResponse()
         response.delete_cookie('foo')
         expected_set_cookie = (
             'Set-Cookie',
@@ -201,7 +204,7 @@ class ResponseTests(TestCase):
         self.assertIn(expected_set_cookie, response.headerlist)
 
     def test_constructor_headerlist_has_already_content_type(self):
-        response = Response()
+        response = BaseResponse()
         response.headers.add_header('Content-Type', 'application/json')
         expected_content_type = ('Content-Type', 'application/json')
         self.assertIn(expected_content_type, response.headerlist)
@@ -209,14 +212,20 @@ class ResponseTests(TestCase):
         self.assertNotIn(expected_content_type, response.headerlist)
 
     def test_add_header(self):
-        response = Response()
+        response = BaseResponse()
         response.headers.add_header('key', 'value')
         self.assertIn(('key', 'value'), response.headerlist)
 
     def test_constructor_headerlist_with_add_header(self):
-        response = Response(headers={'key1': 'value1'})
+        response = BaseResponse(headers={'key1': 'value1'})
         expected_content_type = ('key1', 'value1')
         self.assertIn(expected_content_type, response.headerlist)
+
+
+class ResponseTests(TestCase):
+    def test_constructor_status(self):
+        response = Response('Body', charset='utf-8')
+        self.assertEqual(response.status_code, 200)
 
 
 class JSONResponseTests(TestCase):
