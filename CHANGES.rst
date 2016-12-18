@@ -1,6 +1,12 @@
 CHANGES
 =======
 
+0.1.2 (2016-12-18)
+------------------
+
+* Support cookie encrypting.
+* Add BaseResponse class.
+
 0.1.1 (2016-12-17)
 ------------------
 
