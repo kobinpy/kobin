@@ -178,6 +178,7 @@ class CookieTests(TestCase):
         expected = 'bar'
         self.assertEqual(actual, expected)
 
+    # Delete Cookie Tests in Request Class
     @freezegun.freeze_time('2017-01-01 00:00:00')
     def test_delete_cookie(self):
         response = BaseResponse()
@@ -186,6 +187,21 @@ class CookieTests(TestCase):
             'Set-Cookie',
             'foo=""; expires=Sun, 01 Jan 2017 00:00:00 GMT; Max-Age=-1')
         self.assertIn(expected_set_cookie, response.headerlist)
+
+    # Get and Set Cookie Tests with secret
+    def test_set_cookie_with_secret(self):
+        response = BaseResponse()
+        response.set_cookie('foo', 'bar', secret='secretkey')
+        expected_set_cookie = ('Set-Cookie', 'foo="!VzhGFLGcW+5OMs1s4beLXaqFxAUwgHdWkH5fgapghoI='
+                                             '?gASVDwAAAAAAAACMA2Zvb5SMA2JhcpSGlC4="')
+        self.assertIn(expected_set_cookie, response.headerlist)
+
+    def test_get_cookie_with_secret(self):
+        request = Request({'HTTP_COOKIE': 'foo="!VzhGFLGcW+5OMs1s4beLXaqFxAUwgHdWkH5fgapghoI='
+                                          '?gASVDwAAAAAAAACMA2Zvb5SMA2JhcpSGlC4="'})
+        actual = request.get_cookie("foo", secret='secretkey')
+        expected = 'bar'
+        self.assertEqual(actual, expected)
 
 
 class BaseResponseTests(TestCase):

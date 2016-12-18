@@ -22,7 +22,11 @@ for instantiating and returning an :class:`Response` or its child classes.
 In addition to the :class:`Response` class, Kobin provides :class:`TemplateResponse` ,
  :class:`JSONResponse` , :class:`RedirectResponse` and :class:`HTTPError`.
 """
+import base64
+import hashlib
+import hmac
 import threading
+import time
 import cgi
 import json
 import http.client as http_client
@@ -34,6 +38,9 @@ from wsgiref.headers import Headers
 ##################################################################################
 # Request Object #################################################################
 ##################################################################################
+import pickle
+
+
 class Request:
     """ A wrapper for WSGI environment dictionaries.
     """
@@ -111,8 +118,18 @@ class Request:
         cookies = SimpleCookie(self.environ.get('HTTP_COOKIE', '')).values()
         return {c.key: c.value for c in cookies}
 
-    def get_cookie(self, key, default=None, secret=None):
+    def get_cookie(self, key, default=None, secret=None, digestmod=hashlib.sha256):
         value = self.cookies.get(key)
+        if secret and value and value.startswith('!') and '?' in value:
+            # See BaseResponse.set_cookie for details.
+            if isinstance(secret, str):
+                secret = secret.encode('utf-8')
+            sig, msg = map(lambda x: x.encode('utf-8'), value[1:].split('?', 1))
+            hash_string = hmac.new(secret, msg, digestmod=digestmod).digest()
+            if sig == base64.b64encode(hash_string):
+                key_and_value = pickle.loads(base64.b64decode(msg))
+                if key_and_value and key_and_value[0] == key:
+                    return key_and_value[1]
         return value or default
 
     def __getitem__(self, key):
@@ -228,9 +245,20 @@ class BaseResponse:
                 self.headers.add_header('Set-Cookie', c.OutputString())
         return self.headers.items()
 
-    def set_cookie(self, key, value, expires=None, max_age=None, path=None):
-        import time
+    def set_cookie(self, key, value, expires=None, max_age=None, path=None,
+                   secret=None, digestmod=hashlib.sha256):
+        if secret:
+            if isinstance(secret, str):
+                secret = secret.encode('utf-8')
+            encoded = base64.b64encode(pickle.dumps((key, value), pickle.HIGHEST_PROTOCOL))
+            sig = base64.b64encode(hmac.new(secret, encoded, digestmod=digestmod).digest())
+            value_bytes = b'!' + sig + b'?' + encoded
+            value = value_bytes.decode('utf-8')
+
         self._cookies[key] = value
+        if len(key) + len(value) > 3800:
+            raise ValueError('Content does not fit into a cookie.')
+
         if max_age is not None:
             if isinstance(max_age, int):
                 max_age_value = max_age
