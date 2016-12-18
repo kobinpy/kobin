@@ -32,20 +32,6 @@ class RequestTests(TestCase):
         request = Request({})
         self.assertEqual(request.get('hoge', 'HOGE'), 'HOGE')
 
-    def test_cookies_property_has_nothing(self):
-        request = Request({})
-        self.assertEqual(len(request.cookies), 0)
-
-    def test_cookies_property_has_an_item(self):
-        request = Request({'HTTP_COOKIE': 'foo="bar"'})
-        self.assertEqual(len(request.cookies), 1)
-
-    def test_get_cookie(self):
-        request = Request({'HTTP_COOKIE': 'foo="bar"'})
-        actual = request.get_cookie("foo")
-        expected = 'bar'
-        self.assertEqual(actual, expected)
-
     def test_path_property(self):
         request = Request({'PATH_INFO': '/hoge'})
         self.assertEqual(request.path, '/hoge')
@@ -157,25 +143,8 @@ class RequestTests(TestCase):
         self.assertEqual(request.headers['FOO'], 'Bar')
 
 
-class BaseResponseTests(TestCase):
-    def test_constructor_body(self):
-        response = BaseResponse(b'Body')
-        self.assertEqual([b'Body'], response.body)
-
-    def test_constructor_status(self):
-        response = BaseResponse(b'Body', 200)
-        self.assertEqual(response.status_code, 200)
-
-    def test_set_status(self):
-        response = BaseResponse()
-        response.status = 200
-        self.assertEqual(response.status, '200 OK')
-
-    def test_constructor_headerlist(self):
-        response = BaseResponse()
-        expected_content_type = ('Content-Type', 'text/plain;')
-        self.assertIn(expected_content_type, response.headerlist)
-
+class CookieTests(TestCase):
+    # Set Cookie Tests in BaseResponse Class
     def test_set_cookie(self):
         response = BaseResponse()
         response.set_cookie('foo', 'bar')
@@ -194,6 +163,21 @@ class BaseResponseTests(TestCase):
         expected_set_cookie = ('Set-Cookie', 'foo=bar; expires=Sun, 01 Jan 2017 00:00:00 GMT')
         self.assertIn(expected_set_cookie, response.headerlist)
 
+    # Get Cookie Tests in Request Class
+    def test_cookies_property_has_nothing(self):
+        request = Request({})
+        self.assertEqual(len(request.cookies), 0)
+
+    def test_cookies_property_has_an_item(self):
+        request = Request({'HTTP_COOKIE': 'foo="bar"'})
+        self.assertEqual(len(request.cookies), 1)
+
+    def test_get_cookie(self):
+        request = Request({'HTTP_COOKIE': 'foo="bar"'})
+        actual = request.get_cookie("foo")
+        expected = 'bar'
+        self.assertEqual(actual, expected)
+
     @freezegun.freeze_time('2017-01-01 00:00:00')
     def test_delete_cookie(self):
         response = BaseResponse()
@@ -202,6 +186,26 @@ class BaseResponseTests(TestCase):
             'Set-Cookie',
             'foo=""; expires=Sun, 01 Jan 2017 00:00:00 GMT; Max-Age=-1')
         self.assertIn(expected_set_cookie, response.headerlist)
+
+
+class BaseResponseTests(TestCase):
+    def test_constructor_body(self):
+        response = BaseResponse(b'Body')
+        self.assertEqual([b'Body'], response.body)
+
+    def test_constructor_status(self):
+        response = BaseResponse(b'Body', 200)
+        self.assertEqual(response.status_code, 200)
+
+    def test_set_status(self):
+        response = BaseResponse()
+        response.status = 200
+        self.assertEqual(response.status, '200 OK')
+
+    def test_constructor_headerlist(self):
+        response = BaseResponse()
+        expected_content_type = ('Content-Type', 'text/plain;')
+        self.assertIn(expected_content_type, response.headerlist)
 
     def test_constructor_headerlist_has_already_content_type(self):
         response = BaseResponse()
