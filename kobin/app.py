@@ -66,7 +66,9 @@ class Kobin:
             response = callback(**kwargs) if kwargs else callback()
 
             if self.after_request_callback:
-                response = self.after_request_callback(response)
+                wrapped_response = self.after_request_callback(response)
+                if wrapped_response:
+                    response = wrapped_response
         except HTTPError as e:
             response = e
         except BaseException as e:

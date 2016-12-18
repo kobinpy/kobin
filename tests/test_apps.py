@@ -117,6 +117,26 @@ class KobinHookTests(TestCase):
         self.assertIn(('Foo', 'Bar'), response.headerlist)
 
 
+class KobinAfterHookTests(TestCase):
+    def setUp(self):
+        self.app = Kobin()
+        self.dummy_start_response = lambda x, y: None
+        self.before_counter = 0
+
+        @self.app.route('/')
+        def dummy_func():
+            return Response('hello')
+
+        @self.app.after_request
+        def after_do_not_return_response(response):
+            pass
+
+    def test_after_request(self):
+        test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/'}
+        response = self.app._handle(test_env)
+        self.assertEqual('200 OK', response.status)
+
+
 class ConfigTests(TestCase):
     def setUp(self):
         self.root_path = os.path.dirname(os.path.abspath(__file__))
