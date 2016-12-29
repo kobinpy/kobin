@@ -169,7 +169,8 @@ def _split_into_mimetype_and_priority(x):
     """Split an accept header item into mimetype and priority.
 
     >>> _split_into_mimetype_and_priority('text/*')
-    ('text/*', 1)
+    ('text/*', 1.0)
+
     >>> _split_into_mimetype_and_priority('application/json;q=0.5')
     ('application/json', 0.5)
     """
@@ -186,7 +187,7 @@ def _split_into_mimetype_and_priority(x):
 def _parse_and_sort_accept_header(accept_header):
     """Parse and sort the accept header items.
 
-    >>> _split_into_mimetype_and_priority('application/json;q=0.5, text/*')
+    >>> _parse_and_sort_accept_header('application/json;q=0.5, text/*')
     [('text/*', 1.0), ('application/json', 0.5)]
     """
     return sorted([_split_into_mimetype_and_priority(x) for x in accept_header.split(',')],
