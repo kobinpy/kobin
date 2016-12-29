@@ -7,8 +7,8 @@ from unittest.mock import MagicMock, patch
 
 from kobin import Kobin
 from kobin.environs import (
-    Request, BaseResponse, Response,
-    JSONResponse, TemplateResponse, RedirectResponse
+    Request, BaseResponse, Response, JSONResponse, TemplateResponse, RedirectResponse,
+    _split_into_mimetype_and_priority, _parse_and_sort_accept_header, accept_best_match,
 )
 
 TEMPLATE_DIRS = [os.path.join(os.path.dirname(__file__), 'templates')]
@@ -141,6 +141,47 @@ class RequestTests(TestCase):
     def test_headers(self):
         request = Request({'HTTP_FOO': 'Bar', 'QUERY_STRING': 'key1=value1'})
         self.assertEqual(request.headers['FOO'], 'Bar')
+
+
+class AcceptBestMatchTests(TestCase):
+    def test_split_into_mimetype_and_priority_without_priority(self):
+        item = 'text/*'
+        actual = _split_into_mimetype_and_priority(item)
+        expected = ('text/*', 1.0)
+        self.assertEqual(actual, expected)
+
+    def test_split_into_mimetype_and_priority_with_priority(self):
+        item = 'application/json;q=0.5'
+        actual = _split_into_mimetype_and_priority(item)
+        expected = ('application/json', 0.5)
+        self.assertEqual(actual, expected)
+
+    def test_parse_and_sort_accept_header(self):
+        accept_header = 'application/json;q=0.5, text/html'
+        actual = _parse_and_sort_accept_header(accept_header)
+        expected = [
+            ('text/html', 1.0),
+            ('application/json', 0.5)
+        ]
+        self.assertEqual(actual, expected)
+
+    def test_best_match_without_priority(self):
+        accept_header = 'application/json, application/xml'
+        expected = 'application/json'
+        actual = accept_best_match(accept_header, ['application/json'])
+        self.assertEqual(actual, expected)
+
+    def test_best_match_with_priority(self):
+        accept_header = 'text/*;q=0.9, */;q=0.1, audio/mpeg, application/xml;q=0.'
+        expected = 'application/json'
+        actual = accept_best_match(accept_header, ['application/json'])
+        self.assertEqual(actual, expected)
+
+    def test_best_match_with_priority_and_wildcard(self):
+        accept_header = 'application/json;q=0.5, text/*, */*;q=0.1'
+        actual = accept_best_match(accept_header, ['application/json', 'text/plain'])
+        expected = 'text/plain'
+        self.assertEqual(actual, expected)
 
 
 class CookieTests(TestCase):

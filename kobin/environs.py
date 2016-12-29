@@ -23,6 +23,7 @@ In addition to the :class:`Response` class, Kobin provides :class:`TemplateRespo
  :class:`JSONResponse` , :class:`RedirectResponse` and :class:`HTTPError`.
 """
 import base64
+import fnmatch
 import hashlib
 import hmac
 import threading
@@ -161,6 +162,51 @@ class Request:
         return '<{cls}: {method} {url}>'.format(
             cls=self.__class__.__name__, method=self.method, url=self.path
         )
+
+
+# for Accept header.
+def _split_into_mimetype_and_priority(x):
+    """Split an accept header item into mimetype and priority.
+
+    >>> _split_into_mimetype_and_priority('text/*')
+    ('text/*', 1)
+    >>> _split_into_mimetype_and_priority('application/json;q=0.5')
+    ('application/json', 0.5)
+    """
+    if ';' in x:
+        content_type, priority = x.split(';')
+        casted_priority = float(priority.split('=')[1])
+    else:
+        content_type, casted_priority = x, 1.0
+
+    content_type = content_type.lstrip().rstrip()  # Replace ' text/html' to 'text/html'
+    return content_type, casted_priority
+
+
+def _parse_and_sort_accept_header(accept_header):
+    """Parse and sort the accept header items.
+
+    >>> _split_into_mimetype_and_priority('application/json;q=0.5, text/*')
+    [('text/*', 1.0), ('application/json', 0.5)]
+    """
+    return sorted([_split_into_mimetype_and_priority(x) for x in accept_header.split(',')],
+                  key=lambda x: x[1], reverse=True)
+
+
+def accept_best_match(accept_header, mimetypes):
+    """Return a mimetype best matched the accept headers.
+
+    >>> accept_best_match('application/json, text/html', ['application/json', 'text/plain'])
+    'application/json'
+
+    >>> accept_best_match('application/json;q=0.5, text/*', ['application/json', 'text/plain'])
+    'text/plain'
+    """
+    for mimetype_pattern, _ in _parse_and_sort_accept_header(accept_header):
+        matched_types = fnmatch.filter(mimetypes, mimetype_pattern)
+        if matched_types:
+            return matched_types[0]
+    return mimetypes[0]
 
 
 def _local_property():
