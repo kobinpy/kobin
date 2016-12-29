@@ -1,6 +1,14 @@
 CHANGES
 =======
 
+
+0.1.3 (201?-??-??)
+------------------
+
+* Modify after request hook
+* Add accept_best_match function
+
+
 0.1.2 (2016-12-18)
 ------------------
 
