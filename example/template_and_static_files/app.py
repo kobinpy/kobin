@@ -1,7 +1,7 @@
-from kobin import Kobin, request, Response, TemplateResponse
+from kobin import Kobin, request, Response, TemplateResponse, load_config_from_pyfile
 
-app = Kobin()
-app.config.load_from_pyfile('config.py')
+config = load_config_from_pyfile('config.py')
+app = Kobin(config=config)
 
 
 @app.route('/')
