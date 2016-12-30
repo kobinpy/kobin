@@ -16,7 +16,7 @@ WSGIResponse = Iterable[bytes]
 
 class Kobin:
     router: Router
-    config: Dict[str, Any]
+    config: Config
     before_request_callback: Callable[[], None]
     after_request_callback: Callable[[BaseResponse], BaseResponse]
 
