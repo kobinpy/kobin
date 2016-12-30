@@ -39,7 +39,7 @@ And Kobin has **NO** following features:
 Requirements
 ============
 
-Supported python versions are python 3.5 or 3.6(beta).
+Supported python versions are python 3.6 or later.
 And Kobin has no required dependencies other than the Python Standard Libraries.
 
 The following packages are optional:
