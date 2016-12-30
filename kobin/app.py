@@ -30,9 +30,9 @@ class Kobin:
     This class is a WSGI application implementation.
     Create a instance, and run using WSGI Server.
     """
-    def __init__(self, root_path='.'):
+    def __init__(self, config=None):
         self.router = Router()
-        self.config = Config(os.path.abspath(root_path))
+        self.config = config if config else Config()
         self.before_request_callback = None
         self.after_request_callback = None
 
@@ -91,36 +91,34 @@ class Kobin:
 
 
 class Config(dict):
-    """This class manages your application configs."""
-    default_config = {
-        'BASE_DIR': os.path.abspath('.'),
-        'TEMPLATE_DIRS': [os.path.join(os.path.abspath('.'), 'templates')],
-        'DEBUG': False,
-    }
+    """This class manages your application configs.
+    """
+    def __init__(self, **kwargs):
+        init_kw = {
+            'BASE_DIR': os.path.abspath('.'),
+            'TEMPLATE_DIRS': [os.path.join(os.path.abspath('.'), 'templates')],
+            'DEBUG': False,
+        }
+        init_kw.update(kwargs)
+        super().__init__(**init_kw)
+        self._template_env = None
 
-    def __init__(self, root_path, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.root_path = root_path
-        self.update(self.default_config)
-
-        self.update_jinja2_environment()
-
-    def load_from_pyfile(self, file_name):
-        file_path = os.path.join(self.root_path, file_name)
-        module = SourceFileLoader('config', file_path).load_module()
-        self.load_from_module(module)
-
-    def load_from_module(self, module):
-        configs = {key: getattr(module, key) for key in dir(module) if key.isupper()}
-        self.update(configs)
-        self.update_jinja2_environment()
-
-    def update_jinja2_environment(self):
-        try:
+    @property
+    def template_env(self):
+        if self._template_env is None:
             from jinja2 import Environment, FileSystemLoader
-            self['JINJA2_ENV'] = Environment(loader=FileSystemLoader(self['TEMPLATE_DIRS']))
-        except ImportError:
-            pass
+            self._template_env = Environment(loader=FileSystemLoader(self['TEMPLATE_DIRS']))
+        return self._template_env
+
+
+def load_config_from_module(module):
+    return Config(**{key: getattr(module, key)
+                     for key in dir(module) if key.isupper()})
+
+
+def load_config_from_pyfile(filepath):
+    module = SourceFileLoader('config', filepath).load_module()
+    return load_config_from_module(module)
 
 
 def current_app():

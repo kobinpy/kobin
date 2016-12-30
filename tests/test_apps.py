@@ -1,6 +1,6 @@
 import os
 from unittest import TestCase
-from kobin import Kobin, Config, Response
+from kobin import Kobin, Config, Response, load_config_from_module, load_config_from_pyfile
 
 
 class KobinTests(TestCase):
@@ -139,29 +139,27 @@ class KobinAfterHookTests(TestCase):
 
 class ConfigTests(TestCase):
     def setUp(self):
-        self.root_path = os.path.dirname(os.path.abspath(__file__))
+        self.base_path = os.path.dirname(os.path.abspath(__file__))
 
-    def test_constructor_set_root_path(self):
-        config = Config(self.root_path)
-        config.load_from_pyfile('dummy_config.py')
-        self.assertIn('root_path', dir(config))
+    def test_constructor(self):
+        config = Config()
+        self.assertIn('DEBUG', config.keys())
 
     def test_load_from_module(self):
         from tests import dummy_config
-        config = Config(self.root_path)
-        config.load_from_module(dummy_config)
+        config = load_config_from_module(dummy_config)
         self.assertIn('UPPER_CASE', config)
 
     def test_load_from_pyfile(self):
-        config = Config(self.root_path)
-        config.load_from_pyfile('dummy_config.py')
+        dummy_config = os.path.join(self.base_path, 'dummy_config.py')
+        config = load_config_from_pyfile(dummy_config)
         self.assertIn('UPPER_CASE', config)
 
     def test_config_has_not_lower_case_variable(self):
-        config = Config(self.root_path)
-        config.load_from_pyfile('dummy_config.py')
+        dummy_config = os.path.join(self.base_path, 'dummy_config.py')
+        config = load_config_from_pyfile(dummy_config)
         self.assertNotIn('lower_case', config)
 
     def test_failure_for_loading_config(self):
-        config = Config(self.root_path)
-        self.assertRaises(FileNotFoundError, config.load_from_pyfile, 'no_exists.py')
+        dummy_config = os.path.join(self.base_path, 'no_exists.py')
+        self.assertRaises(FileNotFoundError, load_config_from_pyfile, dummy_config)

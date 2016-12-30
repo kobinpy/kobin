@@ -1,11 +1,10 @@
 from datetime import timedelta, datetime
 import freezegun
-from jinja2 import Environment, FileSystemLoader
 import os
 from unittest import TestCase
 from unittest.mock import MagicMock, patch
 
-from kobin import Kobin
+from kobin import Kobin, Config
 from kobin.environs import (
     Request, BaseResponse, Response, JSONResponse, TemplateResponse, RedirectResponse,
     _split_into_mimetype_and_priority, _parse_and_sort_accept_header, accept_best_match,
@@ -306,16 +305,10 @@ class JSONResponseTests(TestCase):
 
 
 class Jinja2TemplateTests(TestCase):
-    def setUp(self):
-        self.app = Kobin()
-        self.app.config['TEMPLATE_DIRS'] = TEMPLATE_DIRS
-
-    @patch('kobin.current_config')
+    @patch('kobin.app.current_config')
     def test_file(self, mock_current_config):
         """ Templates: Jinja2 file """
-        mock_current_config.return_value = {
-            'JINJA2_ENV': Environment(loader=FileSystemLoader(TEMPLATE_DIRS))
-        }
+        mock_current_config.return_value = Config(TEMPLATE_DIRS=TEMPLATE_DIRS)
         response = TemplateResponse('jinja2.html', var='kobin')
         actual = response.body
         expected = [b"Hello kobin World."]
