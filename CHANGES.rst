@@ -5,8 +5,10 @@ CHANGES
 0.1.3 (201?-??-??)
 ------------------
 
-* Modify after request hook
+* End of support python3.5
 * Add accept_best_match function
+* Refactor config object.
+* Modify after request hook
 
 
 0.1.2 (2016-12-18)
