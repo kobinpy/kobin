@@ -75,14 +75,11 @@ class Kobin:
             response = _handle_unexpected_exception(e, self.config.get('DEBUG'))
         return response
 
-    def wsgi(self, environ, start_response):
+    def __call__(self, environ, start_response):
+        """It is called when receive http request."""
         response = self._handle(environ)
         start_response(response.status, response.headerlist)
         return response.body
-
-    def __call__(self, environ, start_response):
-        """It is called when receive http request."""
-        return self.wsgi(environ, start_response)
 
 
 def _get_traceback_message(e):

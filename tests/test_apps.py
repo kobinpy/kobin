@@ -85,7 +85,7 @@ class KobinTests(TestCase):
 
     def test_wsgi(self):
         test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/'}
-        actual = self.app.wsgi(test_env, self.dummy_start_response)
+        actual = self.app(test_env, self.dummy_start_response)
         expected = [b'hello']
         self.assertEqual(actual, expected)
 
@@ -129,7 +129,7 @@ class HandleUnexpectedExceptionTests(TestCase):
             actual = _get_traceback_message(e)
         else:
             actual = "Exception is not raised."
-        cause_of_exception = 'x = 1/0'
+        cause_of_exception = '1 / 0'
         self.assertIn(cause_of_exception, actual)
 
     def test_handle_unexpected_exception_should_return_500(self):
