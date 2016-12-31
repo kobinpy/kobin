@@ -1,19 +1,26 @@
 sudo: false
 language: python
 python:
-  - "3.6"
-  - "nightly"
+- '3.6'
+- nightly
 matrix:
   allow_failures:
-   - python: "nightly"
+  - python: nightly
 install: pip install -q tox-travis -r ./requirements/test.txt
 script: tox
 after_success:
-  - coverage run setup.py test
-  - coverage report
-  - coveralls
+- coverage run setup.py test
+- coverage report
+- coveralls
+deploy:
+  provider: pypi
+  user: c-bata
+  password:
+    secure: P/GoHut6O5rY+eb9jLSsEK3I+cj0fr/Pp7MFhlQ9U/OYVSxw8GHAirfTkIme3boRZnpLLCmadM4TDC0Fnv+CqQgr9Rp2gACPFJLyA8m+L4g4P7n7+jxKLFdDa8EeNfbSMFGO7E1OtI7RsNc0KoC3HoyzO4MLmBDh43q4syRd2HhkFt9ebz8+63+ak8HMlZLYfUlku7Q0C85bQ3Z4bM+ibGLApqON8r40vneHoGZ+OX1FN5jgDYneWznwZs64K/nptPLRDO3VyWxNgi5Vn6lfEvaciGW6JeFzvDu6XUOvsd35S3L2NDH1tyiIY5bLWbKjVz+3HKpLXQZS5XhxMJQfSQhuswEfex3lU0Htkl3yY9+t0sIjXpA+T76M34F9KBW7mschz8Pv1EqaWhC3bCNF8JtjL2u7QCS03I+VxpXSUeN3MhhA/rbaL5b7ngcZLkBNmXctNzC0H/MWw/CUWZQCUGw3Tp9DEU04vq+8JQ1qmkd0v5HAvZy0zIU7W+bhOdWdx0Soxs671t10CKZPGHJNvyVHZlApZ3uxYdAXuJL+xD7JFg0u8ir4wwDa9FoeEqtprXQuCP40D1puH7I2mf8zS+jR5gzcUqmL39hy6jSNi38olo+ga2S0rxXMdoa728b055o51TstIlgvfgXXI97dFECxnvV5hRrb6U0hh2Sc/lU=
+  distributions: sdist bdist_wheel
+  on:
+    tags: true
 notifications:
   slack:
     secure: LOU57CZvAlZ8Pj8JhOk2GWt8TI8hvq8IdRhxbRoPb6B+/ysF8Kdp1wBINlBSmwHW9GxgtpxAj46Ni36O30Hwa/FO/CeFDcmRTRtPadAE45PUEuE8TeN+94LScTufIvfLfFtsqcr1WJoFLyy5PrpYJqhbCgZccGGqwNg2vCBTp5Jif+9fkDf0sHrTsPmbi0tO0pJJKCYif7nnSBxOcQod+BCIwavHxesc2Pkzl/v4T48a53fKK3dkF0t42bMINwUmDGsa5GtK3EHuDKO9sc03m1rpPmH4Y/3fOBa/UJi5/Obu9YQy8UaYhH+t9MAPCgb1vASs3h69heEwJ147jRo0CWRZZGMXQ4PEFAVn7OP4Xcwmb1fjUR5cUp9jewF+s5zPQgc8BH7RhEIvcr2MHM4pLlcGuVud2L87FJmAxrTXNoCT6mpBlzuRhmLd8n+1CieLIms7jW+N502fi4RQ6xwCK4w0ric8Zny+a5b42AVxGogQGByHCT71L+TL/Vxq1wLNuj25KAWFXJdehwbTlN6qL2sv/nkrGYN6FAK14gp08cEdSBG96tRj9ZbY9lO/3k4ZZIxkfcCTsEXN5XI7Z1dPSa1NAdpXtB8jvzRH6JT5o3NAMlZGBWJU/F8ARaYiPq/lHx380AOeAyrmf9iH1D2tw9D2tDU09p8LFKHhXa0eNqo=
-  email:
-    false
+  email: false
