@@ -8,7 +8,7 @@ Kobin
 .. image:: https://badge.fury.io/py/kobin.svg
    :target: https://badge.fury.io/py/kobin
 
-.. image:: https://coveralls.io/repos/github/kobinpy/kobin/badge.svg?branch=coveralls
+.. image:: https://coveralls.io/repos/github/kobinpy/kobin/badge.svg?branch=master
    :target: https://coveralls.io/github/kobinpy/kobin?branch=master
 
 .. image:: https://codeclimate.com/github/c-bata/kobin/badges/gpa.svg
