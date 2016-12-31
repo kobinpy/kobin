@@ -42,7 +42,9 @@ Testing
 The following test are running in Kobin project.
 If you add the changes to Kobin, Please run tox testing.
 
-* pytest: ``python setup.py test``
+* test: ``python setup.py test``
+* coverage: ``coverage run setup.py test && coverage report``
 * mypy: ``mypy --check-untyped-defs --fast-parser --python-version 3.6 kobin``
 * Flake8: ``flake8``
 * doctest: ``cd docs; make doctest``
+* Run all with tox: ``tox``
