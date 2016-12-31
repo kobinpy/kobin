@@ -72,12 +72,7 @@ class Kobin:
         except HTTPError as e:
             response = e
         except BaseException as e:
-            traceback.print_tb(e.__traceback__)
-            if self.config['DEBUG']:
-                message = '\n'.join(traceback.format_tb(e.__traceback__))
-            else:
-                message = 'Internal Server Error'
-            response = HTTPError(message, 500)
+            response = _handle_unexpected_exception(e, self.config.get('DEBUG'))
         return response
 
     def wsgi(self, environ, start_response):
@@ -88,6 +83,20 @@ class Kobin:
     def __call__(self, environ, start_response):
         """It is called when receive http request."""
         return self.wsgi(environ, start_response)
+
+
+def _get_traceback_message(e):
+    message = '\n'.join(traceback.format_tb(e.__traceback__))
+    return message
+
+
+def _handle_unexpected_exception(e, debug):
+    if debug:
+        message = _get_traceback_message(e)
+    else:
+        message = 'Internal Server Error'
+    response = HTTPError(message, 500)
+    return response
 
 
 class Config(dict):

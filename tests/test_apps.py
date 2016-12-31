@@ -1,6 +1,10 @@
 import os
 from unittest import TestCase
-from kobin import Kobin, Config, Response, load_config_from_module, load_config_from_pyfile
+from kobin import (
+    Kobin, Response,
+    Config, load_config_from_module, load_config_from_pyfile
+)
+from kobin.app import _handle_unexpected_exception, _get_traceback_message
 
 
 class KobinTests(TestCase):
@@ -115,6 +119,38 @@ class KobinHookTests(TestCase):
         test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/'}
         response = self.app._handle(test_env)
         self.assertIn(('Foo', 'Bar'), response.headerlist)
+
+
+class HandleUnexpectedExceptionTests(TestCase):
+    def test_get_traceback_message(self):
+        try:
+            1 / 0
+        except BaseException as e:
+            actual = _get_traceback_message(e)
+        else:
+            actual = "Exception is not raised."
+        cause_of_exception = 'x = 1/0'
+        self.assertIn(cause_of_exception, actual)
+
+    def test_handle_unexpected_exception_should_return_500(self):
+        try:
+            1 / 0
+        except BaseException as e:
+            actual = _handle_unexpected_exception(e, False)
+        else:
+            actual = "Exception is not raised."
+        expected_status_code = 500
+        self.assertEqual(actual.status_code, expected_status_code)
+
+    def test_handle_unexpected_exception_body(self):
+        try:
+            1 / 0
+        except BaseException as e:
+            actual = _handle_unexpected_exception(e, False)
+        else:
+            actual = "Exception is not raised."
+        expected_body = [b'Internal Server Error']
+        self.assertEqual(actual.body, expected_body)
 
 
 class KobinAfterHookTests(TestCase):

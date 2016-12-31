@@ -3,7 +3,7 @@ from types import ModuleType
 from jinja2 import Environment  # type: ignore
 
 from .routes import Router
-from .environs import BaseResponse
+from .environs import BaseResponse, Response
 
 
 WSGIEnvironValue = TypeVar('WSGIEnvironValue')
@@ -30,6 +30,8 @@ class Kobin:
     def wsgi(self, environ: WSGIEnviron, start_response: StartResponse) -> WSGIResponse: ...
     def __call__(self, environ: WSGIEnviron, start_response: StartResponse) -> WSGIResponse: ...
 
+def _get_traceback_message(e: BaseException) -> str: ...
+def _handle_unexpected_exception(e: BaseException, debug: bool) -> Response: ...
 
 class Config(dict):
     _template_env: Environment
