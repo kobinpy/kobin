@@ -6,10 +6,11 @@ python:
 matrix:
   allow_failures:
    - python: "nightly"
-install: pip install -q coveralls tox-travis
+install: pip install -q tox-travis -r ./requirements/test.txt
 script: tox
 after_success:
-  - coverage run --source=kobin setup.py test
+  - coverage run setup.py test
+  - coverage report
   - coveralls
 notifications:
   slack:
