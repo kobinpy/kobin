@@ -188,19 +188,25 @@ class CookieTests(TestCase):
     def test_set_cookie(self):
         response = BaseResponse()
         response.set_cookie('foo', 'bar')
-        expected_set_cookie = ('Set-Cookie', 'foo=bar')
+        expected_set_cookie = ('Set-Cookie', 'foo=bar; Path=/')
         self.assertIn(expected_set_cookie, response.headerlist)
 
     def test_set_cookie_with_max_age(self):
         response = BaseResponse()
-        response.set_cookie('foo', 'bar', max_age=timedelta(seconds=10))
+        response.set_cookie('foo', 'bar', max_age=timedelta(seconds=10), path=None)
         expected_set_cookie = ('Set-Cookie', 'foo=bar; Max-Age=10')
         self.assertIn(expected_set_cookie, response.headerlist)
 
     def test_set_cookie_with_expires(self):
         response = BaseResponse()
-        response.set_cookie('foo', 'bar', expires=datetime(2017, 1, 1, 0, 0, 0))
+        response.set_cookie('foo', 'bar', expires=datetime(2017, 1, 1, 0, 0, 0), path=None)
         expected_set_cookie = ('Set-Cookie', 'foo=bar; expires=Sun, 01 Jan 2017 00:00:00 GMT')
+        self.assertIn(expected_set_cookie, response.headerlist)
+
+    def test_set_cookie_with_path(self):
+        response = BaseResponse()
+        response.set_cookie('foo', 'bar', path='/foo')
+        expected_set_cookie = ('Set-Cookie', 'foo=bar; Path=/foo')
         self.assertIn(expected_set_cookie, response.headerlist)
 
     # Get Cookie Tests in Request Class
@@ -225,13 +231,13 @@ class CookieTests(TestCase):
         response.delete_cookie('foo')
         expected_set_cookie = (
             'Set-Cookie',
-            'foo=""; expires=Sun, 01 Jan 2017 00:00:00 GMT; Max-Age=-1')
+            'foo=""; expires=Sun, 01 Jan 2017 00:00:00 GMT; Max-Age=-1; Path=/')
         self.assertIn(expected_set_cookie, response.headerlist)
 
     # Get and Set Cookie Tests with secret
     def test_set_cookie_with_secret(self):
         response = BaseResponse()
-        response.set_cookie('foo', 'bar', secret='secretkey')
+        response.set_cookie('foo', 'bar', secret='secretkey', path=None)
         expected_set_cookie = ('Set-Cookie', 'foo="!VzhGFLGcW+5OMs1s4beLXaqFxAUwgHdWkH5fgapghoI='
                                              '?gASVDwAAAAAAAACMA2Zvb5SMA2JhcpSGlC4="')
         self.assertIn(expected_set_cookie, response.headerlist)

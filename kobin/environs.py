@@ -30,6 +30,7 @@ import threading
 import time
 import cgi
 import json
+import pickle
 import http.client as http_client
 from urllib.parse import SplitResult, urljoin
 from http.cookies import SimpleCookie
@@ -39,7 +40,6 @@ from wsgiref.headers import Headers
 ##################################################################################
 # Request Object #################################################################
 ##################################################################################
-import pickle
 
 
 class Request:
@@ -290,7 +290,7 @@ class BaseResponse:
                 self.headers.add_header('Set-Cookie', c.OutputString())
         return self.headers.items()
 
-    def set_cookie(self, key, value, expires=None, max_age=None, path=None,
+    def set_cookie(self, key, value, expires=None, max_age=None, path='/',
                    secret=None, digestmod=hashlib.sha256):
         if secret:
             if isinstance(secret, str):
