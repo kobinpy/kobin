@@ -5,7 +5,6 @@ from setuptools.command.test import test as TestCommand
 
 BASE_PATH = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(BASE_PATH, 'README.rst')).read()
-CHANGES = open(os.path.join(BASE_PATH, 'CHANGES.rst')).read()
 
 __version__ = '0.1.4'
 __author__ = 'Masashi Shibata <contact@c-bata.link>'
@@ -55,7 +54,7 @@ setup(
     author_email=__author_email__,
     url='https://github.com/kobinpy/kobin',
     description='A Minimal WSGI Framework to develop your web application comfortably',
-    long_description=README + '\n\n' + CHANGES,
+    long_description=README,
     classifiers=__classifiers__,
     packages=find_packages(exclude=['test*']),
     install_requires=[],

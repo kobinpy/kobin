@@ -73,7 +73,8 @@ The usage is like this:
 
 """
 from typing import get_type_hints
-from .environs import request, HTTPError
+from .requests import request
+from .responses import HTTPError
 
 DEFAULT_ARG_TYPE = str
 

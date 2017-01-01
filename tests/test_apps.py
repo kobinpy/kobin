@@ -2,9 +2,9 @@ import os
 from unittest import TestCase
 from kobin import (
     Kobin, Response,
-    Config, load_config_from_module, load_config_from_pyfile
+    load_config_from_module, load_config_from_pyfile
 )
-from kobin.app import _handle_unexpected_exception, _get_traceback_message
+from kobin.app import _handle_unexpected_exception, _get_traceback_message, load_config
 
 
 class KobinTests(TestCase):
@@ -178,7 +178,7 @@ class ConfigTests(TestCase):
         self.base_path = os.path.dirname(os.path.abspath(__file__))
 
     def test_constructor(self):
-        config = Config()
+        config = load_config()
         self.assertIn('DEBUG', config.keys())
 
     def test_load_from_module(self):

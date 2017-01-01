@@ -1,6 +1,6 @@
 from typing import Callable, Dict, List, Tuple, Union, Any
 
-from .environs import BaseResponse
+from .responses import BaseResponse
 
 ViewFunction = Callable[..., BaseResponse]
 DEFAULT_ARG_TYPE = ... # type: type

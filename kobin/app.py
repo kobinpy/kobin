@@ -22,7 +22,8 @@ import os
 import traceback
 
 from .routes import Router
-from .environs import request, HTTPError
+from .requests import request
+from .responses import HTTPError
 
 
 class Kobin:
@@ -32,7 +33,7 @@ class Kobin:
     """
     def __init__(self, config=None):
         self.router = Router()
-        self.config = config if config else Config()
+        self.config = config if config else load_config()
         self.before_request_callback = None
         self.after_request_callback = None
 
@@ -96,30 +97,42 @@ def _handle_unexpected_exception(e, debug):
     return response
 
 
-class Config(dict):
-    """This class manages your application configs.
-    """
-    def __init__(self, **kwargs):
-        init_kw = {
-            'BASE_DIR': os.path.abspath('.'),
-            'TEMPLATE_DIRS': [os.path.join(os.path.abspath('.'), 'templates')],
-            'DEBUG': False,
-        }
-        init_kw.update(kwargs)
-        super().__init__(**init_kw)
-        self._template_env = None
+# Following configurations are optional:
+#
+# Optional
+# * DEBUG
+# * SECRET_KEY
+# * TEMPLATE_DIRS (default: './templates/') or TEMPLATE_ENVIRONMENT
+#
+def _load_jinja2_env(template_dirs, **envoptions):
+    try:
+        from jinja2 import Environment, FileSystemLoader
+        return Environment(loader=FileSystemLoader(template_dirs), **envoptions)
+    except ImportError:
+        pass
 
-    @property
-    def template_env(self):
-        if self._template_env is None:
-            from jinja2 import Environment, FileSystemLoader
-            self._template_env = Environment(loader=FileSystemLoader(self['TEMPLATE_DIRS']))
-        return self._template_env
+
+def load_config(config=None):
+    default_config = {
+        'BASE_DIR': os.path.abspath('.'),
+        'TEMPLATE_DIRS': [os.path.join(os.path.abspath('.'), 'templates')],
+        'DEBUG': False,
+    }
+    if config is None:
+        return default_config
+
+    default_config.update(config)
+
+    if 'TEMPLATE_ENVIRONMENT' not in config:
+        env = _load_jinja2_env(default_config['TEMPLATE_DIRS'])
+        if env:
+            default_config['TEMPLATE_ENVIRONMENT'] = env
+    return default_config
 
 
 def load_config_from_module(module):
-    return Config(**{key: getattr(module, key)
-                     for key in dir(module) if key.isupper()})
+    config = {key: getattr(module, key) for key in dir(module) if key.isupper()}
+    return load_config(config)
 
 
 def load_config_from_pyfile(filepath):
@@ -127,11 +140,6 @@ def load_config_from_pyfile(filepath):
     return load_config_from_module(module)
 
 
-def current_app():
-    """Get your Kobin class object."""
-    return request['kobin.app']
-
-
-def current_config():
+def current_config(key, default=None):
     """Get the configurations of your Kobin's application."""
-    return current_app().config
+    return request['kobin.app'].config.get(key, default)
