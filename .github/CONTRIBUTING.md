@@ -40,3 +40,5 @@ If you add the changes to Kobin, Please run tox testing.
 * mypy: ``mypy --check-untyped-defs --fast-parser --python-version 3.6 kobin``
 * Flake8: ``flake8``
 * doctest: ``cd docs; make doctest``
+* Run all using tox: ``tox``
+

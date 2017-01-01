@@ -1,7 +1,9 @@
 ## Summary
 
 
-## Detail
+## Expected Behavior
+
+## Actual Behavior
 
 If possible, provide a minimal reproducible example (We usually don't have time to read hundreds of lines of your code)
 
@@ -12,3 +14,4 @@ If possible, provide a minimal reproducible example (We usually don't have time 
 - Kobin version:
 
 ## Related Issue(Optional)
+
