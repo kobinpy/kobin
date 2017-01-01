@@ -208,7 +208,8 @@ class ConfigTests(TestCase):
         self.assertEqual('bar', env.globals['foo'])
 
     def test_load_jinja2_env_with_filters(self):
-        foo_filter = lambda x: x * 2
+        def foo_filter(x):
+            return x * 2
         env = load_jinja2_env('.', global_filters={'foo': foo_filter})
         self.assertEqual(foo_filter, env.filters['foo'])
 
