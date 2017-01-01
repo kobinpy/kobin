@@ -103,10 +103,15 @@ def _handle_unexpected_exception(e, debug):
 # * SECRET_KEY
 # * TEMPLATE_DIRS (default: './templates/') or TEMPLATE_ENVIRONMENT
 #
-def _load_jinja2_env(template_dirs, **envoptions):
+def load_jinja2_env(template_dirs,  global_variables=None, global_filters=None, **envoptions):
     try:
         from jinja2 import Environment, FileSystemLoader
-        return Environment(loader=FileSystemLoader(template_dirs), **envoptions)
+        env = Environment(loader=FileSystemLoader(template_dirs), **envoptions)
+        if global_variables:
+            env.globals.update(global_variables)
+        if global_filters:
+            env.filters.update(global_filters)
+        return env
     except ImportError:
         pass
 
@@ -123,7 +128,7 @@ def load_config(config=None):
     default_config.update(config)
 
     if 'TEMPLATE_ENVIRONMENT' not in config:
-        env = _load_jinja2_env(default_config['TEMPLATE_DIRS'])
+        env = load_jinja2_env(default_config['TEMPLATE_DIRS'])
         if env:
             default_config['TEMPLATE_ENVIRONMENT'] = env
     return default_config
