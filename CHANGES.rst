@@ -1,6 +1,13 @@
 CHANGES
 =======
 
+0.1.5 (2017-01-01)
+------------------
+
+* Refactor Response classes.
+* Split environs to requests.py and responses.py
+* Remove Config class.
+
 0.1.4 (2017-01-01)
 ------------------
 
