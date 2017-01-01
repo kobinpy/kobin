@@ -271,8 +271,6 @@ class BaseResponse:
     @property
     def status(self):
         """ The HTTP status line as a string (e.g. ``404 Not Found``)."""
-        if not 100 <= self._status_code <= 999:
-            raise ValueError('Status code out of range.')
         status = _HTTP_STATUS_LINES.get(self._status_code)
         return str(status or ('{} Unknown'.format(self._status_code)))
 

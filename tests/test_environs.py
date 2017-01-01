@@ -258,6 +258,14 @@ class BaseResponseTests(TestCase):
         response.status = 200
         self.assertEqual(response.status, '200 OK')
 
+    def test_set_invalid_status(self):
+        response = BaseResponse()
+
+        def set_status(status):
+            response.status = status
+
+        self.assertRaises(ValueError, set_status, -1)
+
     def test_constructor_headerlist(self):
         response = BaseResponse()
         expected_content_type = ('Content-Type', 'text/plain;')
