@@ -249,6 +249,15 @@ class CookieTests(TestCase):
         expected = 'bar'
         self.assertEqual(actual, expected)
 
+    @patch('kobin.app.current_config')
+    def test_set_cookie_with_secret_in_config(self, mock_current_config):
+        mock_current_config.return_value = Config(SECRET_KEY="secretkey")
+        response = BaseResponse()
+        response.set_cookie('foo', 'bar', path=None)
+        expected_set_cookie = ('Set-Cookie', 'foo="!VzhGFLGcW+5OMs1s4beLXaqFxAUwgHdWkH5fgapghoI='
+                                             '?gASVDwAAAAAAAACMA2Zvb5SMA2JhcpSGlC4="')
+        self.assertIn(expected_set_cookie, response.headerlist)
+
 
 class BaseResponseTests(TestCase):
     def test_constructor_body(self):

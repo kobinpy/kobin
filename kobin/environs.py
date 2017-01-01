@@ -292,6 +292,9 @@ class BaseResponse:
 
     def set_cookie(self, key, value, expires=None, max_age=None, path='/',
                    secret=None, digestmod=hashlib.sha256):
+        from kobin.app import current_config
+        if secret is None:
+            secret = current_config().get('SECRET_KEY')
         if secret:
             if isinstance(secret, str):
                 secret = secret.encode('utf-8')
