@@ -29,7 +29,7 @@ _HTTP_STATUS_LINES = dict((k, '%d %s' % (k, v)) for (k, v) in HTTP_CODES.items()
 
 
 class BaseResponse:
-    """Base class for Response"""
+    """Base class for Response."""
     default_status = 200
     default_content_type = 'text/plain;'
 
@@ -125,7 +125,7 @@ class Response(BaseResponse):
 
 
 class JSONResponse(BaseResponse):
-    """Returns a html using jinja2 template engine"""
+    """Returns a HTML text from dict or OrderedDict."""
     default_content_type = 'application/json; charset=UTF-8'
 
     def __init__(self, dic, status=200, headers=None, charset='utf-8', **dump_args):
@@ -134,7 +134,7 @@ class JSONResponse(BaseResponse):
 
 
 class TemplateResponse(BaseResponse):
-    """Returns a JSON text from dict or OrderedDict."""
+    """Returns a html using jinja2 template engine"""
     default_content_type = 'text/html; charset=UTF-8'
 
     def __init__(self, filename, status=200, headers=None, charset='utf-8', **tpl_args):
@@ -159,5 +159,4 @@ class HTTPError(Response, Exception):
     default_status = 500
 
     def __init__(self, body, status, headers=None, charset='utf-8'):
-        super().__init__(body=body, status=status or self.default_status,
-                         headers=headers, charset=charset)
+        super().__init__(body=body, status=status, headers=headers, charset=charset)

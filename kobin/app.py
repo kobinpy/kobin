@@ -99,7 +99,6 @@ def _handle_unexpected_exception(e, debug):
 
 # Following configurations are optional:
 #
-# Optional
 # * DEBUG
 # * SECRET_KEY
 # * TEMPLATE_DIRS (default: './templates/') or TEMPLATE_ENVIRONMENT

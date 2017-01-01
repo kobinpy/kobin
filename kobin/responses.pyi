@@ -56,7 +56,5 @@ class RedirectResponse(Response):
 
 
 class HTTPError(Response, Exception):
-    default_status: int
-
     def __init__(self, body: str, status: int = ..., headers: Dict = ...,
                  charset: str = ...) -> None: ...
