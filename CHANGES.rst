@@ -1,6 +1,17 @@
 CHANGES
 =======
 
+0.1.4 (2017-01-01)
+------------------
+
+Happy New Year! This is a first release in 2017.
+We hope kobin helps your web development.
+
+* Enhancement coverage.
+* Add some refactoring changes.
+* Set Cookie encryption using `config['SECRET_KEY']` .
+
+
 0.1.3 (2016-12-30)
 ------------------
 

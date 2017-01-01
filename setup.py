@@ -7,7 +7,7 @@ BASE_PATH = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(BASE_PATH, 'README.rst')).read()
 CHANGES = open(os.path.join(BASE_PATH, 'CHANGES.rst')).read()
 
-__version__ = '0.1.3'
+__version__ = '0.1.4'
 __author__ = 'Masashi Shibata <contact@c-bata.link>'
 __author_email__ = 'contact@c-bata.link'
 __license__ = 'MIT License'
@@ -24,7 +24,6 @@ __classifiers__ = (
     'Topic :: Software Development :: Libraries :: Application Frameworks',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.5',
     'Programming Language :: Python :: 3.6',
     'Programming Language :: Python :: 3 :: Only',
 )
