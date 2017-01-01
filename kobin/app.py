@@ -20,6 +20,7 @@ Usage
 from importlib.machinery import SourceFileLoader
 import os
 import traceback
+from urllib.parse import urljoin
 
 from .routes import Router
 from .requests import request
@@ -103,6 +104,18 @@ def _handle_unexpected_exception(e, debug):
 # * SECRET_KEY
 # * TEMPLATE_DIRS (default: './templates/') or TEMPLATE_ENVIRONMENT
 #
+def _current_app():
+    # This function exists for unittest.mock.patch.
+    return request['kobin.app']
+
+
+def lazy_router_reverse(name, with_host=False):
+    url = _current_app().router.reverse(name)
+    if with_host:
+        url = urljoin(request.url, url)
+    return url
+
+
 def load_jinja2_env(template_dirs,  global_variables=None, global_filters=None, **envoptions):
     try:
         from jinja2 import Environment, FileSystemLoader

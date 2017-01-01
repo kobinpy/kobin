@@ -1,11 +1,12 @@
 import os
 from unittest import TestCase
+from unittest.mock import patch
 from kobin import (
     Kobin, Response,
     load_config_from_module, load_config_from_pyfile
 )
 from kobin.app import (
-    load_jinja2_env, load_config,
+    lazy_router_reverse, load_jinja2_env, load_config,
     _handle_unexpected_exception, _get_traceback_message
 )
 
@@ -179,6 +180,20 @@ class KobinAfterHookTests(TestCase):
 class ConfigTests(TestCase):
     def setUp(self):
         self.base_path = os.path.dirname(os.path.abspath(__file__))
+
+    @patch('kobin.app._current_app')
+    def test_lazy_reverse_router(self, app_mock):
+        app = Kobin()
+
+        @app.route('/', 'GET', 'top')
+        def top():
+            return Response('Hello')
+
+        app_mock.return_value = app
+        actual = lazy_router_reverse('top')
+
+        expected = '/'
+        self.assertEqual(actual, expected)
 
     def test_load_jinja2_env_with_globals(self):
         env = load_jinja2_env('.', global_variables={'foo': 'bar'})
