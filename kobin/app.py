@@ -109,10 +109,13 @@ def _current_app():
     return request['kobin.app']
 
 
-def lazy_router_reverse(name, with_host=False):
+def template_router_reverse(name, with_host=False):
     url = _current_app().router.reverse(name)
     if with_host:
         url = urljoin(request.url, url)
+
+    if url is None:
+        return ''
     return url
 
 

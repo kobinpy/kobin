@@ -6,7 +6,7 @@ from kobin import (
     load_config_from_module, load_config_from_pyfile
 )
 from kobin.app import (
-    lazy_router_reverse, load_jinja2_env, load_config,
+    template_router_reverse, load_jinja2_env, load_config,
     _handle_unexpected_exception, _get_traceback_message
 )
 
@@ -190,9 +190,17 @@ class ConfigTests(TestCase):
             return Response('Hello')
 
         app_mock.return_value = app
-        actual = lazy_router_reverse('top')
+        actual = template_router_reverse('top')
 
         expected = '/'
+        self.assertEqual(actual, expected)
+
+    @patch('kobin.app._current_app')
+    def test_lazy_reverse_router_not_found(self, app_mock):
+        app = Kobin()
+        app_mock.return_value = app
+        actual = template_router_reverse('top')
+        expected = ''
         self.assertEqual(actual, expected)
 
     def test_load_jinja2_env_with_globals(self):
