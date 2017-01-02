@@ -102,6 +102,10 @@ class Request:
         return {c.key: c.value for c in cookies}
 
     def get_cookie(self, key, default=None, secret=None, digestmod=hashlib.sha256):
+        from kobin.app import current_config
+        if secret is None:
+            secret = current_config('SECRET_KEY')
+
         value = self.cookies.get(key)
         if secret and value and value.startswith('!') and '?' in value:
             # See BaseResponse.set_cookie for details.
