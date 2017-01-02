@@ -1,6 +1,12 @@
 CHANGES
 =======
 
+0.1.6 (2017-01-03)
+------------------
+
+* Fix the critical bug in request.forms.
+* Flexible template settings.
+
 0.1.5 (2017-01-01)
 ------------------
 
