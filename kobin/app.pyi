@@ -1,4 +1,4 @@
-from jinja2 import Environment
+from jinja2 import Environment  # type: ignore
 from typing import Callable, Dict, List, Tuple, Iterable, TypeVar, Any
 from types import ModuleType
 
