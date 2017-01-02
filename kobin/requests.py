@@ -27,12 +27,13 @@ from http.cookies import SimpleCookie
 class Request:
     """ A wrapper for WSGI environment dictionaries.
     """
-    __slots__ = ('environ', '_body', )
+    __slots__ = ('environ', '_body', '_forms')
 
     def __init__(self, environ=None):
         self.environ = {} if environ is None else environ
         self.environ['kobin.request'] = self
         self._body = None
+        self._forms = None
 
     def get(self, value, default=None):
         return self.environ.get(value, default)
@@ -65,13 +66,14 @@ class Request:
 
     @property
     def forms(self):
-        form = cgi.FieldStorage(
-            fp=self.environ['wsgi.input'],
-            environ=self.environ,
-            keep_blank_values=True,
-        )
-        params = {k: form[k].value for k in form}
-        return params
+        if self._forms is None:
+            form = cgi.FieldStorage(
+                fp=self.environ['wsgi.input'],
+                environ=self.environ,
+                keep_blank_values=True,
+            )
+            self._forms = {k: form[k].value for k in form}
+        return self._forms
 
     @property
     def raw_body(self):
@@ -218,6 +220,7 @@ class LocalRequest(Request):
     bind = Request.__init__
     environ = _local_property()
     _body = _local_property()
+    _forms = _local_property()
 
 
 request = LocalRequest()
