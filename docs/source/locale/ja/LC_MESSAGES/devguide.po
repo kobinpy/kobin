@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0.4-alpha.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 18:34+0900\n"
+"POT-Creation-Date: 2017-01-03 21:20+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,20 +81,27 @@ msgid ""
 msgstr "Kobinプロジェクトでは以下の項目をテストしています。もし変更を加えた場合、toxコマンドを実行してチェックしてください。"
 
 #: ../../source/devguide.rst:45
-msgid "pytest: ``python setup.py test``"
+msgid "test: ``python setup.py test``"
 msgstr ""
 
 #: ../../source/devguide.rst:46
+msgid "coverage: ``coverage run setup.py test && coverage report``"
+msgstr ""
+
+#: ../../source/devguide.rst:47
 msgid ""
 "mypy: ``mypy --check-untyped-defs --fast-parser --python-version 3.6 "
 "kobin``"
 msgstr ""
 
-#: ../../source/devguide.rst:47
+#: ../../source/devguide.rst:48
 msgid "Flake8: ``flake8``"
 msgstr ""
 
-#: ../../source/devguide.rst:48
+#: ../../source/devguide.rst:49
 msgid "doctest: ``cd docs; make doctest``"
 msgstr ""
 
+#: ../../source/devguide.rst:50
+msgid "Run all with tox: ``tox``"
+msgstr ""

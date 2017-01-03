@@ -20,7 +20,7 @@ Kobin
    :alt: Documentation Status
 
 
-A Minimal WSGI Framework to develop your web application comfortably.
+Type Hints friendly WSGI Framework for Python3.
 **This library is a pre-release. Expect missing docs and breaking API changes.**
 
 Kobin has following features.
@@ -32,8 +32,8 @@ Kobin has following features.
 
 And Kobin has **NO** following features:
 
-- *WSGI Server Adapters*: Please use WSGICLI or Gunicorn CLI.
-- *Serving static contents*: Please use WSGICLI and Nginx.
+- *WSGI Server Adapters*: Please use `WSGICLI <https://github.com/kobinpy/wsgicli>`_ or Gunicorn CLI.
+- *Serving static contents*: Please use `wsgi-static-middleware <https://github.com/kobinpy/wsgi-static-middleware>`_ or Nginx.
 - *Template Engine*: But Kobin provides template adapter for Jinja2.
 
 Requirements
@@ -54,15 +54,15 @@ Resources
 * `Documentation (Japanese) <https://kobin.readthedocs.org/ja/latest/>`_
 * `Github <https://github.com/kobinpy/kobin>`_
 * `PyPI <https://pypi.python.org/pypi/kobin>`_
-* `Kobin Example <https://github.com/kobinpy/kobin-example>`_
+* `Kobin Todo <https://github.com/kobinpy/kobin-todo>`_
 
 
 Kobin's documentation is not yet complete very much.
 If you want to know the best practices in Kobin,
-Please check  `Kobin Example <https://github.com/kobinpy/kobin-example>`_ .
+Please check  `Kobin Todo <https://github.com/kobinpy/kobin-todo>`_ .
 
 .. image:: docs/source/_static/kobin-example.gif
-   :alt: Kobin Example Demo Animation
+   :alt: Kobin Todo Demo Animation
    :align: center
 
 License

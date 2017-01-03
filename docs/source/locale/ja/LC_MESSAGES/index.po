@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-07 01:34+0900\n"
+"POT-Creation-Date: 2017-01-03 21:20+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,8 +22,8 @@ msgid "Kobin Documentation"
 msgstr "Kobin ドキュメント"
 
 #: ../../source/index.rst:7
-msgid "A Minimal WSGI Framework to develop your web application comfortably."
-msgstr "Kobinは、Webアプリケーションを快適に開発するための最も小さなフレームワークです。"
+msgid "Type Hints friendly WSGI Framework for Python3."
+msgstr "Kobinは、型ヒントを活用した小さなWSGIフレームワークです。"
 
 #: ../../source/index.rst:9
 msgid "Kobin has following features."

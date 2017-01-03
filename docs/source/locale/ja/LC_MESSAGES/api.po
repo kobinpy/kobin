@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0.4-alpha.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-02 14:09+0900\n"
+"POT-Creation-Date: 2017-01-03 21:20+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,98 +37,15 @@ msgstr "Kobinクラスのインスタンスが、WSGIのアプリケーション
 msgid "Usage"
 msgstr "使い方"
 
-#: kobin.app.Config:1 of
-msgid "This class manages your application configs."
-msgstr "アプリケーションの設定を管理するクラス"
-
 #: kobin.app.Kobin:1 of
 msgid ""
 "This class is a WSGI application implementation. Create a instance, and "
 "run using WSGI Server."
 msgstr "WSGI Applicationの実装です。インスタンスを生成して、WSGI Serverで実行しましょう。"
 
-#: kobin.app.current_app:1 of
-msgid "Get your Kobin class object."
-msgstr "Kobinアプリケーションのオブジェクトを取得"
-
 #: kobin.app.current_config:1 of
 msgid "Get the configurations of your Kobin's application."
 msgstr "Kobinアプリケーションの設定情報を取得"
-
-#: kobin.environs:2 of
-msgid "Request and Response"
-msgstr "リクエストとレスポンス"
-
-#: kobin.environs:5 of
-msgid "Request"
-msgstr "リクエスト"
-
-#: kobin.environs:7 of
-msgid ""
-"When a page is requested, automatically created a :class:`Request` object"
-" that contains metadata about the request. Since this object is global "
-"within the thread, you can freely import from anywhere and retrieve "
-"request information."
-msgstr ""
-"リクエストを受け取ると、WSGIのリクエスト情報を元に :class:`Request` "
-"クラスのオブジェクトが自動生成されます。このオブジェクトは、スレッド内でグローバルなため、どこからでも自由にimportを行いリクエスト情報を取り出すことができます。リクエストが発生する度にこのオブジェクトは初期化されます。"
-
-#: kobin.environs:14 of
-msgid "Response"
-msgstr "レスポンス"
-
-#: kobin.environs:16 of
-msgid ""
-"In contrast to :class:`Request` objects, which are created automatically,"
-" :class:`Response` objects are your responsibility. Each view functions "
-"you write is responsible for instantiating and returning an "
-":class:`Response` or its child classes."
-msgstr ""
-"リクエストが発生した際に自動生成される :class:`Request` オブジェクトとは対象的に、 :class:`Response` "
-"オブジェクトは自分で生成する必要があります。Kobinでは、 View関数の返り値は必ずこの :class:`Response` "
-"クラスもしくはその派生クラスを返す必要があります。"
-
-#: kobin.environs:23 of
-msgid ""
-"In addition to the :class:`Response` class, Kobin provides "
-":class:`TemplateResponse` ,"
-msgstr ""
-":class:`Response` クラスの他に、Kobinでは :class:`TemplateResponse` や "
-":class:`JSONResponse` 、 :class:`HTTPError` を提供しています。"
-
-#: kobin.environs:22 of
-msgid ":class:`JSONResponse` , :class:`RedirectResponse` and :class:`HTTPError`."
-msgstr ""
-
-#: kobin.environs.HTTPError:1 of
-msgid "Return the error message when raise this class."
-msgstr "このクラスを ``raise`` するとエラーメッセージを返します。"
-
-#: kobin.environs.JSONResponse:1 of
-msgid "Returns a html using jinja2 template engine"
-msgstr "jinja2のテンプレートエンジンを使用してHTMLを返します。"
-
-#: kobin.environs.RedirectResponse:1 of
-msgid "Redirect the specified url."
-msgstr ""
-
-#: kobin.environs.Request:1 of
-msgid "A wrapper for WSGI environment dictionaries."
-msgstr "WSGIのリクエスト情報のラッパークラス"
-
-#: kobin.environs.Request.method:1 of
-msgid "The ``REQUEST_METHOD`` value as an uppercase string."
-msgstr ""
-
-#: kobin.environs.Request.path:1 of
-msgid ""
-"The value of ``PATH_INFO`` with exactly one prefixed slash (to fix broken"
-" clients and avoid the \"empty path\" edge case)."
-msgstr ""
-
-#: kobin.environs.TemplateResponse:1 of
-msgid "Returns a JSON text from dict or OrderedDict."
-msgstr ""
 
 #: kobin.routes:2 of
 msgid "Routing"
