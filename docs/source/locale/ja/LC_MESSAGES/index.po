@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kobin 0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-03 21:20+0900\n"
+"POT-Creation-Date: 2017-01-03 21:28+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,9 +75,9 @@ msgstr ""
 
 #: ../../source/index.rst:58
 msgid ""
-"Supported python versions are python 3.5 or 3.6(beta). And Kobin has no "
-"required dependencies other than the Python Standard Libraries."
-msgstr "Kobinでは、Python 3.5と3.6(beta)をサポートしています。またKobinはサードパーティのライブラリに依存していません。"
+"Supported python versions are python 3.6. And Kobin has no required "
+"dependencies other than the Python Standard Libraries."
+msgstr "Kobinでは、Python 3.6をサポートしています。またKobinはサードパーティのライブラリに依存していません。"
 
 #: ../../source/index.rst:61
 msgid "The following packages are optional:"
