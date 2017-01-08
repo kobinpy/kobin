@@ -7,7 +7,7 @@ from kobin import (
 )
 from kobin.app import (
     template_router_reverse, load_jinja2_env, load_config,
-    _handle_unexpected_exception, _get_traceback_message
+    _get_exception_message
 )
 
 
@@ -126,35 +126,25 @@ class KobinHookTests(TestCase):
 
 
 class HandleUnexpectedExceptionTests(TestCase):
-    def test_get_traceback_message(self):
+    def test_get_exception_message_when_debugging(self):
         try:
             1 / 0
         except BaseException as e:
-            actual = _get_traceback_message(e)
+            actual = _get_exception_message(e, True)
         else:
             actual = "Exception is not raised."
         cause_of_exception = '1 / 0'
         self.assertIn(cause_of_exception, actual)
 
-    def test_handle_unexpected_exception_should_return_500(self):
+    def test_get_exception_message_when_not_debugging(self):
         try:
             1 / 0
         except BaseException as e:
-            actual = _handle_unexpected_exception(e, False)
+            actual = _get_exception_message(e, False)
         else:
             actual = "Exception is not raised."
-        expected_status_code = 500
-        self.assertEqual(actual.status_code, expected_status_code)
-
-    def test_handle_unexpected_exception_body(self):
-        try:
-            1 / 0
-        except BaseException as e:
-            actual = _handle_unexpected_exception(e, False)
-        else:
-            actual = "Exception is not raised."
-        expected_body = [b'Internal Server Error']
-        self.assertEqual(actual.body, expected_body)
+        expected = 'Internal Server Error'
+        self.assertEqual(actual, expected)
 
 
 class KobinAfterHookTests(TestCase):

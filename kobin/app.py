@@ -18,6 +18,7 @@ Usage
 
 """
 from importlib.machinery import SourceFileLoader
+from logging import getLogger
 import os
 import traceback
 from urllib.parse import urljoin
@@ -37,6 +38,7 @@ class Kobin:
         self.config = config if config else load_config()
         self.before_request_callback = None
         self.after_request_callback = None
+        self.logger = getLogger(__name__)
 
     def route(self, rule=None, method='GET', name=None, callback=None):
         def decorator(callback_func):
@@ -74,7 +76,9 @@ class Kobin:
         except HTTPError as e:
             response = e
         except BaseException as e:
-            response = _handle_unexpected_exception(e, self.config.get('DEBUG'))
+            error_message = _get_exception_message(e, self.config.get('DEBUG'))
+            self.logger.debug(error_message)
+            response = HTTPError(error_message, 500)
         return response
 
     def __call__(self, environ, start_response):
@@ -84,18 +88,12 @@ class Kobin:
         return response.body
 
 
-def _get_traceback_message(e):
-    message = '\n'.join(traceback.format_tb(e.__traceback__))
-    return message
-
-
-def _handle_unexpected_exception(e, debug):
+def _get_exception_message(e, debug):
     if debug:
-        message = _get_traceback_message(e)
+        message = '\n'.join(traceback.format_tb(e.__traceback__))
     else:
         message = 'Internal Server Error'
-    response = HTTPError(message, 500)
-    return response
+    return message
 
 
 # Following configurations are optional:
@@ -103,6 +101,7 @@ def _handle_unexpected_exception(e, debug):
 # * DEBUG
 # * SECRET_KEY
 # * TEMPLATE_DIRS (default: './templates/') or TEMPLATE_ENVIRONMENT
+# * LOG_LEVEL
 #
 def _current_app():
     # This function exists for unittest.mock.patch.

@@ -1,4 +1,5 @@
 from jinja2 import Environment  # type: ignore
+from logging import Logger
 from typing import Callable, Dict, List, Tuple, Iterable, TypeVar, Any
 from types import ModuleType
 
@@ -17,6 +18,7 @@ WSGIResponse = Iterable[bytes]
 class Kobin:
     router: Router
     config: Dict[str, Any]
+    logger: Logger
     before_request_callback: Callable[[], None]
     after_request_callback: Callable[[BaseResponse], BaseResponse]
 
@@ -30,8 +32,7 @@ class Kobin:
     def wsgi(self, environ: WSGIEnviron, start_response: StartResponse) -> WSGIResponse: ...
     def __call__(self, environ: WSGIEnviron, start_response: StartResponse) -> WSGIResponse: ...
 
-def _get_traceback_message(e: BaseException) -> str: ...
-def _handle_unexpected_exception(e: BaseException, debug: bool) -> Response: ...
+def _get_exception_message(e: BaseException, debug: bool) -> str: ...
 
 def _current_app() -> Kobin: ...
 def load_jinja2_env(template_dirs: List[str],
