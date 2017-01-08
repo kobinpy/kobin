@@ -108,21 +108,31 @@ class KobinHookTests(TestCase):
         def before():
             self.before_counter += 1
 
+        @self.app.before_request
+        def before2():
+            self.before_counter += 1
+
         @self.app.after_request
         def after(response):
-            response.headers.add_header('Foo', 'Bar')
+            response.headers.add_header('Foo1', 'Bar1')
+            return response
+
+        @self.app.after_request
+        def after2(response):
+            response.headers.add_header('Foo2', 'Bar2')
             return response
 
     def test_before_request(self):
         test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/'}
         self.app.before_counter = 0
         self.app._handle(test_env)
-        self.assertEqual(self.before_counter, 1)
+        self.assertEqual(self.before_counter, 2)
 
     def test_after_request(self):
         test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/'}
         response = self.app._handle(test_env)
-        self.assertIn(('Foo', 'Bar'), response.headerlist)
+        self.assertIn(('Foo1', 'Bar1'), response.headerlist)
+        self.assertIn(('Foo2', 'Bar2'), response.headerlist)
 
 
 class HandleUnexpectedExceptionTests(TestCase):

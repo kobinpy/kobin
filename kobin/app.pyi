@@ -1,6 +1,6 @@
 from jinja2 import Environment  # type: ignore
 from logging import Logger
-from typing import Callable, Dict, List, Tuple, Iterable, TypeVar, Any
+from typing import Callable, Dict, List, Tuple, Iterable, TypeVar, Any, Union
 from types import ModuleType
 
 from .routes import Router
@@ -19,8 +19,8 @@ class Kobin:
     router: Router
     config: Dict[str, Any]
     logger: Logger
-    before_request_callback: Callable[[], None]
-    after_request_callback: Callable[[BaseResponse], BaseResponse]
+    before_request_callbacks: List[Callable[[], None]]
+    after_request_callbacks: List[Callable[[BaseResponse], Union[None, BaseResponse]]]
 
     def __init__(self, config: Dict[str, Any] = ...) -> None: ...
     def route(self, rule: str = ..., method: str = ..., name: str = ...,

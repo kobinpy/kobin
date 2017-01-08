@@ -36,8 +36,8 @@ class Kobin:
     def __init__(self, config=None):
         self.router = Router()
         self.config = config if config else load_config()
-        self.before_request_callback = None
-        self.after_request_callback = None
+        self.before_request_callbacks = []
+        self.after_request_callbacks = []
         self.logger = getLogger(__name__)
 
     def route(self, rule=None, method='GET', name=None, callback=None):
@@ -48,13 +48,13 @@ class Kobin:
 
     def before_request(self, callback):
         def decorator(callback_func):
-            self.before_request_callback = callback_func
+            self.before_request_callbacks.append(callback_func)
             return callback_func
         return decorator(callback)
 
     def after_request(self, callback):
         def decorator(callback_func):
-            self.after_request_callback = callback_func
+            self.after_request_callbacks.append(callback_func)
             return callback_func
         return decorator(callback)
 
@@ -63,14 +63,14 @@ class Kobin:
         request.bind(environ)
 
         try:
-            if self.before_request_callback:
-                self.before_request_callback()
+            for before_request_callback in self.before_request_callbacks:
+                before_request_callback()
 
             callback, kwargs = self.router.match(environ)
             response = callback(**kwargs) if kwargs else callback()
 
-            if self.after_request_callback:
-                wrapped_response = self.after_request_callback(response)
+            for after_request_callback in self.after_request_callbacks:
+                wrapped_response = after_request_callback(response)
                 if wrapped_response:
                     response = wrapped_response
         except HTTPError as e:
