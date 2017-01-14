@@ -1,7 +1,7 @@
 CHANGES
 =======
 
-0.1.7 (2017-??-??)
+0.1.7 (2017-01-14)
 ------------------
 
 * Multiple after / before request hook.
