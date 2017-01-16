@@ -34,6 +34,9 @@ class RouteTests(TestCase):
             return Response(f'hello {num}')
         route = Route('/hoge/{num}', 'GET', 'hoge', dummy_func)
         self.assertTrue(route.match('GET', 'hoge/1/'))
+        self.assertEqual(route.match('GET', 'hoge/1'), {'num': 1})
+        self.assertEqual(route.match('GET', 'homm/1'), None)
+        self.assertEqual(route.match('PUT', 'hoge/1'), False)
 
 
 class RouterTests(TestCase):
@@ -64,7 +67,19 @@ class RouterTests(TestCase):
 
         self.router.add('GET', '/tests/{name}', 'hoge', dummy_func)
         test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/this_is_not_found'}
-        self.assertRaises(HTTPError, self.router.match, test_env)
+        with self.assertRaises(HTTPError) as cm:
+            self.router.match(test_env)
+        self.assertEqual('404 Not Found', cm.exception.status)
+
+    def test_405_method_not_allowed(self):
+        def dummy_func(name):
+            return Response(f'hello {name}')
+
+        self.router.add('GET', '/tests/{name}', 'hoge', dummy_func)
+        test_env = {'REQUEST_METHOD': 'POST', 'PATH_INFO': '/tests/kobin'}
+        with self.assertRaises(HTTPError) as cm:
+            self.router.match(test_env)
+        self.assertEqual('405 Method Not Allowed', cm.exception.status)
 
 
 class ReverseRoutingTests(TestCase):
