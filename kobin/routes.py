@@ -126,12 +126,13 @@ class Route:
         return typed_url_vars
 
     def match(self, method, path):
-        if not self._match_method(method):
-            return None
-
         url_vars = self._match_path(path)
-        if url_vars is not None:
-            return self.get_typed_url_vars(url_vars)
+        if url_vars is None:
+            return None       # path: not matched
+        elif not self._match_method(method):
+            return False      # path: matched, method: not matched
+        else:
+            return url_vars   # path: matched, method: matched
 
 
 class Router:
@@ -142,11 +143,16 @@ class Router:
         method = environ['REQUEST_METHOD'].upper()
         path = environ['PATH_INFO'] or '/'
 
+        status = 404
         for route in self.routes:
             url_vars = route.match(method, path)
-            if url_vars is not None:
+            if url_vars is None:     # path: not matched
+                continue
+            elif url_vars is False:  # path: matched, method: not matched
+                status = 405
+            else:                    # path: matched, method: matched
                 return route.callback, url_vars
-        raise HTTPError(status=404, body='Not found: {}'.format(request.path))
+        raise HTTPError(status=status, body='Not found: {}'.format(request.path))
 
     def add(self, method, rule, name, callback):
         """ Add a new rule or replace the target for an existing rule. """
