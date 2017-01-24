@@ -137,10 +137,8 @@ def load_config(config=None):
         'TEMPLATE_DIRS': [os.path.join(os.path.abspath('.'), 'templates')],
         'DEBUG': False,
     }
-    if config is None:
-        return default_config
-
-    default_config.update(config)
+    if config is not None:
+        default_config.update(config)
 
     if 'TEMPLATE_ENVIRONMENT' not in config:
         env = load_jinja2_env(default_config['TEMPLATE_DIRS'])
