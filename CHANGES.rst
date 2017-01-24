@@ -1,6 +1,12 @@
 CHANGES
 =======
 
+0.1.8 (2017-01-24)
+------------------
+
+* Fix to response 405 when request path found but method not matched. (Thanks @kwatch)
+* Fix a load_config does not set TEMPLATE_ENVIRONMENT bug when no arguments are passed.
+
 0.1.7 (2017-01-14)
 ------------------
 
