@@ -140,7 +140,7 @@ def load_config(config=None):
     if config is not None:
         default_config.update(config)
 
-    if 'TEMPLATE_ENVIRONMENT' not in config:
+    if 'TEMPLATE_ENVIRONMENT' not in default_config:
         env = load_jinja2_env(default_config['TEMPLATE_DIRS'])
         if env:
             default_config['TEMPLATE_ENVIRONMENT'] = env
