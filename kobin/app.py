@@ -35,7 +35,7 @@ class Kobin:
     """
     def __init__(self, config=None):
         self.router = Router()
-        self.config = config if config else load_config()
+        self.config = load_config(config)
         self.before_request_callbacks = []
         self.after_request_callbacks = []
         self.logger = getLogger(__name__)
