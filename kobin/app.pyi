@@ -21,6 +21,7 @@ class Kobin:
     logger: Logger
     before_request_callbacks: List[Callable[[], None]]
     after_request_callbacks: List[Callable[[BaseResponse], Union[None, BaseResponse]]]
+    _frozen: bool
 
     def __init__(self, config: Dict[str, Any] = ...) -> None: ...
     def route(self, rule: str = ..., method: str = ..., name: str = ...,

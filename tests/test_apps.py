@@ -177,6 +177,26 @@ class KobinAfterHookTests(TestCase):
         self.assertEqual('200 OK', response.status)
 
 
+class KobinFrozenTests(TestCase):
+    def setUp(self):
+        self.app = Kobin(config={'DEBUG': True})
+        self.before_counter = 0
+
+        @self.app.route('/')
+        def dummy_func():
+            return Response('hello')
+
+    def test_can_change_state_before_running(self):
+        test_env = {'REQUEST_METHOD': 'GET', 'PATH_INFO': '/'}
+
+        def dummy_start_response(s, h):
+            pass
+
+        self.app(test_env, dummy_start_response)
+        self.app.config = {'foo': 'bar'}
+        self.assertNotIn('foo', self.app.config)
+
+
 class ConfigTests(TestCase):
     def setUp(self):
         self.base_path = os.path.dirname(os.path.abspath(__file__))
@@ -210,6 +230,7 @@ class ConfigTests(TestCase):
     def test_load_jinja2_env_with_filters(self):
         def foo_filter(x):
             return x * 2
+
         env = load_jinja2_env('.', global_filters={'foo': foo_filter})
         self.assertEqual(foo_filter, env.filters['foo'])
 

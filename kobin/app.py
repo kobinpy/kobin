@@ -22,6 +22,7 @@ import logging
 import os
 import traceback
 from urllib.parse import urljoin
+import warnings
 
 from .routes import Router
 from .requests import request
@@ -39,6 +40,15 @@ class Kobin:
         self.before_request_callbacks = []
         self.after_request_callbacks = []
         self.logger = self.config.get('LOGGER')
+        self._frozen = False
+
+    def __setattr__(self, *args, **kwargs):
+        if '_frozen' in dir(self):
+            if self._frozen:
+                warnings.warn("Cannot Change the state of started application!",
+                              stacklevel=2)
+        else:
+            super().__setattr__(*args, **kwargs)
 
     def route(self, rule=None, method='GET', name=None, callback=None):
         def decorator(callback_func):
@@ -83,6 +93,8 @@ class Kobin:
 
     def __call__(self, environ, start_response):
         """It is called when receive http request."""
+        if not self._frozen:
+            self._frozen = True
         response = self._handle(environ)
         start_response(response.status, response.headerlist)
         return response.body
