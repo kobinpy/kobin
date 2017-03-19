@@ -18,7 +18,7 @@ Usage
 
 """
 from importlib.machinery import SourceFileLoader
-from logging import getLogger
+import logging
 import os
 import traceback
 from urllib.parse import urljoin
@@ -38,7 +38,7 @@ class Kobin:
         self.config = load_config(config)
         self.before_request_callbacks = []
         self.after_request_callbacks = []
-        self.logger = getLogger(__name__)
+        self.logger = self.config.get('LOGGER')
 
     def route(self, rule=None, method='GET', name=None, callback=None):
         def decorator(callback_func):
@@ -90,7 +90,10 @@ class Kobin:
 
 def _get_exception_message(e, debug):
     if debug:
-        message = '\n'.join(traceback.format_tb(e.__traceback__))
+        stacktrace = '\n'.join(traceback.format_tb(e.__traceback__))
+        message = f"500: Internal Server Error\n\n" \
+                  f"Exception:\n  {repr(e)}\n\n" \
+                  f"Stacktrace:\n{stacktrace}\n"
     else:
         message = 'Internal Server Error'
     return message
@@ -102,6 +105,7 @@ def _get_exception_message(e, debug):
 # * SECRET_KEY
 # * TEMPLATE_DIRS (default: './templates/') or TEMPLATE_ENVIRONMENT
 # * LOG_LEVEL
+# * LOG_HANDLER
 #
 def _current_app():
     # This function exists for unittest.mock.patch.
@@ -131,6 +135,17 @@ def load_jinja2_env(template_dirs,  global_variables=None, global_filters=None, 
         pass
 
 
+def _get_default_logger(debug):
+    logger = logging.getLogger(__name__)
+    handler = logging.StreamHandler()
+    if debug:
+        logger.setLevel(logging.DEBUG)
+    else:
+        logger.setLevel(logging.INFO)
+    logger.addHandler(handler)
+    return logger
+
+
 def load_config(config=None):
     default_config = {
         'BASE_DIR': os.path.abspath('.'),
@@ -144,6 +159,10 @@ def load_config(config=None):
         env = load_jinja2_env(default_config['TEMPLATE_DIRS'])
         if env:
             default_config['TEMPLATE_ENVIRONMENT'] = env
+
+    if 'LOGGER' not in default_config:
+        default_config['LOGGER'] = _get_default_logger(default_config.get('DEBUG'))
+
     return default_config
 
 
