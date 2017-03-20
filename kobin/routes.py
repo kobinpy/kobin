@@ -85,9 +85,9 @@ def match_url_vars_type(url_vars, type_hints):
     """ Match types of url vars.
 
     >>> match_url_vars_type({'user_id': '1'}, {'user_id': int})
-    True, {'user_id': 1}
+    (True, {'user_id': 1})
     >>> match_url_vars_type({'user_id': 'foo'}, {'user_id': int})
-    False, {}
+    (False, {})
     """
     typed_url_vars = {}
     try:
@@ -106,13 +106,13 @@ def match_path(rule, path):
     """ Match path.
 
     >>> match_path('/foo', '/foo')
-    True, {}
+    (True, {})
     >>> match_path('/foo', '/bar')
-    False, {}
+    (False, {})
     >>> match_path('/users/{user_id}', '/users/1')
-    True, {'user_id', 1}
+    (True, {'user_id': '1'})
     >>> match_path('/users/{user_id}', '/users/not-integer')
-    True, {'user_id': 'not-integer'}
+    (True, {'user_id': 'not-integer'})
     """
     split_rule = split_by_slash(rule)
     split_path = split_by_slash(path)
@@ -147,12 +147,14 @@ class Router:
         >>> callback, url_vars = r.match('/users/1', 'GET')
         >>> url_vars
         {'user_id': 1}
-        >>> callback(**url_vars)
-        You are 1
+        >>> response = callback(**url_vars)
+        >>> response.body
+        [b'You are 1']
 
         >>> callback, url_vars = r.match('/notfound', 'GET')
-        >>> callback(**url_vars)
-        404 Not Found
+        Traceback (most recent call last):
+            ...
+        kobin.responses.HTTPError
         """
         if path != '/':
             path = path.rstrip('/')
@@ -184,8 +186,16 @@ class Router:
         ...     return Response(f'You are {user_id}')
         ...
         >>> r.add('/users/{user_id}', 'GET', 'user-detail', view)
-        >>> r.endpoints[0]
-        ('/users/{user_id}', 'user-detail', {'GET': (view, {'user_id': int})})
+        >>> path, name, methods = r.endpoints[0]
+        >>> path
+        '/users/{user_id}'
+        >>> name
+        'user-detail'
+        >>> callback, type_hints = methods['GET']
+        >>> view == callback
+        True
+        >>> type_hints['user_id'] == int
+        True
         """
         if rule != '/':
             rule = rule.rstrip('/')
