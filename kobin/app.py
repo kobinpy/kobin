@@ -42,13 +42,31 @@ class Kobin:
         self.logger = self.config.get('LOGGER')
         self._frozen = False
 
-    def __setattr__(self, *args, **kwargs):
-        if '_frozen' in dir(self):
-            if self._frozen:
-                warnings.warn("Cannot Change the state of started application!",
-                              stacklevel=2)
+    def __call__(self, environ, start_response):
+        """It is called when receive http request."""
+        if not self._frozen:
+            self._frozen = True
+        response = self._handle(environ)
+        start_response(response.status, response.headerlist)
+        return response.body
+
+    def __setattr__(self, key, value):
+        if self.frozen:
+            warnings.warn("Cannot Change the state of started application!", stacklevel=2)
         else:
-            super().__setattr__(*args, **kwargs)
+            super().__setattr__(key, value)
+
+    def __delattr__(self, item):
+        if self.frozen:
+            warnings.warn("Cannot Delete the state of started application!", stacklevel=2)
+        else:
+            super().__setattr__(item)
+
+    @property
+    def frozen(self):
+        if '_frozen' not in dir(self):
+            return False
+        return self._frozen
 
     def route(self, rule=None, method='GET', name=None, callback=None):
         def decorator(callback_func):
@@ -90,14 +108,6 @@ class Kobin:
             self.logger.debug(error_message)
             response = HTTPError(error_message, 500)
         return response
-
-    def __call__(self, environ, start_response):
-        """It is called when receive http request."""
-        if not self._frozen:
-            self._frozen = True
-        response = self._handle(environ)
-        start_response(response.status, response.headerlist)
-        return response.body
 
 
 def _get_exception_message(e, debug):
