@@ -70,7 +70,7 @@ class Kobin:
 
     def route(self, rule=None, method='GET', name=None, callback=None):
         def decorator(callback_func):
-            self.router.add(method, rule, name, callback_func)
+            self.router.add(rule, method, name, callback_func)
             return callback_func
         return decorator(callback) if callback else decorator
 
@@ -94,7 +94,9 @@ class Kobin:
             for before_request_callback in self.before_request_callbacks:
                 before_request_callback()
 
-            callback, kwargs = self.router.match(environ)
+            method = environ['REQUEST_METHOD']
+            path = environ['PATH_INFO'] or '/'
+            callback, kwargs = self.router.match(path, method)
             response = callback(**kwargs) if kwargs else callback()
 
             for after_request_callback in self.after_request_callbacks:
