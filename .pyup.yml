@@ -1,0 +1,8 @@
+update: all
+schedule: "every week on monday"
+search: False
+requirements:
+  - requirements/constraints.txt
+label_prs: update
+assignnees: c-bata
+
