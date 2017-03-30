@@ -1,12 +1,18 @@
 sudo: false
 language: python
-python:
-- '3.6'
-- nightly
 matrix:
-  allow_failures:
+  include:
+  - python: 3.6
+    env: TOX_ENV=py36
+  - python: 3.6
+    env: TOX_ENV=flake8
+  - python: 3.6
+    env: TOX_ENV=mypy
+  - python: 3.6
+    env: TOX_ENV=doctest
   - python: nightly
-install: pip install -q tox-travis -r ./requirements/test.txt
+    env: TOX_ENV=py37
+install: pip install -q tox -r ./requirements/test.txt
 script: tox
 after_success:
 - coverage run setup.py test
