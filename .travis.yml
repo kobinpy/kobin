@@ -3,15 +3,15 @@ language: python
 matrix:
   include:
   - python: 3.6
-    env: TOX_ENV=py36
+    env: TOXENV=py36
   - python: 3.6
-    env: TOX_ENV=flake8
+    env: TOXENV=flake8
   - python: 3.6
-    env: TOX_ENV=mypy
+    env: TOXENV=mypy
   - python: 3.6
-    env: TOX_ENV=doctest
+    env: TOXENV=doctest
   - python: nightly
-    env: TOX_ENV=py37
+    env: TOXENV=py37
 install: pip install -q tox -r ./requirements/test.txt
 script: tox
 after_success:
