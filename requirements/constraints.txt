@@ -5,7 +5,7 @@ args==0.1.0
 Babel==2.4.0
 click==6.7
 clint==0.5.1
-coverage==4.3.4
+coverage==4.4
 coveralls==1.1
 decorator==4.0.11
 docopt==0.6.2
