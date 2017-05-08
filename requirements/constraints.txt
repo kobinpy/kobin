@@ -5,7 +5,7 @@ args==0.1.0
 Babel==2.4.0
 click==6.7
 clint==0.5.1
-coverage==4.3.4
+coverage==4.4
 coveralls==1.1
 decorator==4.0.11
 docopt==0.6.2
@@ -20,7 +20,7 @@ Jinja2==2.9.6
 -e git+git@github.com:kobinpy/kobin.git@5184a9f6e0b448b41b300d1182a8552398e70a1e#egg=kobin
 MarkupSafe==1.0
 mccabe==0.6.1
-mypy==0.501
+mypy==0.510
 packaging==16.8
 pexpect==4.2.1
 pickleshare==0.7.4
