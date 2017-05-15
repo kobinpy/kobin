@@ -20,7 +20,7 @@ Jinja2==2.9.6
 -e git+git@github.com:kobinpy/kobin.git@5184a9f6e0b448b41b300d1182a8552398e70a1e#egg=kobin
 MarkupSafe==1.0
 mccabe==0.6.1
-mypy==0.510
+mypy==0.511
 packaging==16.8
 pexpect==4.2.1
 pickleshare==0.7.4
