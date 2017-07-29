@@ -1,6 +1,6 @@
-=====
-Kobin
-=====
+.. raw:: html
+
+    <h1>Kobin</h1>
 
 .. image:: https://travis-ci.org/kobinpy/kobin.svg?branch=master
    :target: https://travis-ci.org/kobinpy/kobin
