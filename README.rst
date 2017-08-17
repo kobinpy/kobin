@@ -23,6 +23,22 @@
 Type Hints friendly WSGI Framework for Python3.
 **This library is a pre-release. Expect missing docs and breaking API changes.**
 
+minimal example is below.
+
+.. code-block:: python
+   from kobin import Kobin, Response, JSONResponse
+   app = Kobin()
+
+   @app.route('/')
+   def index() -> Response:
+       return Response("Hello World!")
+
+   @app.route('/users/{user_id}')
+   def say_hello(user_id: int) -> JSONResponse:
+       return JSONResponse({
+           "message": f"Hello user{user_id}!"
+       })
+
 Kobin has following features.
 
 - Decorator based Routing System exploited Type Hints.
@@ -36,6 +52,7 @@ And Kobin has **NO** following features:
 - *Serving static contents*: Please use `wsgi-static-middleware <https://github.com/kobinpy/wsgi-static-middleware>`_ or Nginx.
 - *Template Engine*: But Kobin provides template adapter for Jinja2.
 
+
 Requirements
 ============
 
@@ -46,6 +63,7 @@ The following packages are optional:
 
 * wsgicli - Command Line Interface for developing WSGI application.
 * jinja2 - Jinja2 is a full featured template engine for Python.
+
 
 Resources
 =========
