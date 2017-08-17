@@ -26,6 +26,7 @@ Type Hints friendly WSGI Framework for Python3.
 minimal example is below.
 
 .. code-block:: python
+
    from kobin import Kobin, Response, JSONResponse
    app = Kobin()
 
