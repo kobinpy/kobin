@@ -2,7 +2,7 @@ alabaster==0.7.10
 appdirs==1.4.3
 appnope==0.1.0
 args==0.1.0
-Babel==2.5.3
+Babel==2.6.0
 click==6.7
 clint==0.5.1
 coverage==4.5.1
