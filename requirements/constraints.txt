@@ -20,13 +20,13 @@ Jinja2==2.10
 -e git+git@github.com:kobinpy/kobin.git@5184a9f6e0b448b41b300d1182a8552398e70a1e#egg=kobin
 MarkupSafe==1.0
 mccabe==0.6.1
-mypy==0.600
+mypy==0.610
 packaging==17.1
 pexpect==4.6.0
 pickleshare==0.7.4
 pkginfo==1.4.2
 pluggy==0.6.0
-prompt-toolkit==2.0.2
+prompt-toolkit==2.0.3
 ptyprocess==0.5.2
 py==1.5.3
 pycodestyle==2.4.0
