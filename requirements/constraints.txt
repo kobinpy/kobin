@@ -1,4 +1,4 @@
-alabaster==0.7.10
+alabaster==0.7.11
 appdirs==1.4.3
 appnope==0.1.0
 args==0.1.0
@@ -27,7 +27,7 @@ pickleshare==0.7.4
 pkginfo==1.4.2
 pluggy==0.6.0
 prompt-toolkit==2.0.3
-ptyprocess==0.5.2
+ptyprocess==0.6.0
 py==1.5.3
 pycodestyle==2.4.0
 pyflakes==2.0.0
