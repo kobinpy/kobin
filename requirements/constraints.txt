@@ -28,13 +28,13 @@ pkginfo==1.4.2
 pluggy==0.6.0
 prompt-toolkit==2.0.3
 ptyprocess==0.6.0
-py==1.5.3
+py==1.5.4
 pycodestyle==2.4.0
 pyflakes==2.0.0
 Pygments==2.2.0
 pyparsing==2.2.0
 python-dateutil==2.7.3
-pytz==2018.4
+pytz==2018.5
 requests==2.19.1
 requests-toolbelt==0.8.0
 simplegeneric==0.8.1
