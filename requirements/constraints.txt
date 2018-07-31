@@ -14,7 +14,7 @@ flake8==3.5.0
 freezegun==0.3.10
 imagesize==1.0.0
 ipdb==0.11
-ipython==6.4.0
+ipython==6.5.0
 ipython-genutils==0.2.0
 Jinja2==2.10
 -e git+git@github.com:kobinpy/kobin.git@5184a9f6e0b448b41b300d1182a8552398e70a1e#egg=kobin
@@ -25,8 +25,8 @@ packaging==17.1
 pexpect==4.6.0
 pickleshare==0.7.4
 pkginfo==1.4.2
-pluggy==0.6.0
-prompt-toolkit==2.0.3
+pluggy==0.7.1
+prompt-toolkit==2.0.4
 ptyprocess==0.6.0
 py==1.5.4
 pycodestyle==2.4.0
