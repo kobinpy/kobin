@@ -55,7 +55,7 @@ Kobin documentation contents
 Requirements
 ============
 
-Supported python versions are python 3.6.
+Supported python versions are Python 3.6 or later.
 And Kobin has no required dependencies other than the Python Standard Libraries.
 
 The following packages are optional:
