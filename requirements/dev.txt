@@ -18,6 +18,7 @@ solar-theme
 # for testing
 flake8
 mypy
+mypy_extensions
 pytest
 tox
 freezegun
