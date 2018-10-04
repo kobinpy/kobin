@@ -77,9 +77,14 @@ class Request:
 
     @property
     def raw_body(self):
-        if self._body is None:
-            self._body = self.environ['wsgi.input'].read(
-                int(self.environ.get('CONTENT_LENGTH', 0)))
+        if self._body is not None:
+            return self._body
+
+        length = self.environ.get('CONTENT_LENGTH')
+        if length:
+            self._body = self.environ['wsgi.input'].read(int(length))
+        else:
+            self._body = b''
         return self._body
 
     @property
