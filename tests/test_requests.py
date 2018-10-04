@@ -102,6 +102,18 @@ class RequestTests(TestCase):
         })
         self.assertEqual(request.raw_body, b'{"key1": "value1"}')
 
+    def test_raw_body_with_empty_string_content_length(self):
+        wsgi_input_mock = MagicMock()
+        wsgi_input_mock.read.return_value = b''
+        request = Request({
+            'REQUEST_METHOD': 'POST',
+            'QUERY_STRING': '',
+            'wsgi.input': wsgi_input_mock,
+            'CONTENT_TYPE': 'text/plain',
+            'CONTENT_LENGTH': '',
+        })
+        self.assertEqual(request.raw_body, b'')
+
     def test_body(self):
         wsgi_input_mock = MagicMock()
         wsgi_input_mock.read.return_value = b'{"key1": "value1"}'
