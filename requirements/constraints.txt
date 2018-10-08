@@ -40,7 +40,7 @@ pycodestyle==2.4.0
 pyflakes==2.0.0
 Pygments==2.2.0
 pyparsing==2.2.2
-pytest==3.8.1
+pytest==3.8.2
 python-dateutil==2.7.3
 pytz==2018.5
 requests==2.19.1
