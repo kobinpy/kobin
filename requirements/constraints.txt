@@ -4,7 +4,7 @@ atomicwrites==1.2.1
 attrs==18.2.0
 Babel==2.6.0
 backcall==0.1.0
-certifi==2018.8.24
+certifi==2018.10.15
 chardet==3.0.4
 click==7.0
 coverage==4.5.1
@@ -13,7 +13,7 @@ decorator==4.3.0
 docopt==0.6.2
 docutils==0.14
 flake8==3.5.0
-freezegun==0.3.10
+freezegun==0.3.11
 idna==2.7
 imagesize==1.1.0
 ipdb==0.11
@@ -33,9 +33,9 @@ pexpect==4.6.0
 pickleshare==0.7.5
 pkginfo==1.4.2
 pluggy==0.7.1
-prompt-toolkit==2.0.5
+prompt-toolkit==2.0.6
 ptyprocess==0.6.0
-py==1.6.0
+py==1.7.0
 pycodestyle==2.4.0
 pyflakes==2.0.0
 Pygments==2.2.0
@@ -53,7 +53,7 @@ Sphinx==1.8.1
 sphinx-intl==0.9.11
 sphinxcontrib-websupport==1.1.0
 toml==0.10.0
-tox==3.5.1
+tox==3.5.2
 tqdm==4.26.0
 traitlets==4.3.2
 twine==1.12.1
