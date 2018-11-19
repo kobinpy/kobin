@@ -43,7 +43,7 @@ pyparsing==2.3.0
 pytest==4.0.0
 python-dateutil==2.7.5
 pytz==2018.7
-requests==2.20.0
+requests==2.20.1
 requests-toolbelt==0.8.0
 simplegeneric==0.8.1
 six==1.11.0
