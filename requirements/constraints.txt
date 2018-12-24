@@ -19,7 +19,7 @@ imagesize==1.1.0
 ipdb==0.11
 ipython==7.2.0
 ipython-genutils==0.2.0
-jedi==0.13.1
+jedi==0.13.2
 Jinja2==2.10
 kobin==0.1.10
 MarkupSafe==1.1.0
@@ -38,9 +38,9 @@ ptyprocess==0.6.0
 py==1.7.0
 pycodestyle==2.4.0
 pyflakes==2.0.0
-Pygments==2.3.0
+Pygments==2.3.1
 pyparsing==2.3.0
-pytest==4.0.1
+pytest==4.0.2
 python-dateutil==2.7.5
 pytz==2018.7
 requests==2.21.0
@@ -53,11 +53,11 @@ Sphinx==1.8.2
 sphinx-intl==0.9.11
 sphinxcontrib-websupport==1.1.0
 toml==0.10.0
-tox==3.5.3
+tox==3.6.1
 tqdm==4.28.1
 traitlets==4.3.2
 twine==1.12.1
-typed-ast==1.1.0
+typed-ast==1.1.1
 urllib3==1.24.1
 virtualenv==16.1.0
 wcwidth==0.1.7
