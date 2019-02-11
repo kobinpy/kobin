@@ -12,7 +12,7 @@ coveralls==1.5.1
 decorator==4.3.2
 docopt==0.6.2
 docutils==0.14
-flake8==3.7.4
+flake8==3.7.5
 freezegun==0.3.11
 idna==2.8
 imagesize==1.1.0
@@ -25,10 +25,10 @@ kobin==0.1.10
 MarkupSafe==1.1.0
 mccabe==0.6.1
 more-itertools==5.0.0
-mypy==0.660
+mypy==0.670
 mypy-extensions==0.4.1
 packaging==19.0
-parso==0.3.2
+parso==0.3.3
 pexpect==4.6.0
 pickleshare==0.7.5
 pkginfo==1.5.0.1
@@ -41,7 +41,7 @@ pyflakes==2.1.0
 Pygments==2.3.1
 pyparsing==2.3.1
 pytest==4.2.0
-python-dateutil==2.7.5
+python-dateutil==2.8.0
 pytz==2018.9
 requests==2.21.0
 requests-toolbelt==0.9.1
@@ -54,12 +54,12 @@ sphinx-intl==0.9.11
 sphinxcontrib-websupport==1.1.0
 toml==0.10.0
 tox==3.7.0
-tqdm==4.30.0
+tqdm==4.31.1
 traitlets==4.3.2
 twine==1.12.1
-typed-ast==1.3.0
+typed-ast==1.3.1
 urllib3==1.24.1
-virtualenv==16.3.0
+virtualenv==16.4.0
 wcwidth==0.1.7
 wsgi-lineprof==0.7.0
 wsgi-static-middleware==0.1.2
