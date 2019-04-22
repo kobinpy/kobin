@@ -25,7 +25,7 @@ kobin==0.1.10
 MarkupSafe==1.1.1
 mccabe==0.6.1
 more-itertools==7.0.0
-mypy==0.700
+mypy==0.701
 mypy-extensions==0.4.1
 packaging==19.0
 parso==0.4.0
@@ -40,7 +40,7 @@ pycodestyle==2.5.0
 pyflakes==2.1.1
 Pygments==2.3.1
 pyparsing==2.4.0
-pytest==4.4.0
+pytest==4.4.1
 python-dateutil==2.8.0
 pytz==2019.1
 requests==2.21.0
@@ -53,12 +53,12 @@ Sphinx==2.0.1
 sphinx-intl==0.9.11
 sphinxcontrib-websupport==1.1.0
 toml==0.10.0
-tox==3.8.6
+tox==3.9.0
 tqdm==4.31.1
 traitlets==4.3.2
 twine==1.13.0
-typed-ast==1.3.1
-urllib3==1.24.1
+typed-ast==1.3.4
+urllib3==1.25
 virtualenv==16.4.3
 wcwidth==0.1.7
 wsgi-lineprof==0.7.0
