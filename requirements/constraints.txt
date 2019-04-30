@@ -17,7 +17,7 @@ freezegun==0.3.11
 idna==2.8
 imagesize==1.1.0
 ipdb==0.12
-ipython==7.4.0
+ipython==7.5.0
 ipython-genutils==0.2.0
 jedi==0.13.3
 Jinja2==2.10.1
@@ -57,9 +57,9 @@ tox==3.9.0
 tqdm==4.31.1
 traitlets==4.3.2
 twine==1.13.0
-typed-ast==1.3.4
-urllib3==1.25
-virtualenv==16.4.3
+typed-ast==1.3.5
+urllib3==1.25.2
+virtualenv==16.5.0
 wcwidth==0.1.7
 wsgi-lineprof==0.7.0
 wsgi-static-middleware==0.1.2
